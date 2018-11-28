@@ -15,7 +15,7 @@ export default ({ player, dealer }) => {
   const WIN = 2
   const BLACKJACK = 1.5
   const DRAW = 1
-  // const SURRENDER = 0.5
+  const SURRENDER = 0.5
   const LOSE = 0
 
   const playerTotals = getTotals(player.hand)
@@ -35,5 +35,7 @@ export default ({ player, dealer }) => {
     ? byDealer[dealerResult]
     : dealer.state === 'stay'
     ? compare()
+    : player.state === 'surrender'
+    ? SURRENDER
     : NaN
 }

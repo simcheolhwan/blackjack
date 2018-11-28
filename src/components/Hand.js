@@ -4,7 +4,7 @@ import style from './Hand.module.scss'
 import Card from './Card'
 import Actions from './Actions'
 
-const Hand = ({ hand, draw, canDraw, actions, isDealer, gameResult }) => (
+const Hand = ({ hand, draw, actions, isDealer, gameResult }) => (
   <div className={style.container}>
     <p style={{ order: isDealer && 2 }}>{Rules.getResult(hand)}</p>
 
@@ -17,7 +17,7 @@ const Hand = ({ hand, draw, canDraw, actions, isDealer, gameResult }) => (
         <Card key={index}>{card}</Card>
       ))}
 
-      {canDraw && (
+      {draw && (
         <Card back onClick={draw}>
           +
         </Card>

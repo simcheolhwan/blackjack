@@ -45,16 +45,29 @@ const App = () => {
     return nextDeck
   }
 
-  const drawDealer = () => draw(1, deck, dealer.hand, setDealerHand)
-  const drawPlayer = index =>
-    draw(1, deck, players[index].hand, setPlayerHand(index))
+  const drawDealer = () => {
+    draw(1, deck, dealer.hand, setDealerHand)
+  }
 
-  const setDealerHand = hand => setDealer({ ...dealer, hand })
-  const setDealerState = state => setDealer({ ...dealer, state })
-  const setPlayerHand = index => hand =>
+  const drawPlayer = index => {
+    draw(1, deck, players[index].hand, setPlayerHand(index))
+  }
+
+  const setDealerHand = hand => {
+    setDealer({ ...dealer, hand })
+  }
+
+  const setDealerState = state => {
+    setDealer({ ...dealer, state })
+  }
+
+  const setPlayerHand = index => hand => {
     setPlayers(set(players, `${index}.hand`, hand))
-  const setPlayerState = index => state =>
+  }
+
+  const setPlayerState = index => state => {
     setPlayers(set(players, `${index}.state`, state))
+  }
 
   const split = () => {
     const card = players[0].hand[0]
@@ -62,44 +75,60 @@ const App = () => {
     setPlayers([player, player])
   }
 
+  const renderPlayerHand = (player, index) => {
+    const canDraw = Rules.canPlayerDraw(player)
+    const draw = () => drawPlayer(index)
+
+    const props = {
+      ...player,
+      gameResult: Rules.getGameResult({ player, dealer }),
+      actions: [
+        {
+          color: 'green',
+          children: 'H',
+          disabled: !canDraw,
+          onClick: draw
+        },
+        {
+          color: 'brown',
+          children: 'S',
+          disabled: !canDraw,
+          onClick: () => setPlayerState(index)('stay')
+        },
+        {
+          color: 'blue',
+          children: 'D',
+          disabled: !canDraw,
+          onClick: draw
+        },
+        {
+          color: 'gray',
+          children: 'SU',
+          disabled: !(players.length === 1 && Rules.canPlayerSurrender(player)),
+          onClick: () => setPlayerState(index)('surrender')
+        },
+        Rules.canSplit(gameState) && {
+          color: 'chocolate',
+          children: 'SP',
+          onClick: split
+        }
+      ]
+    }
+
+    return <Hand {...props} key={index} />
+  }
+
   return (
     <main style={style}>
       <Deck deck={deck} hidden />
 
       <Hand
-        isDealer
         {...dealer}
-        draw={drawDealer}
-        canDraw={Rules.shouldDealerDraw(gameState)}
+        draw={Rules.shouldDealerDraw(gameState) && drawDealer}
+        isDealer
       />
 
-      <div style={style.players}>
-        {players.map((player, index) => {
-          const canDraw = Rules.canPlayerDraw(player)
-
-          const props = {
-            ...player,
-            canDraw,
-            gameResult: Rules.getGameResult({ player, dealer }),
-            actions: [
-              {
-                color: 'brown',
-                children: 'Stay',
-                disabled: !canDraw,
-                onClick: () => setPlayerState(index)('stay')
-              },
-              Rules.canSplit(gameState) && {
-                color: 'chocolate',
-                children: 'Split',
-                onClick: split
-              }
-            ],
-            draw: () => drawPlayer(index)
-          }
-
-          return <Hand {...props} key={index} />
-        })}
-      </div>
+      <div style={style.players}>{players.map(renderPlayerHand)}</div>
     </main>
   )
 }

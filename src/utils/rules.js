@@ -9,6 +9,7 @@ export default {
   getGameResult,
 
   canPlayerDraw: ({ hand, state }) => !getResult(hand) && !state,
+  canPlayerSurrender: ({ hand, state }) => hand.length === 2 && !state,
   shouldPlayerStay: ({ hand }) => isBlackjack(hand),
 
   canSplit: ({ players }) =>
@@ -24,6 +25,5 @@ export default {
 
   shouldDealerStay: ({ dealer, players }) =>
     getTotals(dealer.hand).some(n => n >= 17) ||
-    (players.some(player => getResult(player.hand) === 'blackjack') &&
-      dealer.hand.length === 2)
+    players.every(player => Number.isFinite(getGameResult({ player, dealer })))
 }
