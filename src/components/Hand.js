@@ -1,15 +1,18 @@
 import React from 'react'
+import Rules from '../utils/rules'
+import style from './Hand.module.scss'
 import Card from './Card'
 import Actions from './Actions'
-import Rules from '../utils/rules'
 
-const Hand = ({ hand, draw, canDraw, actions, isDealer }) => (
-  <div style={style.container}>
-    <p>{Rules.getResult(hand)}</p>
+const Hand = ({ hand, draw, canDraw, actions, isDealer, gameResult }) => (
+  <div className={style.container}>
+    <p style={{ order: isDealer && 2 }}>{Rules.getResult(hand)}</p>
 
-    <section style={style.totals}>{Rules.getTotals(hand).join(', ')}</section>
+    <section className={style.totals} style={{ order: isDealer && 1 }}>
+      {Rules.getTotals(hand).join(', ')}
+    </section>
 
-    <ul style={{ display: 'flex', marginTop: 15, marginBottom: 15 }}>
+    <ul className={style.deck}>
       {hand.map((card, index) => (
         <Card key={index}>{card}</Card>
       ))}
@@ -22,12 +25,8 @@ const Hand = ({ hand, draw, canDraw, actions, isDealer }) => (
     </ul>
 
     {actions && <Actions actions={actions} />}
+    <p>{Number.isFinite(gameResult) && gameResult}</p>
   </div>
 )
-
-const style = {
-  container: { display: 'flex', flexDirection: 'column', alignItems: 'center' },
-  totals: { color: 'silver' }
-}
 
 export default Hand

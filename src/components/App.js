@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { set } from 'dot-prop-immutable'
 import getShuffledDeck from '../utils/getShuffledDeck'
 import Rules from '../utils/rules'
 import Deck from './Deck'
@@ -6,34 +7,34 @@ import Hand from './Hand'
 
 const App = () => {
   const [deck, setDeck] = useState(getShuffledDeck())
-  const [player, setPlayer] = useState([])
-  const [dealer, setDealer] = useState([])
-  const [playerStatus, setPlayerStatus] = useState()
-  const [dealerStatus, setDealerStatus] = useState()
-  const state = { player, playerStatus, dealer, dealerStatus }
+  const [dealer, setDealer] = useState({ hand: [], state: '' })
+  const [players, setPlayers] = useState([{ hand: [], state: '' }])
+  const gameState = { players, dealer }
 
   useEffect(() => {
-    const isReady = player.length === 2 && dealer.length === 1
+    const isReady = players[0].hand.length === 2 && dealer.hand.length === 1
     !isReady && init()
   }, [])
 
   useEffect(
     () => {
-      Rules.isBlackjack(player) && dealer[0] === 'A' && setPlayerStatus('stay')
+      Rules.shouldDealerStay(gameState) && setDealerState('stay')
+      players.forEach(
+        (player, index) =>
+          Rules.shouldPlayerStay(player) && setPlayerState(index)('stay')
+      )
     },
-    [player]
-  )
-
-  useEffect(
-    () => {
-      Rules.shouldDealerStay(state) && setDealerStatus('stay')
-    },
-    [dealer]
+    [players, dealer]
   )
 
   const init = () => {
-    const nextDeck = draw(2 - player.length, deck, player, setPlayer)
-    draw(1 - dealer.length, nextDeck, dealer, setDealer)
+    const nextDeck = draw(
+      2 - players[0].hand.length,
+      deck,
+      players[0].hand,
+      setPlayerHand(0)
+    )
+    draw(1 - dealer.hand.length, nextDeck, dealer.hand, setDealerHand)
   }
 
   const draw = (n, deck, hand, fn) => {
@@ -44,36 +45,61 @@ const App = () => {
     return nextDeck
   }
 
-  const drawPlayer = () => draw(1, deck, player, setPlayer)
-  const drawDealer = () => draw(1, deck, dealer, setDealer)
+  const drawDealer = () => draw(1, deck, dealer.hand, setDealerHand)
+  const drawPlayer = index =>
+    draw(1, deck, players[index].hand, setPlayerHand(index))
 
-  const playerActions = [
-    {
-      color: 'brown',
-      children: 'Stay',
-      disabled: !Rules.canDraw(state),
-      onClick: () => setPlayerStatus('stay')
-    }
-  ]
+  const setDealerHand = hand => setDealer({ ...dealer, hand })
+  const setDealerState = state => setDealer({ ...dealer, state })
+  const setPlayerHand = index => hand =>
+    setPlayers(set(players, `${index}.hand`, hand))
+  const setPlayerState = index => state =>
+    setPlayers(set(players, `${index}.state`, state))
+
+  const split = () => {
+    const card = players[0].hand[0]
+    const player = { hand: [card], state: '' }
+    setPlayers([player, player])
+  }
 
   return (
     <main style={style}>
       <Deck deck={deck} hidden />
+
       <Hand
         isDealer
-        hand={dealer}
+        {...dealer}
         draw={drawDealer}
-        canDraw={Rules.shouldDealerDraw(state)}
+        canDraw={Rules.shouldDealerDraw(gameState)}
       />
-      <Hand
-        hand={player}
-        draw={drawPlayer}
-        canDraw={Rules.canDraw(state)}
-        actions={playerActions}
-      />
-      <footer>
-        {Number.isFinite(Rules.finish(state)) && Rules.finish(state)}
-      </footer>
+
+      <div style={style.players}>
+        {players.map((player, index) => {
+          const canDraw = Rules.canPlayerDraw(player)
+
+          const props = {
+            ...player,
+            canDraw,
+            gameResult: Rules.getGameResult({ player, dealer }),
+            actions: [
+              {
+                color: 'brown',
+                children: 'Stay',
+                disabled: !canDraw,
+                onClick: () => setPlayerState(index)('stay')
+              },
+              Rules.canSplit(gameState) && {
+                color: 'chocolate',
+                children: 'Split',
+                onClick: split
+              }
+            ],
+            draw: () => drawPlayer(index)
+          }
+
+          return <Hand {...props} key={index} />
+        })}
+      </div>
     </main>
   )
 }
@@ -83,7 +109,9 @@ const style = {
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
-  padding: 30
+  padding: 30,
+
+  players: { display: 'flex', justifyContent: 'center', alignItems: 'flex-end' }
 }
 
 export default App

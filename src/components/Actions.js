@@ -3,9 +3,9 @@ import Button from './Button'
 
 const Actions = ({ actions }) => (
   <section>
-    {actions.map((action, index) => (
-      <Button {...action} key={index} />
-    ))}
+    {actions.map(
+      (action, index) => action && <Button {...action} key={index} />
+    )}
   </section>
 )
 

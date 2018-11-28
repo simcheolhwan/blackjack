@@ -13,4 +13,8 @@
   &:disabled {
     cursor: default;
   }
+
+  & + & {
+    margin-left: 5px;
+  }
 }
