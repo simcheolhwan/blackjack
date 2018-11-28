@@ -1,10 +1,16 @@
 .button {
-  border: 0;
-  outline: 0;
-  color: white;
   background-color: blue;
+  color: white;
+  padding: 0;
+  outline: 0;
+  border: 0;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
   cursor: pointer;
-  font-size: inherit;
-  font-weight: bold;
-  padding: 15px;
+  font-weight: normal;
+
+  &:disabled {
+    cursor: default;
+  }
 }

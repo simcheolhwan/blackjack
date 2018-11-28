@@ -1,8 +1,13 @@
 import React from 'react'
 import style from './Card.module.scss'
+import classNames from 'classnames'
 
-const Card = ({ children, style: variant = {}, size = 1 }) => (
-  <div className={style.card} style={{ ...variant, fontSize: size + 'rem' }}>
+const Card = ({ back, children, style: variant = {}, onClick }) => (
+  <div
+    className={classNames(style.card, back && style.back)}
+    style={variant}
+    onClick={onClick}
+  >
     {children}
   </div>
 )

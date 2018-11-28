@@ -1,6 +1,7 @@
 {
   "name": "blackjack",
   "dependencies": {
+    "classnames": "^2.2.6",
     "node-sass": "^4.10.0",
     "react": "^16.7.0-alpha.2",
     "react-dom": "^16.7.0-alpha.2",

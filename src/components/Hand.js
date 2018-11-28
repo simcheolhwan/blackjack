@@ -1,24 +1,33 @@
 import React from 'react'
 import Card from './Card'
+import Actions from './Actions'
+import Rules from '../utils/rules'
 
-const Hand = ({ hand, totals, status }) => (
-  <div style={{ display: 'flex', alignItems: 'center' }}>
-    <ul style={{ display: 'flex' }}>
+const Hand = ({ hand, draw, canDraw, actions, isDealer }) => (
+  <div style={style.container}>
+    <p>{Rules.getResult(hand)}</p>
+
+    <section style={style.totals}>{Rules.getTotals(hand).join(', ')}</section>
+
+    <ul style={{ display: 'flex', marginTop: 15, marginBottom: 15 }}>
       {hand.map((card, index) => (
-        <Card style={{ margin: 1 }} size={1.25} key={index}>
-          {card}
-        </Card>
+        <Card key={index}>{card}</Card>
       ))}
+
+      {canDraw && (
+        <Card back onClick={draw}>
+          +
+        </Card>
+      )}
     </ul>
 
-    <section style={{ marginLeft: 5 }}>
-      {totals.map((n, index) => (
-        <p key={index}>{n}</p>
-      ))}
-    </section>
-
-    {status && <section style={{ marginLeft: 5 }}>({status})</section>}
+    {actions && <Actions actions={actions} />}
   </div>
 )
+
+const style = {
+  container: { display: 'flex', flexDirection: 'column', alignItems: 'center' },
+  totals: { color: 'silver' }
+}
 
 export default Hand
