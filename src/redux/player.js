@@ -16,10 +16,9 @@ const hand = (state = [], action) => {
 
 const status = (state = '', action) => {
   switch (action.type) {
-    case 'draw':
-      return action.status || state
-
     case 'stay':
+    case 'bust':
+    case 'blackjack':
     case 'surrender':
       return action.type
 

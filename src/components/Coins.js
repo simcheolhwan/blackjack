@@ -1,4 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-const Coins = ({ coins }) => <p style={{ textAlign: 'center' }}>{coins}만원</p>
+import Box from './Box'
+
+const Coins = ({ coins }) => <Box title="보유">{String(coins)}만원</Box>
 export default connect(({ coins }) => ({ coins }))(Coins)

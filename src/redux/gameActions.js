@@ -1,21 +1,7 @@
-import Check from '../rules/check'
-import getGameResult from '../rules/getGameResult'
+import getStatus from '../rules/getStatus'
+import { getTotalReturn } from '../rules/getResult'
 
-export const initGame = () => bet('primary')
-
-export const resetGame = () => (dispatch, getState) => {
-  const getCoin = player => player.stake * getGameResult({ player, dealer })
-  const reducer = (coin, player) => coin + getCoin(player)
-  const { dealer, primary, replica } = getState().players
-  const win = [primary, replica].reduce(reducer, 0)
-
-  dispatch({ type: 'reset', player: 'dealer' })
-  dispatch({ type: 'reset', player: 'primary' })
-  dispatch({ type: 'reset', player: 'replica' })
-  dispatch({ type: 'win', amount: win })
-  dispatch(bet('primary'))
-}
-
+/* Game */
 export const startGame = () => (dispatch, getState) => {
   const { players } = getState()
   dispatch({ type: 'start' })
@@ -25,18 +11,29 @@ export const startGame = () => (dispatch, getState) => {
   !players['dealer'].hand.length && dispatch(draw('dealer'))
 }
 
-export const stopGame = () => (dispatch, getState) => {
-  dispatch({ type: 'stop' })
+export const finishGame = () => (dispatch, getState) => {
+  const { players } = getState()
+  dispatch({ type: 'win', amount: getTotalReturn(players) })
 }
 
+export const resetGame = () => (dispatch, getState) => {
+  dispatch({ type: 'reset', player: 'dealer' })
+  dispatch({ type: 'reset', player: 'primary' })
+  dispatch({ type: 'reset', player: 'replica' })
+}
+
+/* Player */
 export const draw = playerKey => (dispatch, getState) => {
   const { deck, players } = getState()
   const player = players[playerKey]
   const card = deck[0]
   const hand = [...player.hand, card]
-
   dispatch({ type: 'draw', player: playerKey, hand })
-  dispatch(watch(playerKey))
+  dispatch(watchPlayer(playerKey))
+}
+
+export const set = (playerKey, status) => (dispatch, getState) => {
+  dispatch({ type: status, player: playerKey })
 }
 
 export const split = () => (dispatch, getState) => {
@@ -48,20 +45,14 @@ export const split = () => (dispatch, getState) => {
   dispatch({ type: 'bet', player: 'replica', stake })
 }
 
-const watch = playerKey => (dispatch, getState) => {
+/* Watch */
+const watchPlayer = playerKey => (dispatch, getState) => {
   const { players } = getState()
-  const shouldStay =
-    playerKey === 'dealer'
-      ? Check.shouldDealerStay(players)
-      : Check.shouldPlayerStay(players[playerKey])
-
-  shouldStay && dispatch(setStatus(playerKey, 'stay'))
+  const status = getStatus(players, playerKey)
+  status && dispatch(set(playerKey, status))
 }
 
-export const setStatus = (playerKey, status) => dispatch => {
-  dispatch({ type: status, player: playerKey })
-}
-
+/* Bet */
 export const bet = (playerKey, stake = 5) => (dispatch, getState) => {
   const { players, coins } = getState()
   const nextStake = (players[playerKey].stake || 0) + stake

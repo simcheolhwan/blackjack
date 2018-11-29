@@ -1,23 +1,27 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import * as gameActions from '../redux/gameActions'
+import check from '../rules/check'
 import getTotals from '../rules/getTotals'
-import getResult from '../rules/getResult'
 import style from './Hand.module.scss'
+import Box from './Box'
 import Card from './Card'
+import Result from './Result'
 import Actions from './Actions'
-import getGameResult from '../rules/getGameResult'
 
 const Hand = ({
   playerKey,
   hand,
   stake,
   totals,
-  result,
-  isDealer,
-  gameResult
+  status,
+  canDraw,
+  draw,
+  isDealer
 }) => (
   <div className={style.container}>
-    <p style={{ order: isDealer && 2 }}>{result}</p>
+    <p style={{ order: isDealer && 2 }}>{status}</p>
 
     <section className={style.totals} style={{ order: isDealer && 1 }}>
       {totals.filter(Boolean).join(', ')}
@@ -27,28 +31,37 @@ const Hand = ({
       {hand.map((card, index) => (
         <Card key={index}>{card}</Card>
       ))}
+
+      {canDraw && (
+        <Card back onClick={() => draw(playerKey)}>
+          +
+        </Card>
+      )}
     </ul>
 
     {!isDealer && (
       <>
-        <p>{stake}만원</p>
-        {Number.isFinite(gameResult) && <p>{String(gameResult)}</p>}
+        <Box title="베팅">{stake}만원</Box>
+        <Result playerKey={playerKey} />
         <Actions playerKey={playerKey} />
       </>
     )}
   </div>
 )
 
-export default connect(({ players }, { playerKey }) => {
-  const player = players[playerKey]
-  const { dealer } = players
-  const { hand, stake } = player
-  return {
-    hand,
-    stake,
-    totals: getTotals(hand),
-    result: getResult(hand),
-    gameResult: getGameResult({ player, dealer }),
-    isDealer: playerKey === 'dealer'
-  }
-})(Hand)
+export default connect(
+  ({ players, game }, { playerKey }) => {
+    const player = players[playerKey]
+    const isDealer = playerKey === 'dealer'
+    return {
+      ...player,
+      isDealer,
+      totals: getTotals(player.hand),
+      canDraw:
+        isDealer &&
+        !check.hasGameFinished(players) &&
+        check.shouldDealerDraw(players)
+    }
+  },
+  dispatch => bindActionCreators(gameActions, dispatch)
+)(Hand)

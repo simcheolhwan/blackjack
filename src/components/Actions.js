@@ -2,13 +2,13 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as gameActions from '../redux/gameActions'
-import Check from '../rules/check'
+import check from '../rules/check'
 import Button from './Button'
 
 const Actions = ({ game, playerKey, stake, ...action }) => {
   const draw = () => action.draw(playerKey)
-  const stay = () => action.setStatus(playerKey, 'stay')
-  const surrender = () => action.setStatus(playerKey, 'surrender')
+  const stay = () => action.set(playerKey, 'stay')
+  const surrender = () => action.set(playerKey, 'surrender')
   const split = () => action.split()
   const double = () => {
     action.bet(playerKey, stake)
@@ -19,29 +19,29 @@ const Actions = ({ game, playerKey, stake, ...action }) => {
   const bet = () => action.bet(playerKey, 5)
   const minus = () => action.bet(playerKey, -5)
   const startGame = () => action.startGame()
-  const resetGame = () => action.resetGame()
 
-  const { canDraw, canSurrender, canSplit } = action
-  const actions = {
-    idle: [
-      { color: 'green', children: '+', onClick: bet },
-      { color: 'brown', children: '-', onClick: minus },
-      { color: 'navy', children: '→', onClick: startGame }
-    ],
-    playing: [
-      { color: 'green', children: 'H', disabled: !canDraw, onClick: draw },
-      { color: 'brown', children: 'S', disabled: !canDraw, onClick: stay },
-      { color: 'navy', children: 'D', disabled: !canDraw, onClick: double },
-      canSplit && { color: 'olive', children: 'SP', onClick: split },
-      {
-        color: 'teal',
-        children: 'SU',
-        disabled: !canSurrender,
-        onClick: surrender
-      }
-    ].filter(Boolean),
-    stop: [{ color: 'navy', children: '✔︎', onClick: resetGame }]
-  }[game.status]
+  const { canBet, canMinus, canPlay } = action
+  const { canDraw, canDouble, canSurrender, canSplit } = action
+  const actions =
+    {
+      idle: [
+        { color: 'green', children: '+', disabled: !canBet, onClick: bet },
+        { color: 'brown', children: '-', disabled: !canMinus, onClick: minus },
+        { color: 'navy', children: '→', disabled: !canPlay, onClick: startGame }
+      ],
+      playing: [
+        { color: 'green', children: 'H', disabled: !canDraw, onClick: draw },
+        { color: 'brown', children: 'S', disabled: !canDraw, onClick: stay },
+        { color: 'navy', children: 'D', disabled: !canDouble, onClick: double },
+        canSplit && { color: 'olive', children: 'SP', onClick: split },
+        {
+          color: 'teal',
+          children: 'SU',
+          disabled: !canSurrender,
+          onClick: surrender
+        }
+      ].filter(Boolean)
+    }[game.status] || []
 
   return (
     <section>
@@ -53,16 +53,24 @@ const Actions = ({ game, playerKey, stake, ...action }) => {
 }
 
 export default connect(
-  ({ players, game }, { playerKey }) => {
+  ({ players, game, coins }, { playerKey }) => {
     const player = players[playerKey]
+    const canReplicaAction =
+      playerKey !== 'replica' || !!players['primary'].status
 
     return {
       game,
       stake: player.stake,
-      canDraw: Check.canPlayerDraw(player),
-      canSplit: Check.canSplit(players),
+      canBet: coins > 5,
+      canMinus: player.stake > 5,
+      canPlay: !!player.stake,
+      canDraw: canReplicaAction && check.canPlayerDraw(player),
+      canSplit: canReplicaAction && check.canSplit(players),
+      canDouble: canReplicaAction && check.canPlayerDouble(player),
       canSurrender:
-        !players['replica'].hand.length && Check.canPlayerSurrender(player)
+        canReplicaAction &&
+        !players['replica'].hand.length &&
+        check.canPlayerSurrender(player)
     }
   },
   dispatch => bindActionCreators(gameActions, dispatch)

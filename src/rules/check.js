@@ -1,9 +1,9 @@
 import getTotals from './getTotals'
 import getResult from './getResult'
-import getGameResult from './getGameResult'
 
 export default {
-  canPlayerDraw: ({ hand, status }) => !getResult(hand) && !status,
+  canPlayerDraw: ({ status }) => !status,
+  canPlayerDouble: ({ hand, status }) => hand.length === 2 && !status,
   canPlayerSurrender: ({ hand, status }) => hand.length === 2 && !status,
   shouldPlayerStay: ({ hand }) => getTotals(hand).some(n => n === 21),
 
@@ -13,18 +13,22 @@ export default {
     return hand.length === 2 && hand[0] === hand[1] && !status && !hasReplica
   },
 
-  shouldDealerDraw: ({ dealer, primary, replica }) =>
-    [primary, replica]
-      .filter(({ hand }) => hand.length)
-      .every(({ status }) => status === 'stay') &&
-    getTotals(dealer.hand).every(n => n <= 16) &&
-    dealer.status !== 'stay',
+  shouldDealerDraw: ({ dealer, primary, replica }) => {
+    const { status, hand } = dealer
+    return (
+      !status &&
+      getTotals(hand).every(n => n <= 16) &&
+      [primary, replica]
+        .filter(({ hand }) => hand.length)
+        .every(({ status }) => status)
+    )
+  },
 
-  shouldDealerStay: ({ dealer, primary, replica }) =>
-    getTotals(dealer.hand).some(n => n >= 17),
+  shouldDealerStay: ({ dealer }) =>
+    !dealer.status && getTotals(dealer.hand).some(n => n >= 17),
 
-  hasGameFinished: ({ dealer, primary, replica }) =>
-    [primary, replica]
-      .filter(({ hand }) => hand.length)
-      .every(player => Number.isFinite(getGameResult({ player, dealer })))
+  hasGameFinished: players =>
+    ['primary', 'replica']
+      .filter(playerKey => players[playerKey].hand.length)
+      .every(playerKey => getResult(players, playerKey))
 }

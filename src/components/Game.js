@@ -1,59 +1,57 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as gameActions from '../redux/gameActions'
-import Check from '../rules/check'
+import check from '../rules/check'
 import Coins from './Coins'
 import Hand from './Hand'
+import Button from './Button'
 
-class Game extends Component {
-  componentDidMount() {
-    this.props.initGame()
+const Game = ({ playersKeys, showFinishButton, finishGame, resetGame }) => {
+  const handleClick = () => {
+    finishGame()
+    resetGame()
   }
 
-  componentDidUpdate() {
-    this.props.status === 'playing' && this.watch()
-  }
+  return (
+    <main style={style}>
+      <Hand playerKey="dealer" />
 
-  watch = () => {
-    const { isDealerTurn, draw, hasGameFinished, stopGame } = this.props
-    isDealerTurn && setTimeout(() => draw('dealer'), 500)
-    hasGameFinished && stopGame()
-  }
-
-  render() {
-    const { playersKeys } = this.props
-    return (
-      <main style={style}>
+      <div style={{ display: 'flex' }}>
         {playersKeys.map(key => (
           <Hand playerKey={key} key={key} />
         ))}
-        <Coins />
-      </main>
-    )
-  }
+      </div>
+
+      {showFinishButton && (
+        <Button color="navy" onClick={handleClick}>
+          ✔︎
+        </Button>
+      )}
+
+      <Coins />
+    </main>
+  )
 }
 
 const style = {
-  height: '100%',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
-  padding: 15
+  alignItems: 'center',
+  height: '100%',
+  lineHeight: 1.6,
+  padding: 15,
+  textAlign: 'center'
 }
 
 export default connect(
-  ({ players, game }) => {
-    const playersKeys = Object.keys(players).filter(
-      key => key !== 'replica' || players[key].hand.length
-    )
-
-    return {
-      ...game,
-      playersKeys,
-      isDealerTurn: Check.shouldDealerDraw(players),
-      hasGameFinished: Check.hasGameFinished(players)
-    }
-  },
+  ({ players, game }) => ({
+    showFinishButton: game.status !== 'idle' && check.hasGameFinished(players),
+    playersKeys: [
+      players['replica'].hand.length && 'replica',
+      'primary'
+    ].filter(Boolean)
+  }),
   dispatch => bindActionCreators(gameActions, dispatch)
 )(Game)
