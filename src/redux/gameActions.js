@@ -36,6 +36,13 @@ export const set = (playerKey, status) => (dispatch, getState) => {
   dispatch({ type: status, player: playerKey })
 }
 
+export const double = playerKey => (dispatch, getState) => {
+  const { players } = getState()
+  dispatch(bet(playerKey, players[playerKey].stake))
+  dispatch(set(playerKey, 'stay'))
+  dispatch(draw(playerKey))
+}
+
 export const split = () => (dispatch, getState) => {
   const { players } = getState()
   const { hand, stake } = players['primary']

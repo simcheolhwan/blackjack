@@ -5,20 +5,16 @@ import * as gameActions from '../redux/gameActions'
 import check from '../rules/check'
 import Button from './Button'
 
-const Actions = ({ game, playerKey, stake, ...action }) => {
-  const draw = () => action.draw(playerKey)
-  const stay = () => action.set(playerKey, 'stay')
-  const surrender = () => action.set(playerKey, 'surrender')
-  const split = () => action.split()
-  const double = () => {
-    action.bet(playerKey, stake)
-    draw()
-    stay()
-  }
-
+const Actions = ({ players, game, playerKey, stake, ...action }) => {
   const bet = () => action.bet(playerKey, 5)
   const minus = () => action.bet(playerKey, -5)
   const startGame = () => action.startGame()
+
+  const draw = () => action.draw(playerKey)
+  const stay = () => action.set(playerKey, 'stay')
+  const double = () => action.double(playerKey)
+  const surrender = () => action.set(playerKey, 'surrender')
+  const split = () => action.split()
 
   const { canBet, canMinus, canPlay } = action
   const { canDraw, canDouble, canSurrender, canSplit } = action
@@ -59,6 +55,7 @@ export default connect(
       playerKey !== 'replica' || !!players['primary'].status
 
     return {
+      players,
       game,
       stake: player.stake,
       canBet: coins > 5,
