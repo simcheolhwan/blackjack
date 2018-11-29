@@ -1,5 +1,5 @@
 import React from 'react'
-import getDefaultValue from '../utils/getDefaultValue'
+import getDefaultValue from '../rules/getDefaultValue'
 import Card from './Card'
 
 const Deck = ({ deck, hidden }) =>

@@ -1,5 +1,6 @@
 import getTotals from './getTotals'
 import getResult from './getResult'
+import getDefaultValue from './getDefaultValue'
 
 export default ({ player, dealer }) => {
   const compare = () => {
@@ -12,8 +13,8 @@ export default ({ player, dealer }) => {
       : LOSE
   }
 
+  const BLACKJACK = 2.5
   const WIN = 2
-  const BLACKJACK = 1.5
   const DRAW = 1
   const SURRENDER = 0.5
   const LOSE = 0
@@ -22,20 +23,27 @@ export default ({ player, dealer }) => {
   const playerResult = getResult(player.hand)
   const dealerTotals = getTotals(dealer.hand)
   const dealerResult = getResult(dealer.hand)
-  const isDealerNotBlackjack =
-    dealer.hand[0] !== 'A' ||
-    (dealer.hand.length === 2 && dealerResult !== 'blackjack')
+  const dealerWillNeverBlackjack = [1, 10].includes(
+    getDefaultValue(dealer.hand[0])
+  )
 
-  const byPlayer = { blackjack: isDealerNotBlackjack && BLACKJACK, bust: LOSE }
-  const byDealer = { blackjack: LOSE, bust: WIN }
+  const byPlayer = {
+    blackjack: dealerWillNeverBlackjack && BLACKJACK,
+    bust: LOSE
+  }
+
+  const byDealer = {
+    blackjack: LOSE,
+    bust: WIN
+  }
 
   return Number.isFinite(byPlayer[playerResult])
     ? byPlayer[playerResult]
     : Number.isFinite(byDealer[dealerResult])
     ? byDealer[dealerResult]
-    : dealer.state === 'stay'
+    : dealer.status === 'stay'
     ? compare()
-    : player.state === 'surrender'
+    : player.status === 'surrender'
     ? SURRENDER
     : NaN
 }

@@ -1,8 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
+import store from './store'
 import './index.scss'
-import App from './components/App'
+import Game from './components/Game'
 import * as serviceWorker from './serviceWorker'
 
-ReactDOM.render(<App />, document.getElementById('root'))
+ReactDOM.render(
+  <Provider store={store}>
+    <Game />
+  </Provider>,
+  document.getElementById('root')
+)
 serviceWorker.unregister()
