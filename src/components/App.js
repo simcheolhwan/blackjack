@@ -128,7 +128,7 @@ const App = () => {
         isDealer
       />
 
-      <div style={style.players}>{players.map(renderPlayerHand)}</div>
+      {players.map(renderPlayerHand)}
     </main>
   )
 }
@@ -138,9 +138,7 @@ const style = {
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
-  padding: 30,
-
-  players: { display: 'flex', justifyContent: 'center', alignItems: 'flex-end' }
+  padding: 15
 }
 
 export default App

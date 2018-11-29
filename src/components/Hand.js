@@ -24,8 +24,8 @@ const Hand = ({ hand, draw, actions, isDealer, gameResult }) => (
       )}
     </ul>
 
+    <p>&times;{Number.isFinite(gameResult) && gameResult}</p>
     {actions && <Actions actions={actions} />}
-    <p>{Number.isFinite(gameResult) && gameResult}</p>
   </div>
 )
 
