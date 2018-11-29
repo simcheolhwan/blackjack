@@ -5,16 +5,21 @@ import Rules from '../utils/rules'
 import Deck from './Deck'
 import Hand from './Hand'
 
+const InitialPlayer = { hand: [], state: '' }
 const App = () => {
+  const [game, setGame] = useState([])
   const [deck, setDeck] = useState(getShuffledDeck())
-  const [dealer, setDealer] = useState({ hand: [], state: '' })
-  const [players, setPlayers] = useState([{ hand: [], state: '' }])
+  const [dealer, setDealer] = useState(InitialPlayer)
+  const [players, setPlayers] = useState([InitialPlayer])
   const gameState = { players, dealer }
 
-  useEffect(() => {
-    const isReady = players[0].hand.length === 2 && dealer.hand.length === 1
-    !isReady && init()
-  }, [])
+  useEffect(
+    () => {
+      const isReady = players[0].hand.length === 2 && dealer.hand.length === 1
+      !isReady && init()
+    },
+    [game]
+  )
 
   useEffect(
     () => {
@@ -35,6 +40,13 @@ const App = () => {
       setPlayerHand(0)
     )
     draw(1 - dealer.hand.length, nextDeck, dealer.hand, setDealerHand)
+  }
+
+  const reset = () => {
+    setDeck(getShuffledDeck())
+    setDealer(InitialPlayer)
+    setPlayers([InitialPlayer])
+    setGame([...game, 0])
   }
 
   const draw = (n, deck, hand, fn) => {
@@ -134,6 +146,7 @@ const App = () => {
       />
 
       {players.map(renderPlayerHand)}
+      <button onClick={reset}>New Game</button>
     </main>
   )
 }
