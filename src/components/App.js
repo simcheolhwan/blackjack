@@ -76,8 +76,13 @@ const App = () => {
   }
 
   const renderPlayerHand = (player, index) => {
-    const canDraw = Rules.canPlayerDraw(player)
     const draw = () => drawPlayer(index)
+    const canDraw =
+      Rules.canPlayerDraw(player) &&
+      (!index ||
+        Number.isFinite(
+          Rules.getGameResult({ player: players[index - 1], dealer })
+        ))
 
     const props = {
       ...player,
