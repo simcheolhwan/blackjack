@@ -58,7 +58,7 @@ export default connect(
       players,
       game,
       stake: player.stake,
-      canBet: coins > 5,
+      canBet: coins >= 5,
       canMinus: player.stake > 5,
       canPlay: !!player.stake,
       canDraw: canReplicaAction && check.canPlayerDraw(player),
