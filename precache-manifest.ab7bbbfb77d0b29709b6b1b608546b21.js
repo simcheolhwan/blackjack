@@ -16,7 +16,7 @@ self.__precacheManifest = [
     "url": "/blackjack/static/js/runtime~main.4ac6e23b.js"
   },
   {
-    "revision": "8beed472834f76968a98f36274f52bd6",
+    "revision": "0d5e26355aa476493ac657e67c37feff",
     "url": "/blackjack/index.html"
   }
 ];
