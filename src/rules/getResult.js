@@ -14,12 +14,14 @@ export const getResult = (players, playerKey) => {
 
   const { dealer } = players
   const player = players[playerKey]
-  const dealerWillNeverBlackjack = ![1, 10].includes(
-    getDefaultValue(dealer.hand[0])
-  )
+
+  const dealerIsNotBlackjack = {
+    1: ![1, 10].includes(getDefaultValue(dealer.hand[0])),
+    2: dealer.status !== 'blackjack'
+  }[dealer.hand.length]
 
   const byPlayer = {
-    blackjack: dealerWillNeverBlackjack && 'BLACKJACK',
+    blackjack: dealerIsNotBlackjack && 'BLACKJACK',
     bust: 'LOSE',
     surrender: 'SURRENDER'
   }
