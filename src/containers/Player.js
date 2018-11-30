@@ -19,7 +19,8 @@ export default connect(
       result: getResult(players, playerKey),
       hand: <Hand playerKey={playerKey} />,
       bet: <Box onClick={onBoxClick}>{stake}</Box>,
-      isDealer: isDealer,
+      isDealer,
+      small: !!players['replica'].hand.length,
       active:
         isDealer ||
         getCurrentPlayer(players) === playerKey ||

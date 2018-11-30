@@ -16,5 +16,9 @@
 }
 
 .result {
-  font-size: 200%;
+  font-size: 300%;
+
+  &.small {
+    font-size: 150%;
+  }
 }

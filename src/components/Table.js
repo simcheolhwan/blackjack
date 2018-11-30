@@ -1,13 +1,14 @@
 import React from 'react'
+import classNames from 'classnames'
 import style from './Table.module.scss'
 
 const Table = ({ dealer, primary, replica, chips, actions, controls }) => (
   <main className={style.table}>
     <section className={style.dealer}>{dealer}</section>
 
-    <section className={style.players}>
-      {replica && <section className={style.player}>{replica}</section>}
-      <section className={style.player}>{primary}</section>
+    <section className={classNames(style.players, replica && style.duplicated)}>
+      {replica && <section>{replica}</section>}
+      <section>{primary}</section>
     </section>
 
     <section className={style.actions}>{actions}</section>

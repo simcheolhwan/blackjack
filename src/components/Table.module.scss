@@ -23,11 +23,13 @@
   flex: none;
   align-self: stretch;
   justify-content: space-around;
-}
 
-.player {
-  flex: none;
-  width: 50%;
+  > * {
+    flex: none;
+  }
+  &.duplicated > * {
+    width: 50%;
+  }
 }
 
 .actions {
