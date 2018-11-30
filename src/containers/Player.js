@@ -17,7 +17,7 @@ const Player = ({ playerKey, stake, totals, status, isDealer }) => (
 
     {!isDealer && (
       <>
-        <Box title="베팅">{stake}만원</Box>
+        <Box>{stake}</Box>
         <Result playerKey={playerKey} />
         <Actions playerKey={playerKey} />
       </>

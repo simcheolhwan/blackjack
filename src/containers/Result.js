@@ -4,7 +4,7 @@ import getResult, { getReturn } from '../rules/getResult'
 
 const Result = ({ result, prize }) => {
   const color = prize ? 'green' : 'red'
-  const description = prize ? prize + `만원을 받습니다.` : '돈을 잃었습니다.'
+  const description = prize ? prize + ' 획득' : ''
 
   return (
     result && (
