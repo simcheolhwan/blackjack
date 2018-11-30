@@ -39,9 +39,15 @@ const style = {
   flexDirection: 'column',
   justifyContent: 'space-between',
   alignItems: 'center',
+
   height: '100%',
-  lineHeight: 1.6,
+  maxHeight: 800,
+  maxWidth: 540,
+
+  marginLeft: 'auto',
+  marginRight: 'auto',
   padding: 15,
+  lineHeight: 1.6,
   textAlign: 'center',
 
   players: {
