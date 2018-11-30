@@ -6,17 +6,13 @@ import check from '../rules/check'
 import style from './Hand.module.scss'
 import Card from '../components/Card'
 
-const Hand = ({ hand, canDraw, draw, playerKey }) => (
-  <ul className={style.hand}>
+const Hand = ({ hand, onClick }) => (
+  <ul className={style.hand} onClick={onClick}>
     {hand.map((card, index) => (
       <Card key={index}>{card}</Card>
     ))}
 
-    {canDraw && (
-      <Card back onClick={() => draw(playerKey)}>
-        +
-      </Card>
-    )}
+    {onClick && <Card back>+</Card>}
   </ul>
 )
 
@@ -27,8 +23,9 @@ export default connect(
       playerKey === 'dealer' &&
       !check.hasGameFinished(players) &&
       check.shouldDealerDraw(players)
-
     return { hand, canDraw }
   },
-  dispatch => bindActionCreators(actions, dispatch)
+  dispatch => bindActionCreators(actions, dispatch),
+  ({ hand, canDraw }, { draw }, { playerKey }) =>
+    Object.assign({ hand }, canDraw && { onClick: () => draw(playerKey) })
 )(Hand)
