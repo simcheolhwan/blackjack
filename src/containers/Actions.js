@@ -3,13 +3,12 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actions from '../redux/actions'
 import check from '../rules/check'
-import Button from '../components/Button'
 import { MIN } from '../constants'
+import ButtonGroup from '../components/ButtonGroup'
 
 const Actions = ({ players, game, playerKey, stake, ...action }) => {
   const bet = () => action.bet(playerKey, MIN)
   const bet10 = () => action.bet(playerKey, 10)
-  const minus = () => action.bet(playerKey, -1 * MIN)
   const startGame = () => action.startGame()
 
   const draw = () => action.draw(playerKey)
@@ -18,14 +17,13 @@ const Actions = ({ players, game, playerKey, stake, ...action }) => {
   const surrender = () => action.set(playerKey, 'surrender')
   const split = () => action.split()
 
-  const { canBet, canBet10, canMinus, canPlay } = action
+  const { canBet, canBet10, canPlay } = action
   const { canDraw, canDouble, canSurrender, canSplit } = action
   const actions =
     {
       idle: [
-        { color: 'green', children: '++', disabled: !canBet10, onClick: bet10 },
-        { color: 'green', children: '+', disabled: !canBet, onClick: bet },
-        { color: 'brown', children: '-', disabled: !canMinus, onClick: minus },
+        { color: 'green', children: '5', disabled: !canBet, onClick: bet },
+        { color: 'green', children: '10', disabled: !canBet10, onClick: bet10 },
         { color: 'navy', children: '→', disabled: !canPlay, onClick: startGame }
       ],
       playing: [
@@ -37,13 +35,7 @@ const Actions = ({ players, game, playerKey, stake, ...action }) => {
       ].filter(Boolean)
     }[game.status] || []
 
-  return (
-    <section>
-      {actions.map((action, index) => (
-        <Button {...action} key={index} />
-      ))}
-    </section>
-  )
+  return <ButtonGroup buttons={actions} />
 }
 
 export default connect(
@@ -58,7 +50,6 @@ export default connect(
       stake: player.stake,
       canBet: coins >= MIN,
       canBet10: coins >= 10,
-      canMinus: player.stake > MIN,
       canPlay: !!player.stake,
       canDraw: canReplicaAction && check.canPlayerDraw(player),
       canDouble: canReplicaAction && check.canPlayerDouble({ player, coins }),

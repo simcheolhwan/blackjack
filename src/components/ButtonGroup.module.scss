@@ -1,0 +1,9 @@
+@import '../styles/styles';
+
+.group {
+  @include flex();
+
+  li {
+    padding: 5px;
+  }
+}

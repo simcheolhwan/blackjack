@@ -1,0 +1,16 @@
+@import '../styles/styles';
+@import '../styles/colors';
+
+.deck {
+  @include flex();
+
+  li {
+    padding: 2px;
+  }
+}
+
+.status {
+  line-height: 2;
+  text-transform: uppercase;
+  color: darken($olive, 5%);
+}

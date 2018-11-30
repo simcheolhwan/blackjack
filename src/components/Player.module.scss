@@ -1,0 +1,17 @@
+@import '../styles/styles';
+
+.player {
+  > * {
+    @include flex();
+    height: 50px;
+  }
+
+  .hand,
+  .actions {
+    height: 100px;
+  }
+}
+
+.result {
+  font-size: 200%;
+}
