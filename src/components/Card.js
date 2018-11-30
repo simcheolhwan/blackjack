@@ -1,15 +1,9 @@
 import React from 'react'
-import style from './Card.module.scss'
 import classNames from 'classnames'
+import style from './Card.module.scss'
 
-const Card = ({ back, children, style: variant = {}, onClick }) => (
-  <div
-    className={classNames(style.card, back && style.back)}
-    style={variant}
-    onClick={onClick}
-  >
-    {children}
-  </div>
+const Card = ({ back, children }) => (
+  <div className={classNames(style.card, back && style.back)}>{children}</div>
 )
 
 export default Card

@@ -1,12 +1,8 @@
 import React from 'react'
 import style from './Button.module.scss'
 
-const Button = ({ color, children, ...rest }) => (
-  <button
-    className={style.button}
-    style={{ backgroundColor: rest.disabled ? 'silver' : color }}
-    {...rest}
-  >
+const Button = ({ backgroundColor, children, ...rest }) => (
+  <button className={style.button} style={{ backgroundColor }} {...rest}>
     {children}
   </button>
 )

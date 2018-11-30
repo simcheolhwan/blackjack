@@ -14,48 +14,20 @@ const Game = ({ playersKeys, showFinishButton, win, resetGame }) => {
   }
 
   return (
-    <main style={style}>
+    <main>
       <Player playerKey="dealer" />
 
-      <div style={playersKeys.length > 1 ? style.players : {}}>
+      <div>
         {playersKeys.map(key => (
           <Player playerKey={key} key={key} />
         ))}
       </div>
 
-      {showFinishButton && (
-        <Button color="navy" onClick={handleClick}>
-          ✔︎
-        </Button>
-      )}
+      {showFinishButton && <Button onClick={handleClick}>✔︎</Button>}
 
       <Coins />
     </main>
   )
-}
-
-const style = {
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-
-  height: '100%',
-  maxHeight: 800,
-  maxWidth: 540,
-
-  marginLeft: 'auto',
-  marginRight: 'auto',
-  padding: 15,
-  lineHeight: 1.6,
-  textAlign: 'center',
-
-  players: {
-    display: 'flex',
-    justifyContent: 'space-around',
-    alignItems: 'flex-end',
-    alignSelf: 'stretch'
-  }
 }
 
 export default connect(

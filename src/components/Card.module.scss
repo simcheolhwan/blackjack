@@ -1,17 +1,7 @@
 .card {
-  border: 1px solid black;
   border-radius: 3px;
   text-align: center;
-  line-height: 2;
-  width: 1.5em;
-
-  & + & {
-    margin-left: 2px;
-  }
 }
 
 .back {
-  border: 1px solid LightGray;
-  background-color: WhiteSmoke;
-  color: Silver;
 }

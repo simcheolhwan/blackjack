@@ -3,20 +3,15 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actions from '../redux/actions'
 import check from '../rules/check'
-import style from './Hand.module.scss'
 import Card from '../components/Card'
 
-const Hand = ({ hand, onClick }) => (
-  <ul
-    className={style.hand}
-    style={{ cursor: onClick && 'pointer' }}
-    onClick={onClick}
-  >
+const Hand = ({ hand }) => (
+  <ul>
     {hand.map((card, index) => (
       <Card key={index}>{card}</Card>
     ))}
 
-    {onClick && <Card back>+</Card>}
+    {false && <Card back>+</Card>}
   </ul>
 )
 
