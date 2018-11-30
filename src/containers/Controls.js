@@ -16,20 +16,19 @@ export default connect(
     }
 
     const controls = game.isPlaying
-      ? [
-          check.hasGameFinished(players)
-            ? {
-                color: colors['navy'],
-                children: '←',
-                onClick: finishGame
-              }
-            : {
-                color: colors['navy'],
-                children: '→',
-                disabled: !check.shouldDealerDraw(players),
-                onClick: () => draw('dealer')
-              }
-        ]
+      ? check.hasGameFinished(players)
+        ? [
+            { color: colors['navy'], children: '✓', onClick: finishGame },
+            { color: colors['navy'], disabled: true, children: '→' }
+          ]
+        : [
+            {
+              color: colors['navy'],
+              children: '→',
+              disabled: !check.shouldDealerDraw(players),
+              onClick: () => draw('dealer')
+            }
+          ]
       : [
           {
             color: colors['navy'],
