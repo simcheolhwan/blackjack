@@ -58,8 +58,8 @@ export default connect(
       canMinus: player.stake > MIN,
       canPlay: !!player.stake,
       canDraw: canReplicaAction && check.canPlayerDraw(player),
-      canSplit: canReplicaAction && check.canSplit(players),
-      canDouble: canReplicaAction && check.canPlayerDouble(player),
+      canDouble: canReplicaAction && check.canPlayerDouble({ player, coins }),
+      canSplit: canReplicaAction && check.canSplit({ players, coins }),
       canSurrender:
         canReplicaAction &&
         !players['replica'].hand.length &&
