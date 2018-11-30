@@ -1,16 +1,16 @@
 import { combineReducers } from 'redux'
 
-const status = (state = 'idle', action) => {
+const isPlaying = (state = false, action) => {
   switch (action.type) {
     case 'start':
-      return 'playing'
+      return true
 
     case 'reset':
-      return 'idle'
+      return false
 
     default:
       return state
   }
 }
 
-export default combineReducers({ status })
+export default combineReducers({ isPlaying })

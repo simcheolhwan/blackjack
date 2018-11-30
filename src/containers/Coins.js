@@ -12,8 +12,7 @@ const Coins = ({ coins, withdraw }) => (
 export default connect(
   ({ coins, players, game }) => ({
     coins,
-    canWithdraw:
-      game.status === 'idle' && coins + players['primary'].stake < MIN
+    canWithdraw: !game.isPlaying && coins + players['primary'].stake < MIN
   }),
   dispatch => bindActionCreators(actions, dispatch),
   ({ coins, canWithdraw }, { win }) => ({

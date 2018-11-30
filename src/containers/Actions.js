@@ -1,64 +1,58 @@
-import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actions from '../redux/actions'
-import check from '../rules/check'
-import { MIN } from '../constants'
+import check, { isInit } from '../rules/check'
+import { BET } from '../constants'
 import ButtonGroup from '../components/ButtonGroup'
 
-const Actions = ({ players, game, playerKey, stake, ...action }) => {
-  const bet = () => action.bet(playerKey, MIN)
-  const bet10 = () => action.bet(playerKey, 10)
-  const startGame = () => action.startGame()
-
-  const draw = () => action.draw(playerKey)
-  const stay = () => action.set(playerKey, 'stay')
-  const double = () => action.double(playerKey)
-  const surrender = () => action.set(playerKey, 'surrender')
-  const split = () => action.split()
-
-  const { canBet, canBet10, canPlay } = action
-  const { canDraw, canDouble, canSurrender, canSplit } = action
-  const actions =
-    {
-      idle: [
-        { color: 'green', children: '5', disabled: !canBet, onClick: bet },
-        { color: 'green', children: '10', disabled: !canBet10, onClick: bet10 },
-        { color: 'navy', children: '→', disabled: !canPlay, onClick: startGame }
-      ],
-      playing: [
-        { color: 'green', children: 'H', disabled: !canDraw, onClick: draw },
-        { color: 'brown', children: 'S', disabled: !canDraw, onClick: stay },
-        canDouble && { color: 'navy', children: 'D', onClick: double },
-        canSplit && { color: 'olive', children: 'SP', onClick: split },
-        canSurrender && { color: 'teal', children: 'SU', onClick: surrender }
-      ].filter(Boolean)
-    }[game.status] || []
-
-  return <ButtonGroup buttons={actions} />
-}
-
 export default connect(
-  ({ players, game, coins }, { playerKey }) => {
+  state => state,
+  dispatch => bindActionCreators(actions, dispatch),
+  (
+    { players, coins, game },
+    { bet, startGame, draw, set, double, split },
+    { playerKey }
+  ) => {
     const player = players[playerKey]
-    const canReplicaAction =
-      playerKey !== 'replica' || !!players['primary'].status
-
-    return {
-      players,
-      game,
-      stake: player.stake,
-      canBet: coins >= MIN,
-      canBet10: coins >= 10,
-      canPlay: !!player.stake,
-      canDraw: canReplicaAction && check.canPlayerDraw(player),
-      canDouble: canReplicaAction && check.canPlayerDouble({ player, coins }),
-      canSplit: canReplicaAction && check.canSplit({ players, coins }),
-      canSurrender:
-        canReplicaAction &&
-        !players['replica'].hand.length &&
-        check.canPlayerSurrender(player)
-    }
-  },
-  dispatch => bindActionCreators(actions, dispatch)
-)(Actions)
+    const actions = game.isPlaying
+      ? [
+          {
+            color: 'teal',
+            children: 'SU',
+            disabled: !(isInit(player) && !players['replica'].hand.length),
+            onClick: () => set(playerKey, 'surrender')
+          },
+          {
+            color: 'olive',
+            children: 'SP',
+            disabled: !check.canSplit({ players, coins }),
+            onClick: () => split()
+          },
+          {
+            color: 'navy',
+            children: 'D',
+            disabled: !(isInit(player) && coins >= player.stake),
+            onClick: () => double(playerKey)
+          },
+          {
+            color: 'brown',
+            children: 'S',
+            disabled: !!player.status,
+            onClick: () => set(playerKey, 'stay')
+          },
+          {
+            color: 'green',
+            children: 'H',
+            disabled: !!player.status,
+            onClick: () => draw(playerKey)
+          }
+        ]
+      : BET.map(n => ({
+          color: 'green',
+          children: String(n),
+          disabled: coins < n,
+          onClick: () => bet(playerKey, n)
+        }))
+    return { buttons: actions }
+  }
+)(ButtonGroup)

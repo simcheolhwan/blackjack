@@ -1,16 +1,11 @@
 import getTotals from './getTotals'
 import getResult from './getResult'
 
-const isInit = ({ hand, status }) => hand.length === 2 && !status
+export const isInit = ({ hand, status }) => hand.length === 2 && !status
+export const getCurrentPlayer = ({ primary, replica }) =>
+  !!replica.hand.length && !!primary.status ? 'replica' : 'primary'
 
 export default {
-  canPlayerDraw: ({ status }) => !status,
-
-  canPlayerDouble: ({ player, coins }) =>
-    isInit(player) && coins >= player.stake,
-
-  canPlayerSurrender: player => isInit(player),
-
   canSplit: ({ players, coins }) => {
     const { primary, replica } = players
     const hasReplica = !!replica.hand.length
