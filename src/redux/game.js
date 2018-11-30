@@ -5,9 +5,6 @@ const status = (state = 'idle', action) => {
     case 'start':
       return 'playing'
 
-    case 'stop':
-      return 'stop'
-
     case 'reset':
       return 'idle'
 

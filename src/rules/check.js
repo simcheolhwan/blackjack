@@ -5,8 +5,6 @@ export default {
   canPlayerDraw: ({ status }) => !status,
   canPlayerDouble: ({ hand, status }) => hand.length === 2 && !status,
   canPlayerSurrender: ({ hand, status }) => hand.length === 2 && !status,
-  shouldPlayerStay: ({ hand }) => getTotals(hand).some(n => n === 21),
-
   canSplit: ({ primary, replica }) => {
     const { hand, status } = primary
     const hasReplica = !!replica.hand.length

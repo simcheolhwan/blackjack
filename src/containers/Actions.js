@@ -4,10 +4,11 @@ import { bindActionCreators } from 'redux'
 import * as actions from '../redux/actions'
 import check from '../rules/check'
 import Button from '../components/Button'
+import { MIN } from '../constants'
 
 const Actions = ({ players, game, playerKey, stake, ...action }) => {
-  const bet = () => action.bet(playerKey, 5)
-  const minus = () => action.bet(playerKey, -5)
+  const bet = () => action.bet(playerKey, MIN)
+  const minus = () => action.bet(playerKey, -1 * MIN)
   const startGame = () => action.startGame()
 
   const draw = () => action.draw(playerKey)
@@ -53,8 +54,8 @@ export default connect(
       players,
       game,
       stake: player.stake,
-      canBet: coins >= 5,
-      canMinus: player.stake > 5,
+      canBet: coins >= MIN,
+      canMinus: player.stake > MIN,
       canPlay: !!player.stake,
       canDraw: canReplicaAction && check.canPlayerDraw(player),
       canSplit: canReplicaAction && check.canSplit(players),

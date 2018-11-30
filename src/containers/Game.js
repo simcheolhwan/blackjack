@@ -5,21 +5,21 @@ import * as actions from '../redux/actions'
 import check from '../rules/check'
 import Button from '../components/Button'
 import Coins from './Coins'
-import Hand from './Hand'
+import Player from './Player'
 
-const Game = ({ playersKeys, showFinishButton, finishGame, resetGame }) => {
+const Game = ({ playersKeys, showFinishButton, win, resetGame }) => {
   const handleClick = () => {
-    finishGame()
+    win()
     resetGame()
   }
 
   return (
     <main style={style}>
-      <Hand playerKey="dealer" />
+      <Player playerKey="dealer" />
 
       <div style={playersKeys.length > 1 ? style.players : {}}>
         {playersKeys.map(key => (
-          <Hand playerKey={key} key={key} />
+          <Player playerKey={key} key={key} />
         ))}
       </div>
 
@@ -54,7 +54,8 @@ const style = {
 
 export default connect(
   ({ players, game }) => ({
-    showFinishButton: game.status !== 'idle' && check.hasGameFinished(players),
+    showFinishButton:
+      game.status === 'playing' && check.hasGameFinished(players),
     playersKeys: [
       players['replica'].hand.length && 'replica',
       'primary'

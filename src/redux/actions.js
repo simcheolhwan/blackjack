@@ -1,5 +1,6 @@
 import getStatus from '../rules/getStatus'
 import { getTotalReturn } from '../rules/getResult'
+import { MIN } from '../constants'
 
 /* Game */
 export const startGame = () => (dispatch, getState) => {
@@ -11,15 +12,22 @@ export const startGame = () => (dispatch, getState) => {
   !players['dealer'].hand.length && dispatch(draw('dealer'))
 }
 
-export const finishGame = () => (dispatch, getState) => {
-  const { players } = getState()
-  dispatch({ type: 'win', amount: getTotalReturn(players) })
-}
-
 export const resetGame = () => (dispatch, getState) => {
   dispatch({ type: 'reset', player: 'dealer' })
   dispatch({ type: 'reset', player: 'primary' })
   dispatch({ type: 'reset', player: 'replica' })
+}
+
+/* Bet */
+export const bet = (playerKey, stake = MIN) => (dispatch, getState) => {
+  const { coins } = getState()
+  const isValid = coins >= stake
+  isValid && dispatch({ type: 'bet', player: playerKey, stake })
+}
+
+export const win = () => (dispatch, getState) => {
+  const { players } = getState()
+  dispatch({ type: 'win', amount: getTotalReturn(players) })
 }
 
 /* Player */
@@ -57,12 +65,4 @@ const watchPlayer = playerKey => (dispatch, getState) => {
   const { players } = getState()
   const status = getStatus(players, playerKey)
   status && dispatch(set(playerKey, status))
-}
-
-/* Bet */
-export const bet = (playerKey, stake = 5) => (dispatch, getState) => {
-  const { players, coins } = getState()
-  const nextStake = (players[playerKey].stake || 0) + stake
-  const isValid = coins >= stake && nextStake >= 5
-  isValid && dispatch({ type: 'bet', player: playerKey, stake })
 }
