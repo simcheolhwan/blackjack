@@ -8,6 +8,7 @@ import { MIN } from '../constants'
 
 const Actions = ({ players, game, playerKey, stake, ...action }) => {
   const bet = () => action.bet(playerKey, MIN)
+  const bet10 = () => action.bet(playerKey, 10)
   const minus = () => action.bet(playerKey, -1 * MIN)
   const startGame = () => action.startGame()
 
@@ -17,11 +18,12 @@ const Actions = ({ players, game, playerKey, stake, ...action }) => {
   const surrender = () => action.set(playerKey, 'surrender')
   const split = () => action.split()
 
-  const { canBet, canMinus, canPlay } = action
+  const { canBet, canBet10, canMinus, canPlay } = action
   const { canDraw, canDouble, canSurrender, canSplit } = action
   const actions =
     {
       idle: [
+        { color: 'green', children: '++', disabled: !canBet10, onClick: bet10 },
         { color: 'green', children: '+', disabled: !canBet, onClick: bet },
         { color: 'brown', children: '-', disabled: !canMinus, onClick: minus },
         { color: 'navy', children: '→', disabled: !canPlay, onClick: startGame }
@@ -29,7 +31,7 @@ const Actions = ({ players, game, playerKey, stake, ...action }) => {
       playing: [
         { color: 'green', children: 'H', disabled: !canDraw, onClick: draw },
         { color: 'brown', children: 'S', disabled: !canDraw, onClick: stay },
-        { color: 'navy', children: 'D', disabled: !canDouble, onClick: double },
+        canDouble && { color: 'navy', children: 'D', onClick: double },
         canSplit && { color: 'olive', children: 'SP', onClick: split },
         canSurrender && { color: 'teal', children: 'SU', onClick: surrender }
       ].filter(Boolean)
@@ -55,6 +57,7 @@ export default connect(
       game,
       stake: player.stake,
       canBet: coins >= MIN,
+      canBet10: coins >= 10,
       canMinus: player.stake > MIN,
       canPlay: !!player.stake,
       canDraw: canReplicaAction && check.canPlayerDraw(player),
