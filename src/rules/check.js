@@ -6,12 +6,12 @@ export const getCurrentPlayer = ({ primary, replica }) =>
   !!replica.hand.length && !!primary.status ? 'replica' : 'primary'
 
 export default {
-  canSplit: ({ players, coins }) => {
+  canSplit: ({ players, chips }) => {
     const { primary, replica } = players
     const hasReplica = !!replica.hand.length
     return (
       isInit(primary) &&
-      coins >= primary.stake &&
+      chips >= primary.stake &&
       primary.hand[0] === primary.hand[1] &&
       !hasReplica
     )

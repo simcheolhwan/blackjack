@@ -9,7 +9,7 @@ export default connect(
   state => state,
   dispatch => bindActionCreators(actions, dispatch),
   (
-    { players, coins, game },
+    { players, chips, game },
     { bet, startGame, draw, set, double, split },
     { playerKey }
   ) => {
@@ -25,13 +25,13 @@ export default connect(
           {
             color: 'olive',
             children: 'SP',
-            disabled: !check.canSplit({ players, coins }),
+            disabled: !check.canSplit({ players, chips }),
             onClick: () => split()
           },
           {
             color: 'navy',
             children: 'D',
-            disabled: !(isInit(player) && coins >= player.stake),
+            disabled: !(isInit(player) && chips >= player.stake),
             onClick: () => double(playerKey)
           },
           {
@@ -50,7 +50,7 @@ export default connect(
       : BET.map(n => ({
           color: 'green',
           children: String(n),
-          disabled: coins < n,
+          disabled: chips < n,
           onClick: () => bet(playerKey, n)
         }))
     return { buttons: actions }

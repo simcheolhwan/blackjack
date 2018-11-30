@@ -6,7 +6,7 @@ import check, { getCurrentPlayer } from '../rules/check'
 import Table from '../components/Table'
 import Player from './Player'
 import Actions from './Actions'
-import Coins from './Coins'
+import Chips from './Chips'
 import ButtonGroup from '../components/ButtonGroup'
 
 export default connect(
@@ -36,7 +36,7 @@ export default connect(
       primary: <Player playerKey="primary" />,
       replica: !!replica.hand.length && <Player playerKey="replica" />,
       actions: <Actions playerKey={getCurrentPlayer(players)} />,
-      chips: <Coins />,
+      chips: <Chips />,
       controls: <ButtonGroup buttons={controls.filter(Boolean)} />
     }
   }

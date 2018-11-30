@@ -5,18 +5,18 @@ import * as actions from '../redux/actions'
 import { MIN } from '../constants'
 import Box from '../components/Box'
 
-const Coins = ({ coins, withdraw }) => (
-  <Box onClick={withdraw}>{String(coins)}</Box>
+const Chips = ({ chips, withdraw }) => (
+  <Box onClick={withdraw}>{String(chips)}</Box>
 )
 
 export default connect(
-  ({ coins, players, game }) => ({
-    coins,
-    canWithdraw: !game.isPlaying && coins + players['primary'].stake < MIN
+  ({ chips, players, game }) => ({
+    chips,
+    canWithdraw: !game.isPlaying && chips + players['primary'].stake < MIN
   }),
   dispatch => bindActionCreators(actions, dispatch),
-  ({ coins, canWithdraw }, { win }) => ({
-    coins,
+  ({ chips, canWithdraw }, { win }) => ({
+    chips,
     withdraw: canWithdraw ? () => win(100) : undefined
   })
-)(Coins)
+)(Chips)

@@ -20,8 +20,8 @@ export const resetGame = () => (dispatch, getState) => {
 
 /* Bet */
 export const bet = (playerKey, stake = MIN) => (dispatch, getState) => {
-  const { coins } = getState()
-  const isValid = coins >= stake
+  const { chips } = getState()
+  const isValid = chips >= stake
   isValid && dispatch({ type: 'bet', player: playerKey, stake })
 }
 
