@@ -25,9 +25,9 @@ export const bet = (playerKey, stake = MIN) => (dispatch, getState) => {
   isValid && dispatch({ type: 'bet', player: playerKey, stake })
 }
 
-export const win = () => (dispatch, getState) => {
+export const win = amount => (dispatch, getState) => {
   const { players } = getState()
-  dispatch({ type: 'win', amount: getTotalReturn(players) })
+  dispatch({ type: 'win', amount: amount || getTotalReturn(players) })
 }
 
 /* Player */
