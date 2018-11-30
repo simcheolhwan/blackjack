@@ -12,16 +12,19 @@ export const getResult = (players, playerKey) => {
       : 'DRAW'
   }
 
+  const checkIsNotBlackjack = ({ hand }) => {
+    const isNotBlackjack = {
+      1: ![1, 10].includes(getDefaultValue(dealer.hand[0])),
+      2: dealer.status !== 'blackjack'
+    }[hand.length]
+    return typeof isNotBlackjack === 'boolean' ? isNotBlackjack : true
+  }
+
   const { dealer } = players
   const player = players[playerKey]
 
-  const dealerIsNotBlackjack = {
-    1: ![1, 10].includes(getDefaultValue(dealer.hand[0])),
-    2: dealer.status !== 'blackjack'
-  }[dealer.hand.length]
-
   const byPlayer = {
-    blackjack: dealerIsNotBlackjack && 'BLACKJACK',
+    blackjack: checkIsNotBlackjack(dealer) && 'BLACKJACK',
     bust: 'LOSE',
     surrender: 'SURRENDER'
   }
