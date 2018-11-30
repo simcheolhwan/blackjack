@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actions from '../redux/actions'
 import check, { getCurrentPlayer } from '../rules/check'
+import colors from '../styles/colors'
 import Table from '../components/Table'
 import Player from './Player'
 import Actions from './Actions'
@@ -22,14 +23,26 @@ export default connect(
     const controls = game.isPlaying
       ? [
           check.hasGameFinished(players)
-            ? { children: '←', onClick: finishGame }
+            ? {
+                color: colors['navy'],
+                children: '←',
+                onClick: finishGame
+              }
             : {
+                color: colors['navy'],
                 children: '→',
                 disabled: !check.shouldDealerDraw(players),
                 onClick: () => draw('dealer')
               }
         ]
-      : [{ children: '→', disabled: !primary.stake, onClick: startGame }]
+      : [
+          {
+            color: colors['navy'],
+            children: '→',
+            disabled: !primary.stake,
+            onClick: startGame
+          }
+        ]
 
     return {
       dealer: <Player playerKey="dealer" />,
@@ -37,7 +50,7 @@ export default connect(
       replica: !!replica.hand.length && <Player playerKey="replica" />,
       actions: <Actions playerKey={getCurrentPlayer(players)} />,
       chips: <Chips />,
-      controls: <ButtonGroup buttons={controls.filter(Boolean)} />
+      controls: <ButtonGroup buttons={controls} />
     }
   }
 )(Table)

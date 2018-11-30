@@ -17,38 +17,32 @@ export default connect(
     const actions = game.isPlaying
       ? [
           {
-            color: 'teal',
             children: 'SU',
             disabled: !(isInit(player) && !players['replica'].hand.length),
             onClick: () => set(playerKey, 'surrender')
           },
           {
-            color: 'olive',
             children: 'SP',
             disabled: !check.canSplit({ players, chips }),
             onClick: () => split()
           },
           {
-            color: 'navy',
             children: 'D',
             disabled: !(isInit(player) && chips >= player.stake),
             onClick: () => double(playerKey)
           },
           {
-            color: 'brown',
             children: 'S',
             disabled: !!player.status,
             onClick: () => set(playerKey, 'stay')
           },
           {
-            color: 'green',
             children: 'H',
             disabled: !!player.status,
             onClick: () => draw(playerKey)
           }
         ]
       : BET.map(n => ({
-          color: 'green',
           children: String(n),
           disabled: chips < n,
           onClick: () => bet(playerKey, n)
