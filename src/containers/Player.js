@@ -10,5 +10,8 @@ export default connect(({ players }, { playerKey }) => ({
   hand: <Hand playerKey={playerKey} />,
   bet: players[playerKey].stake,
   isDealer: playerKey === 'dealer',
-  active: playerKey === 'dealer' || getCurrentPlayer(players) === playerKey
+  active:
+    playerKey === 'dealer' ||
+    getCurrentPlayer(players) === playerKey ||
+    !!players['replica'].status
 }))(Player)
