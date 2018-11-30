@@ -30,12 +30,7 @@ const Actions = ({ players, game, playerKey, stake, ...action }) => {
         { color: 'brown', children: 'S', disabled: !canDraw, onClick: stay },
         { color: 'navy', children: 'D', disabled: !canDouble, onClick: double },
         canSplit && { color: 'olive', children: 'SP', onClick: split },
-        {
-          color: 'teal',
-          children: 'SU',
-          disabled: !canSurrender,
-          onClick: surrender
-        }
+        canSurrender && { color: 'teal', children: 'SU', onClick: surrender }
       ].filter(Boolean)
     }[game.status] || []
 

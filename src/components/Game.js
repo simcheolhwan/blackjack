@@ -17,7 +17,7 @@ const Game = ({ playersKeys, showFinishButton, finishGame, resetGame }) => {
     <main style={style}>
       <Hand playerKey="dealer" />
 
-      <div style={{ display: 'flex' }}>
+      <div style={playersKeys.length > 1 ? style.players : {}}>
         {playersKeys.map(key => (
           <Hand playerKey={key} key={key} />
         ))}
@@ -42,7 +42,14 @@ const style = {
   height: '100%',
   lineHeight: 1.6,
   padding: 15,
-  textAlign: 'center'
+  textAlign: 'center',
+
+  players: {
+    display: 'flex',
+    justifyContent: 'space-around',
+    alignItems: 'flex-end',
+    alignSelf: 'stretch'
+  }
 }
 
 export default connect(
