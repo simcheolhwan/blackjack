@@ -9,7 +9,10 @@ import Actions from './Actions'
 
 const Player = ({ playerKey, stake, totals, status, isDealer }) => (
   <div className={style.container}>
-    <p style={{ order: isDealer && 2 }}>{status}</p>
+    <p className={style.status} style={{ order: isDealer && 2 }}>
+      {status}
+    </p>
+
     <section className={style.totals} style={{ order: isDealer && 1 }}>
       {totals.filter(Boolean).join(', ')}
     </section>

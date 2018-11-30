@@ -7,7 +7,11 @@ import style from './Hand.module.scss'
 import Card from '../components/Card'
 
 const Hand = ({ hand, onClick }) => (
-  <ul className={style.hand} onClick={onClick}>
+  <ul
+    className={style.hand}
+    style={{ cursor: onClick && 'pointer' }}
+    onClick={onClick}
+  >
     {hand.map((card, index) => (
       <Card key={index}>{card}</Card>
     ))}
