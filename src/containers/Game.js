@@ -1,11 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import * as gameActions from '../redux/gameActions'
+import * as actions from '../redux/actions'
 import check from '../rules/check'
+import Button from '../components/Button'
 import Coins from './Coins'
 import Hand from './Hand'
-import Button from './Button'
 
 const Game = ({ playersKeys, showFinishButton, finishGame, resetGame }) => {
   const handleClick = () => {
@@ -60,5 +60,5 @@ export default connect(
       'primary'
     ].filter(Boolean)
   }),
-  dispatch => bindActionCreators(gameActions, dispatch)
+  dispatch => bindActionCreators(actions, dispatch)
 )(Game)

@@ -1,12 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import * as gameActions from '../redux/gameActions'
+import * as actions from '../redux/actions'
 import check from '../rules/check'
 import getTotals from '../rules/getTotals'
 import style from './Hand.module.scss'
-import Box from './Box'
-import Card from './Card'
+import Box from '../components/Box'
+import Card from '../components/Card'
 import Result from './Result'
 import Actions from './Actions'
 
@@ -63,5 +63,5 @@ export default connect(
         check.shouldDealerDraw(players)
     }
   },
-  dispatch => bindActionCreators(gameActions, dispatch)
+  dispatch => bindActionCreators(actions, dispatch)
 )(Hand)

@@ -1,9 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import * as gameActions from '../redux/gameActions'
+import * as actions from '../redux/actions'
 import check from '../rules/check'
-import Button from './Button'
+import Button from '../components/Button'
 
 const Actions = ({ players, game, playerKey, stake, ...action }) => {
   const bet = () => action.bet(playerKey, 5)
@@ -65,5 +65,5 @@ export default connect(
         check.canPlayerSurrender(player)
     }
   },
-  dispatch => bindActionCreators(gameActions, dispatch)
+  dispatch => bindActionCreators(actions, dispatch)
 )(Actions)
