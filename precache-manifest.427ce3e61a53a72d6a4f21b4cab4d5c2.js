@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "bacae04d297a6035e8aa",
-    "url": "/blackjack/static/css/main.3dd23918.chunk.css"
+    "revision": "d1f8c99adcff9f2b1241",
+    "url": "/blackjack/static/css/main.270eb44a.chunk.css"
   },
   {
-    "revision": "bacae04d297a6035e8aa",
-    "url": "/blackjack/static/js/main.bacae04d.chunk.js"
+    "revision": "d1f8c99adcff9f2b1241",
+    "url": "/blackjack/static/js/main.d1f8c99a.chunk.js"
   },
   {
     "revision": "05cad4bc4caf39db30d1",
@@ -16,7 +16,7 @@ self.__precacheManifest = [
     "url": "/blackjack/static/js/runtime~main.4ac6e23b.js"
   },
   {
-    "revision": "f34a9b668ddf8d22fd54c2bf388a0e64",
+    "revision": "a105dedcc4bfb130bba942dafc2fd14c",
     "url": "/blackjack/index.html"
   }
 ];
