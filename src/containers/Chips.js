@@ -9,12 +9,11 @@ import Number from '../components/Number'
 export default connect(
   state => state,
   dispatch => bindActionCreators(actions, dispatch),
-  ({ chips, players, game }, { win }) => {
-    const canWithdraw =
-      !game.isPlaying && chips + players['primary'].stake < MIN
+  ({ chips, players, game }, { lend }) => {
+    const canLend = !game.isPlaying && chips + players['primary'].stake < MIN
     return {
       children: <Number>{chips}</Number>,
-      onClick: canWithdraw ? () => win(100) : undefined
+      onClick: canLend ? () => lend() : undefined
     }
   }
 )(Box)

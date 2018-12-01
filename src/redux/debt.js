@@ -1,13 +1,7 @@
 import { CAPITAL } from '../constants'
 
-export default (state = CAPITAL, action) => {
+export default (state = 0, action) => {
   switch (action.type) {
-    case 'bet':
-      return state - action.stake
-
-    case 'win':
-      return state + action.amount
-
     case 'lend':
       return state + CAPITAL
 
