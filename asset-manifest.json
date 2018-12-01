@@ -1,13 +1,13 @@
 {
-  "main.css": "/blackjack/static/css/main.270eb44a.chunk.css",
-  "main.js": "/blackjack/static/js/main.f859b72c.chunk.js",
-  "main.js.map": "/blackjack/static/js/main.f859b72c.chunk.js.map",
-  "static/js/1.c3b64bf8.chunk.js": "/blackjack/static/js/1.c3b64bf8.chunk.js",
-  "static/js/1.c3b64bf8.chunk.js.map": "/blackjack/static/js/1.c3b64bf8.chunk.js.map",
+  "main.css": "/blackjack/static/css/main.6fe81765.chunk.css",
+  "main.js": "/blackjack/static/js/main.e025651f.chunk.js",
+  "main.js.map": "/blackjack/static/js/main.e025651f.chunk.js.map",
+  "static/js/1.709c0995.chunk.js": "/blackjack/static/js/1.709c0995.chunk.js",
+  "static/js/1.709c0995.chunk.js.map": "/blackjack/static/js/1.709c0995.chunk.js.map",
   "runtime~main.js": "/blackjack/static/js/runtime~main.4ac6e23b.js",
   "runtime~main.js.map": "/blackjack/static/js/runtime~main.4ac6e23b.js.map",
-  "static/css/main.270eb44a.chunk.css.map": "/blackjack/static/css/main.270eb44a.chunk.css.map",
+  "static/css/main.6fe81765.chunk.css.map": "/blackjack/static/css/main.6fe81765.chunk.css.map",
   "index.html": "/blackjack/index.html",
-  "precache-manifest.2875d4acf0f6965eb61f93f7dbc2ce55.js": "/blackjack/precache-manifest.2875d4acf0f6965eb61f93f7dbc2ce55.js",
+  "precache-manifest.29cd1b8e4ce6aa0f4c55a136e7059f80.js": "/blackjack/precache-manifest.29cd1b8e4ce6aa0f4c55a136e7059f80.js",
   "service-worker.js": "/blackjack/service-worker.js"
 }
