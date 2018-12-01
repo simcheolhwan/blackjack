@@ -27,6 +27,7 @@
   > * {
     flex: none;
   }
+
   &.duplicated > * {
     width: 50%;
   }
@@ -41,4 +42,12 @@
   align-self: stretch;
   height: 50px;
   justify-content: space-between;
+}
+
+.capital {
+  @include flex();
+
+  > * {
+    margin-right: 15px;
+  }
 }

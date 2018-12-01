@@ -8,6 +8,12 @@ export default (state = CAPITAL, action) => {
     case 'win':
       return state + action.amount
 
+    case 'lend':
+      return state + CAPITAL
+
+    case 'payback':
+      return state - CAPITAL
+
     default:
       return state
   }

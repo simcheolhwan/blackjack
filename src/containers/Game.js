@@ -8,6 +8,7 @@ import Help from './Help'
 import Player from './Player'
 import Actions from './Actions'
 import Chips from './Chips'
+import Bank from './Bank'
 import Controls from './Controls'
 
 export default connect(
@@ -19,6 +20,7 @@ export default connect(
     replica: !!players['replica'].hand.length && <Player playerKey="replica" />,
     actions: <Actions playerKey={getCurrentPlayer(players)} />,
     chips: <Chips />,
+    bank: <Bank />,
     controls: <Controls />
   })
 )(Table)

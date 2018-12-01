@@ -13,6 +13,8 @@ export const startGame = () => (dispatch, getState) => {
 }
 
 export const resetGame = () => (dispatch, getState) => {
+  const { players, chips, debt } = getState()
+  dispatch({ type: 'record', payload: { players, chips, debt } })
   dispatch({ type: 'reset', player: 'dealer' })
   dispatch({ type: 'reset', player: 'primary' })
   dispatch({ type: 'reset', player: 'replica' })
@@ -25,10 +27,13 @@ export const bet = (playerKey, stake = MIN) => (dispatch, getState) => {
   isValid && dispatch({ type: 'bet', player: playerKey, stake })
 }
 
-export const win = amount => (dispatch, getState) => {
+export const win = () => (dispatch, getState) => {
   const { players } = getState()
-  dispatch({ type: 'win', amount: amount || getTotalReturn(players) })
+  dispatch({ type: 'win', amount: getTotalReturn(players) })
 }
+
+export const lend = () => ({ type: 'lend' })
+export const payback = () => ({ type: 'payback' })
 
 /* Player */
 export const draw = playerKey => (dispatch, getState) => {
