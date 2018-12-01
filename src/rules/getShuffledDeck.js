@@ -1,3 +1,4 @@
-import deck from './deck'
+import getDeck from './getDeck'
 import shuffle from './shuffle'
-export default () => shuffle(deck)
+import { DECK } from '../constants'
+export default (n = DECK) => shuffle(getDeck(n))
