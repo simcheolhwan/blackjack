@@ -8,7 +8,7 @@ const Number = ({ children }) => {
   return (
     <div className={style.number}>
       <span>{String(integer)}</span>
-      {!!decimal && <small>{String(decimal).slice(1)}</small>}
+      {integer < 1000 && !!decimal && <small>{String(decimal).slice(1)}</small>}
     </div>
   )
 }
