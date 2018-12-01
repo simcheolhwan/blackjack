@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { CAPITAL } from '../constants'
 import RemoveState from './RemoveState'
 
@@ -66,4 +66,4 @@ const style = {
   a: { textDecoration: 'none', marginLeft: 5 }
 }
 
-export default Help
+export default memo(Help)
