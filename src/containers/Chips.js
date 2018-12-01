@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actions from '../redux/actions'
-import { MIN } from '../constants'
+import { MIN, CAPITAL } from '../constants'
 import Box from '../components/Box'
 import Number from '../components/Number'
 
@@ -14,7 +14,7 @@ export default connect(
       !game.isPlaying && chips + players['primary'].stake < MIN
     return {
       children: <Number>{chips}</Number>,
-      onClick: canWithdraw ? () => win(100) : undefined
+      onClick: canWithdraw ? () => win(CAPITAL) : undefined
     }
   }
 )(Box)
