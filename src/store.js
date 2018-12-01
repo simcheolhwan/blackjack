@@ -2,7 +2,7 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
 import reducer from './redux/reducers'
 import { saveState, loadState } from './localStorage'
-import testState from './test'
+import testState from './testStore'
 
 const persistedState = testState() || loadState()
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
