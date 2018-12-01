@@ -1,0 +1,45 @@
+@import '../styles/styles';
+@import '../styles/colors';
+
+$height: 50px;
+
+.nav {
+  @include flex();
+  align-items: stretch;
+  height: $height;
+}
+
+.item {
+  @include flex();
+  flex: 1;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.active {
+  opacity: 1;
+}
+
+.content {
+  background-color: darken($olive, 25%);
+  padding: $gutter;
+  padding-top: 0;
+  overflow-y: auto;
+
+  position: absolute;
+  top: $height + $gutter;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+}
+
+.close {
+  margin: ($gutter * 2) auto $gutter;
+  padding: $gutter;
+  background-color: fade-out($white, 0.96);
+  color: fade-out($white, 0.5);
+  font-weight: bold;
+  text-transform: uppercase;
+  width: 200px;
+}

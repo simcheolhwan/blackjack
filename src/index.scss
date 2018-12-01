@@ -1,6 +1,8 @@
 @import './styles/colors';
 
-* {
+*,
+*:before,
+*:after {
   box-sizing: border-box;
 }
 
@@ -25,6 +27,7 @@ body {
     sans-serif;
   font-weight: bold;
   text-align: center;
+  text-transform: uppercase;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -36,12 +39,21 @@ ul {
   padding: 0;
 }
 
-ul {
+ul,
+li {
   list-style: none;
 }
 
 a {
   color: inherit;
+
+  &[target='_blank']::after {
+    content: ' ↗';
+  }
+}
+
+table {
+  border-collapse: collapse;
 }
 
 button {

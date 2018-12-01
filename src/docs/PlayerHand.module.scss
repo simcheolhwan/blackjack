@@ -1,0 +1,13 @@
+@import '../styles/styles';
+
+.module {
+  @include flex();
+}
+
+.hyphen {
+  margin: 0 5px;
+}
+
+.card {
+  padding: 1px;
+}

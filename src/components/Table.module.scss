@@ -12,7 +12,13 @@
   max-height: 800px;
   max-width: 540px;
   margin: 0 auto;
-  padding: 15px;
+  padding: $gutter;
+  position: relative;
+}
+
+.header {
+  align-self: stretch;
+  display: block;
 }
 
 .dealer {
@@ -28,7 +34,7 @@
     flex: none;
   }
 
-  &.duplicated > * {
+  &.two > * {
     width: 50%;
   }
 }
@@ -48,6 +54,6 @@
   @include flex();
 
   > * {
-    margin-right: 15px;
+    margin-right: $gutter;
   }
 }
