@@ -1,5 +1,6 @@
 import React from 'react'
 import { CAPITAL } from '../constants'
+import RemoveState from './RemoveState'
 
 const HELP = [
   '딜러의 차례가 되면 아래의 화살표 버튼으로 딜러의 카드를 뽑으십시오.',
@@ -15,31 +16,43 @@ const LINK = [
 ]
 
 const Help = () => (
-  <article style={style}>
-    <header style={style.header}>
-      <h1 style={style.title}>BLACKJACK</h1>
-    </header>
+  <RemoveState
+    render={({ increase, hasRemoved }) => (
+      <article style={style}>
+        <header style={style.header}>
+          <h1
+            style={{
+              ...style.title,
+              textDecoration: hasRemoved && 'line-through'
+            }}
+            onClick={increase}
+          >
+            BLACKJACK
+          </h1>
+        </header>
 
-    <ul style={style.description}>
-      {HELP.map((text, index) => (
-        <li key={index}>{text}</li>
-      ))}
-    </ul>
+        <ul style={style.description}>
+          {HELP.map((text, index) => (
+            <li key={index}>{text}</li>
+          ))}
+        </ul>
 
-    <footer style={style.footer}>
-      {LINK.map(({ href, label }) => (
-        <a
-          href={href}
-          target="_blank"
-          rel="noopener noreferrer"
-          style={style.a}
-          key={label}
-        >
-          {label} ↗︎
-        </a>
-      ))}
-    </footer>
-  </article>
+        <footer style={style.footer}>
+          {LINK.map(({ href, label }) => (
+            <a
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={style.a}
+              key={label}
+            >
+              {label} ↗︎
+            </a>
+          ))}
+        </footer>
+      </article>
+    )}
+  />
 )
 
 const style = {
