@@ -7,7 +7,7 @@ const Box = ({ title, footer, children, onClick }) => (
     className={classNames(style.box, onClick && style.clickable)}
     onClick={onClick}
   >
-    <div className={style.content}>{children}</div>
+    {children}
   </div>
 )
 
