@@ -14,7 +14,9 @@ export default connect(
   ({ players, game }, { bet }, { playerKey }) => {
     const { stake } = players[playerKey]
     const isDealer = playerKey === 'dealer'
-    const onBoxClick = () => !game.isPlaying && bet(playerKey, -1 * stake)
+    const onBoxClick =
+      !!stake && !game.isPlaying ? () => bet(playerKey, -1 * stake) : undefined
+
     return {
       result: getResult(players, playerKey),
       hand: <Hand playerKey={playerKey} />,
