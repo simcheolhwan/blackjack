@@ -6,10 +6,10 @@ const Number = ({ children }) => {
   const decimal = children - integer
 
   return (
-    <div className={style.number}>
+    <span className={style.number}>
       <span>{String(integer)}</span>
       {integer < 1000 && !!decimal && <small>{String(decimal).slice(1)}</small>}
-    </div>
+    </span>
   )
 }
 

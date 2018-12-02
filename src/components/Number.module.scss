@@ -1,11 +1,6 @@
 @import '../styles/styles';
 
-.number {
-  @include flex();
-  align-items: flex-end;
-
-  small {
-    font-size: 50%;
-    color: fade-out(white, 0.5);
-  }
+.number small {
+  font-size: 50%;
+  color: fade-out(white, 0.5);
 }
