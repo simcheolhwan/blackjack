@@ -1,4 +1,5 @@
 import React, { Component, createRef } from 'react'
+import classNames from 'classnames'
 import style from './Line.module.scss'
 import Number from './Number'
 
@@ -11,11 +12,19 @@ class Line extends Component {
     this.setState({ width: width - 50 })
   }
 
-  calcBarWidth = () => {
-    const { chips, max } = this.props
+  calcBarWidth = amount => {
+    const { max } = this.props
     const { width } = this.state
-    return width * (chips / max)
+    return width * (amount / max) || 0
   }
+
+  renderBar = ([n, color], index) => (
+    <div
+      className={classNames(style.bar, style[color])}
+      style={{ width: this.calcBarWidth(n) }}
+      key={index}
+    />
+  )
 
   render() {
     const { index, chips, debt } = this.props
@@ -25,7 +34,8 @@ class Line extends Component {
         <span className={style.index}>{index}</span>
 
         <div className={style.track} ref={this.track}>
-          <div className={style.bar} style={{ width: this.calcBarWidth() }} />
+          {[[debt, 'red'], [chips, 'green']].map(this.renderBar)}
+
           <span className={style.number}>
             <Number>{chips}</Number>
           </span>

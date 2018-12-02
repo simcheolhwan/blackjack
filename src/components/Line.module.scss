@@ -24,8 +24,16 @@
   flex: 1;
 
   .bar {
-    background-color: darken($olive, 5%);
     height: 8px;
+  }
+
+  .green {
+    background-color: darken($olive, 5%);
+  }
+
+  .red {
+    background-color: fade-out($red, 0.8);
+    position: absolute;
   }
 
   .number {
@@ -33,6 +41,7 @@
     padding-left: 5px;
     text-align: left;
     width: $height;
+    z-index: 1;
   }
 }
 

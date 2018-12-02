@@ -14,8 +14,8 @@ const History = ({ history, max, debt, close }) => (
   </article>
 )
 
-export default connect(({ history, debt }) => ({
-  history,
-  debt,
-  max: history.length ? Math.max(...history.map(({ chips }) => chips)) : 0
-}))(History)
+export default connect(({ history, debt }) => {
+  const reduceMax = (acc, { chips, debt }) => [...acc, chips, debt]
+  const max = history.length ? Math.max(...history.reduce(reduceMax, [])) : 0
+  return { history, debt, max }
+})(History)
