@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actions from '../redux/actions'
 import { UNIT } from '../constants'
-import Box from '../components/Box'
+import Wager from '../components/Wager'
 import Number from '../components/Number'
 
 export default connect(
@@ -16,4 +16,4 @@ export default connect(
       onClick: canLend ? () => lend() : undefined
     }
   }
-)(Box)
+)(Wager)

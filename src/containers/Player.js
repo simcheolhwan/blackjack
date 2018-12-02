@@ -5,7 +5,7 @@ import * as actions from '../redux/actions'
 import { getCurrentPlayer } from '../rules/check'
 import getResult from '../rules/getResult'
 import Player from '../components/Player'
-import Box from '../components/Box'
+import Wager from '../components/Wager'
 import Hand from './Hand'
 
 export default connect(
@@ -14,13 +14,13 @@ export default connect(
   ({ players, game }, { bet }, { playerKey }) => {
     const { stake } = players[playerKey]
     const isDealer = playerKey === 'dealer'
-    const onBoxClick =
+    const onWagerClick =
       !!stake && !game.isPlaying ? () => bet(playerKey, -1 * stake) : undefined
 
     return {
       result: getResult(players, playerKey),
       hand: <Hand playerKey={playerKey} />,
-      bet: <Box onClick={onBoxClick}>{stake}</Box>,
+      bet: <Wager onClick={onWagerClick}>{stake}</Wager>,
       isDealer,
       small: !!players['replica'].hand.length,
       active:
