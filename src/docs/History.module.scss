@@ -1,5 +1,4 @@
 @import '../styles/styles';
-@import '../styles/colors';
 
 .article {
   padding: $gutter;
@@ -7,35 +6,4 @@
 
 .record {
   margin-bottom: $gutter;
-}
-
-.line {
-  @include flex();
-  justify-content: flex-start;
-  align-items: stretch;
-  margin-bottom: 4px;
-  padding-right: 50px;
-}
-
-.index {
-  flex: none;
-  color: darken($olive, 5%);
-  text-align: right;
-  margin-right: 5px;
-  width: 40px;
-}
-
-.track {
-  @include flex();
-  justify-content: flex-start;
-  flex: 1;
-}
-
-.bar {
-  background-color: darken($olive, 5%);
-  height: 100%;
-}
-
-.number {
-  margin-left: 5px;
 }

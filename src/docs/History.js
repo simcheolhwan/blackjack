@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import style from './History.module.scss'
+import Chart from './Chart'
 
 const History = ({ history, max, debt, close }) => (
   <article className={style.article}>
@@ -9,23 +10,7 @@ const History = ({ history, max, debt, close }) => (
     </header>
 
     <ul className={style.chart}>
-      {history
-        .slice(-1000)
-        .reverse()
-        .map(({ chips, debt }, index) => (
-          <li className={style.line} key={index}>
-            <span className={style.index}>
-              {history.slice(-1000).length - index}
-            </span>
-            <div className={style.track}>
-              <div
-                className={style.bar}
-                style={{ width: (100 * chips) / max + '%' }}
-              />
-              <span className={style.number}>{chips}</span>
-            </div>
-          </li>
-        ))}
+      <Chart max={max}>{history.slice(-1000).reverse()}</Chart>
     </ul>
 
     {close}
