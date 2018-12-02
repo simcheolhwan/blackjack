@@ -23,12 +23,14 @@ class Line extends Component {
     return (
       <div className={style.line}>
         <span className={style.index}>{index}</span>
+
         <div className={style.track} ref={this.track}>
           <div className={style.bar} style={{ width: this.calcBarWidth() }} />
           <span className={style.number}>
             <Number>{chips}</Number>
           </span>
         </div>
+
         <span className={style.debt}>{!!debt && -1 * debt}</span>
       </div>
     )
