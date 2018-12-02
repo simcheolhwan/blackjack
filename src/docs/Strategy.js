@@ -1,6 +1,6 @@
 import React from 'react'
 import style from './Strategy.module.scss'
-import PlayerHand from './PlayerHand'
+import PlayerHand from '../components/PlayerHand'
 
 const Strategy = ({ close }) => (
   <article className={style.article}>

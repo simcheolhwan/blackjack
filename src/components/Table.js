@@ -4,12 +4,10 @@ import style from './Table.module.scss'
 
 const Table = props => {
   const { dealer, primary, replica } = props
-  const { header, chips, bank, actions, controls } = props
+  const { chips, bank, actions, controls } = props
 
   return (
     <main className={style.table}>
-      <header className={style.header}>{header}</header>
-
       <section className={style.dealer}>{dealer}</section>
       <section className={classNames(style.players, replica && style.two)}>
         {replica && <section>{replica}</section>}

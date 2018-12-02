@@ -3,11 +3,11 @@
 .player {
   > * {
     @include flex();
-    height: 50px;
+    height: $height;
   }
 
   .hand {
-    height: 100px;
+    height: 2 * $height;
   }
 
   &:not(.active) {

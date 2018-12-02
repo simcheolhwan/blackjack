@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import style from './PlayerHand.module.scss'
-import Card from '../components/Card'
+import Card from './Card'
 
 const PlayerHand = ({ children }) => {
   const renderItem = (v, index) => {

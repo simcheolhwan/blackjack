@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import style from './History.module.scss'
-import Chart from './Chart'
+import Chart from '../components/Chart'
 
 const History = ({ history, max, debt, close }) => (
   <article className={style.article}>
@@ -9,10 +9,7 @@ const History = ({ history, max, debt, close }) => (
       {history.length} Games | Record {max} | Debt {debt}
     </header>
 
-    <ul className={style.chart}>
-      <Chart max={max}>{history.slice(-1000).reverse()}</Chart>
-    </ul>
-
+    <Chart max={max}>{history.slice(-1000).reverse()}</Chart>
     {close}
   </article>
 )

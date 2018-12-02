@@ -40,13 +40,13 @@
 }
 
 .actions {
-  height: 100px;
+  height: 2 * $height;
 }
 
 .footer {
   flex: none;
   align-self: stretch;
-  height: 50px;
+  height: $height;
   justify-content: space-between;
 }
 

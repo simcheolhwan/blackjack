@@ -1,12 +1,16 @@
 @import '../styles/styles';
 @import '../styles/colors';
 
-$height: 50px;
-
 .nav {
   @include flex();
   align-items: stretch;
   height: $height;
+
+  background-color: darken($olive, 25%);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 
 .item {
@@ -21,17 +25,9 @@ $height: 50px;
 }
 
 .content {
-  background-color: darken($olive, 25%);
+  height: 100%;
   padding: $gutter;
   padding-top: 0;
-  overflow-y: auto;
-
-  position: absolute;
-  top: $height + $gutter;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 1;
 }
 
 .close {

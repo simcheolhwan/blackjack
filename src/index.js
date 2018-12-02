@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import store from './store'
 import './index.scss'
-import Game from './containers/Game'
+import Game from './Game'
 import * as serviceWorker from './serviceWorker'
 
 ReactDOM.render(

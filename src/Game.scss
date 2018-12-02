@@ -1,0 +1,21 @@
+@import './styles/styles';
+@import './styles/colors';
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background-color: darken($olive, 25%);
+  color: $white;
+  font-weight: bold;
+  padding-top: $height;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+a[target='_blank']::after {
+  content: ' ↗';
+}

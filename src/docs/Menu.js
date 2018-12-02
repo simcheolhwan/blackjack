@@ -30,6 +30,7 @@ class Menu extends Component {
   }
 
   render() {
+    const { table } = this.props
     const { currentMenuIndex } = this.state
     const close = (
       <button className={style.close} onClick={this.close}>
@@ -48,7 +49,11 @@ class Menu extends Component {
     return (
       <>
         <nav className={style.nav}>{menu.map(this.renderMenuItem)}</nav>
-        {render && <div className={style.content}>{render()}</div>}
+        {Number.isInteger(currentMenuIndex) ? (
+          <div className={style.content}>{render()}</div>
+        ) : (
+          table
+        )}
       </>
     )
   }
