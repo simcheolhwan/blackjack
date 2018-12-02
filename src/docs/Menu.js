@@ -48,7 +48,10 @@ class Menu extends Component {
 
     return (
       <>
-        <nav className={style.nav}>{menu.map(this.renderMenuItem)}</nav>
+        <nav className={style.nav}>
+          <ul className={style.menu}>{menu.map(this.renderMenuItem)}</ul>
+        </nav>
+
         {Number.isInteger(currentMenuIndex) ? (
           <div className={style.content}>{render()}</div>
         ) : (

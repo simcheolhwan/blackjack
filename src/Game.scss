@@ -3,14 +3,21 @@
 
 html,
 body,
-#root {
+#game {
   height: 100%;
+}
+
+#game {
+  margin: 0 auto;
+  max-width: $game;
+  max-height: 800px;
 }
 
 body {
   background-color: darken($olive, 25%);
   color: $white;
   font-weight: bold;
+  padding: $gutter;
   padding-top: $height;
   text-align: center;
   text-transform: uppercase;

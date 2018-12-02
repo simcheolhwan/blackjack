@@ -2,15 +2,20 @@
 @import '../styles/colors';
 
 .nav {
-  @include flex();
-  align-items: stretch;
-  height: $height;
-
   background-color: darken($olive, 25%);
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
+}
+
+.menu {
+  @include flex();
+  align-items: stretch;
+  height: $height;
+
+  margin: 0 auto;
+  max-width: $game;
 }
 
 .item {
