@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/blackjack/precache-manifest.f1f0601d44d720d964c1ff7c259d547b.js"
+  "/blackjack/precache-manifest.8530c17e9a669fa904028a03b2aca9a1.js"
 );
 
 workbox.clientsClaim();
