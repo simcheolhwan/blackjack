@@ -13,11 +13,11 @@ $height: 50px;
   @include flex();
   flex: 1;
   cursor: pointer;
-  opacity: 0.5;
+  color: fade-out($white, 0.5);
 }
 
 .active {
-  opacity: 1;
+  color: $white;
 }
 
 .content {
