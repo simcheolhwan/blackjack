@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { getTotalResult } from '../rules/getResult'
 import style from './History.module.scss'
 import Chart from '../components/Chart'
 
@@ -10,6 +11,7 @@ const History = ({ history, max, debt, close }) => (
     </header>
 
     <Chart max={max}>{history.slice(-1000).reverse()}</Chart>
+
     {close}
   </article>
 )
@@ -17,5 +19,12 @@ const History = ({ history, max, debt, close }) => (
 export default connect(({ history, debt }) => ({
   history,
   debt,
-  max: history.length ? Math.max(...history.map(({ chips }) => chips)) : 0
+  max: history.length ? Math.max(...history.map(({ chips }) => chips)) : 0,
+  rates: getRates(history)
 }))(History)
+
+/* helpers */
+const getRates = history => {
+  const result = history.map(({ players }) => getTotalResult(players))
+  return result
+}

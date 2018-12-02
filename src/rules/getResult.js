@@ -34,11 +34,12 @@ export const getResult = (players, playerKey) => {
     bust: 'WIN'
   }
 
-  return (
+  const result =
     byPlayer[player.status] ||
     byDealer[dealer.status] ||
-    (dealer.status === 'stay' ? compare() : '')
-  )
+    (dealer.status === 'stay' && compare())
+
+  return !!player.hand.length ? result : ''
 }
 
 const prize = { BLACKJACK: 2.5, WIN: 2, DRAW: 1, SURRENDER: 0.5, LOSE: 0 }
@@ -49,6 +50,14 @@ export const getReturn = (players, playerKey) => {
 
 export const getTotalReturn = players => {
   const reducer = (coin, playerKey) => coin + getReturn(players, playerKey)
+  return ['primary', 'replica'].reduce(reducer, 0)
+}
+
+export const getTotalResult = players => {
+  const reducer = (result, playerKey) => {
+    console.log(playerKey, getResult(players, playerKey))
+    return result + prize[getResult(players, playerKey)] || 0
+  }
   return ['primary', 'replica'].reduce(reducer, 0)
 }
 
