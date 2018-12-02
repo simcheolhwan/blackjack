@@ -18,7 +18,7 @@ body {
   color: $white;
   font-weight: bold;
   padding: $gutter;
-  padding-top: $height;
+  padding-top: $gutter + $height;
   text-align: center;
   text-transform: uppercase;
 }

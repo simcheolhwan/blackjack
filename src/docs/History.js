@@ -5,7 +5,7 @@ import Chart from '../components/Chart'
 
 const History = ({ history, max, debt, close }) => (
   <article className={style.article}>
-    <header className={style.record}>
+    <header className={style.header}>
       {history.length} Games | Record {max} | Debt {debt}
     </header>
 
