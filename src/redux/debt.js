@@ -1,12 +1,12 @@
-import { CAPITAL } from '../constants'
+import { SEED } from '../constants'
 
 export default (state = 0, action) => {
   switch (action.type) {
     case 'lend':
-      return state + CAPITAL
+      return state + SEED
 
     case 'payback':
-      return state - CAPITAL
+      return state - SEED
 
     default:
       return state

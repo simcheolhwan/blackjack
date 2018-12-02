@@ -1,6 +1,6 @@
 import getStatus from '../rules/getStatus'
 import { getTotalReturn } from '../rules/getResult'
-import { MIN } from '../constants'
+import { UNIT } from '../constants'
 
 /* Game */
 export const startGame = () => (dispatch, getState) => {
@@ -21,7 +21,7 @@ export const resetGame = () => (dispatch, getState) => {
 }
 
 /* Bet */
-export const bet = (playerKey, stake = MIN) => (dispatch, getState) => {
+export const bet = (playerKey, stake = UNIT) => (dispatch, getState) => {
   const { chips } = getState()
   const isValid = chips >= stake
   isValid && dispatch({ type: 'bet', player: playerKey, stake })

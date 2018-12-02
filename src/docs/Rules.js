@@ -1,5 +1,5 @@
 import React from 'react'
-import { DECK, CAPITAL } from '../constants'
+import { DECK, SEED } from '../constants'
 import style from './Rules.module.scss'
 
 const RULES = [
@@ -16,7 +16,7 @@ const RULES = [
     [
       '게임이 시작되기 전에 베팅 영역을 누르면 베팅을 한꺼번에 취소합니다.',
       '딜러의 차례가 되면 맨 아래의 화살표 버튼으로 딜러의 카드를 뽑으십시오.',
-      `칩을 모두 잃었을 때 칩 상자를 누르면 ${CAPITAL}을 새로 빌립니다.`,
+      `칩을 모두 잃었을 때 칩 상자를 누르면 ${SEED}을 새로 빌립니다.`,
       '칩이 충분할 때 빚 영역을 누르면 빚을 갚을 수 있습니다.',
       '이 게임은 오프라인에서도 동작합니다!'
     ]
