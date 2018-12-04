@@ -5,6 +5,9 @@ export default (state = [], action) => {
     case 'record':
       return [...state.slice(-1 * HISTORY), action.payload]
 
+    case 'clear':
+      return []
+
     default:
       return state
   }

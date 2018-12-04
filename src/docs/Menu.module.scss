@@ -32,14 +32,14 @@
 
 .content {
   height: 100%;
-}
 
-.close {
-  margin: ($gutter * 2) auto $gutter;
-  padding: $gutter;
-  background-color: fade-out($white, 0.96);
-  color: fade-out($white, 0.5);
-  font-weight: bold;
-  text-transform: uppercase;
-  width: 200px;
+  button {
+    margin: ($gutter * 2) auto $gutter;
+    padding: $gutter;
+    background-color: fade-out($white, 0.96);
+    color: fade-out($white, 0.5);
+    font-weight: bold;
+    text-transform: uppercase;
+    width: 200px;
+  }
 }

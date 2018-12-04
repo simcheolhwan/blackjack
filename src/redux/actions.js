@@ -2,6 +2,16 @@ import getStatus from '../rules/getStatus'
 import { getTotalReturn } from '../rules/getResult'
 import { UNIT } from '../constants'
 
+/* Trip */
+export const enter = () => dispatch => {
+  dispatch(resetChips())
+}
+
+export const leave = () => (dispatch, getState) => {
+  const { history } = getState()
+  dispatch(resetGame('trips', history))
+}
+
 /* Game */
 export const startGame = () => (dispatch, getState) => {
   const { players } = getState()
@@ -12,12 +22,16 @@ export const startGame = () => (dispatch, getState) => {
   !players['dealer'].hand.length && dispatch(draw('dealer'))
 }
 
-export const resetGame = () => (dispatch, getState) => {
-  const { players, chips, debt } = getState()
-  dispatch({ type: 'record', payload: { players, chips, debt } })
-  dispatch({ type: 'reset', name: 'dealer' })
-  dispatch({ type: 'reset', name: 'primary' })
-  dispatch({ type: 'reset', name: 'replica' })
+export const resetGame = (name = 'history', history) => {
+  return (dispatch, getState) => {
+    const { players, chips, debt } = getState()
+    const payload = history || { players, chips, debt }
+    history && dispatch({ type: 'clear', name: 'history' })
+    dispatch({ type: 'record', name, payload })
+    dispatch({ type: 'reset', name: 'dealer' })
+    dispatch({ type: 'reset', name: 'primary' })
+    dispatch({ type: 'reset', name: 'replica' })
+  }
 }
 
 /* Bet */
@@ -34,6 +48,7 @@ export const win = () => (dispatch, getState) => {
 
 export const lend = () => ({ type: 'lend' })
 export const payback = () => ({ type: 'payback' })
+export const resetChips = () => ({ type: 'chips/reset' })
 
 /* Player */
 export const draw = playerKey => (dispatch, getState) => {

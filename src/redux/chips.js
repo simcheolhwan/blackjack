@@ -14,6 +14,9 @@ export default (state = SEED, action) => {
     case 'payback':
       return state - SEED
 
+    case 'chips/reset':
+      return SEED
+
     default:
       return state
   }
