@@ -3,14 +3,13 @@ import { connect } from 'react-redux'
 import style from './History.module.scss'
 import Chart from '../components/Chart'
 
-const History = ({ history, max, debt, close }) => (
+const History = ({ history, max, debt }) => (
   <article className={style.article}>
     <header className={style.header}>
       {history.length} Games | Record {max} | Debt {debt}
     </header>
 
     <Chart max={max}>{history.slice(-1000).reverse()}</Chart>
-    {close}
   </article>
 )
 

@@ -43,7 +43,7 @@ const LINKS = [
 
 const anchorAttrs = { target: '_blank', rel: 'noopener noreferrer' }
 
-const Rules = ({ close }) => (
+const Rules = () => (
   <main className={style.rules}>
     <section>
       {RULES.map(([title, list]) => (
@@ -56,7 +56,6 @@ const Rules = ({ close }) => (
           </ul>
         </article>
       ))}
-      {close}
     </section>
 
     <footer className={style.author}>

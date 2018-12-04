@@ -2,7 +2,7 @@ import React from 'react'
 import style from './Strategy.module.scss'
 import PlayerHand from '../components/PlayerHand'
 
-const Strategy = ({ close }) => (
+const Strategy = () => (
   <article className={style.article}>
     <table className={style.table}>
       <tbody>
@@ -400,8 +400,6 @@ const Strategy = ({ close }) => (
         en.wikipedia.org/wiki/Blackjack#Basic_strategy
       </a>
     </p>
-
-    {close}
   </article>
 )
 

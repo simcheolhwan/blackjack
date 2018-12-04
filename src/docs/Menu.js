@@ -32,16 +32,11 @@ class Menu extends Component {
   render() {
     const { table } = this.props
     const { currentMenuIndex } = this.state
-    const close = (
-      <button className={style.close} onClick={this.close}>
-        Close
-      </button>
-    )
 
     const menu = [
-      { name: 'Rules', render: () => <Rules close={close} /> },
-      { name: 'Strategy', render: () => <Strategy close={close} /> },
-      { name: 'History', render: () => <History close={close} /> }
+      { name: 'Rules', render: () => <Rules /> },
+      { name: 'Strategy', render: () => <Strategy /> },
+      { name: 'History', render: () => <History /> }
     ]
 
     const { render } = menu[currentMenuIndex] || {}
@@ -53,7 +48,13 @@ class Menu extends Component {
         </nav>
 
         {Number.isInteger(currentMenuIndex) ? (
-          <div className={style.content}>{render()}</div>
+          <div className={style.content}>
+            {render()}
+
+            <button className={style.close} onClick={this.close}>
+              Close
+            </button>
+          </div>
         ) : (
           table
         )}
