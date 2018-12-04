@@ -20,7 +20,11 @@ export default connect(
     return {
       result: getResult(players, playerKey),
       hand: <Hand playerKey={playerKey} />,
-      bet: <Wager onClick={onWagerClick}>{stake}</Wager>,
+      bet: (
+        <Wager large={stake > 9999} onClick={onWagerClick}>
+          {stake}
+        </Wager>
+      ),
       isDealer,
       small: !!players['replica'].hand.length,
       active:

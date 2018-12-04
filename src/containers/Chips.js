@@ -12,6 +12,7 @@ export default connect(
   ({ chips, players, game }, { lend }) => {
     const canLend = !game.isPlaying && chips + players['primary'].stake < UNIT
     return {
+      large: chips > 9999,
       children: <Finite>{chips}</Finite>,
       onClick: canLend ? () => lend() : undefined
     }
