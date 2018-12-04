@@ -1,0 +1,14 @@
+@import '../styles/styles';
+
+.trip {
+  @include flex();
+  justify-content: space-between;
+  align-items: flex-start;
+
+  border-bottom: 1px solid fade-out(white, 0.5);
+  padding: $gutter;
+}
+
+.first {
+  border-top: 1px solid fade-out(white, 0.5);
+}

@@ -34,12 +34,20 @@
   height: 100%;
 
   button {
-    margin: ($gutter * 2) auto $gutter;
+    margin: $gutter auto $gutter;
     padding: $gutter;
     background-color: fade-out($white, 0.96);
     color: fade-out($white, 0.5);
     font-weight: bold;
     text-transform: uppercase;
     width: 200px;
+
+    &:disabled {
+      text-decoration: line-through;
+    }
+  }
+
+  .close {
+    margin-top: $gutter * 2;
   }
 }

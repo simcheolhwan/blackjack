@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import classNames from 'classnames'
 import style from './Menu.module.scss'
-import NewGame from './NewGame'
 import Rules from './Rules'
 import Strategy from './Strategy'
+import Trips from './Trips'
 import History from './History'
+import NewGame from './NewGame'
 
 class Menu extends Component {
   state = { currentMenuIndex: null }
@@ -33,12 +34,13 @@ class Menu extends Component {
   render() {
     const { table } = this.props
     const { currentMenuIndex } = this.state
+    const newGame = <NewGame onReset={this.close} />
 
     const menu = [
-      { name: 'Casino', render: () => <NewGame onReset={this.close} /> },
       { name: 'Rules', render: () => <Rules /> },
       { name: 'Strategy', render: () => <Strategy /> },
-      { name: 'History', render: () => <History /> }
+      { name: 'History', render: () => <History /> },
+      { name: 'Trips', render: () => <Trips button={newGame} /> }
     ]
 
     const { render } = menu[currentMenuIndex] || {}
@@ -53,7 +55,9 @@ class Menu extends Component {
           <div className={style.content}>
             {render()}
 
-            <button onClick={this.close}>Close</button>
+            <button className={style.close} onClick={this.close}>
+              Close
+            </button>
           </div>
         ) : (
           table
