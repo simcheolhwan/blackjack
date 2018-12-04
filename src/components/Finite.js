@@ -1,8 +1,8 @@
 import React from 'react'
 import classNames from 'classnames'
-import style from './Number.module.scss'
+import style from './Finite.module.scss'
 
-const Number = ({ children }) => {
+const Finite = ({ children }) => {
   const integer = Math.floor(children)
   const decimal = children - integer
 
@@ -14,4 +14,4 @@ const Number = ({ children }) => {
   )
 }
 
-export default Number
+export default Finite

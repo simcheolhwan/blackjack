@@ -1,7 +1,7 @@
 import React, { Component, createRef } from 'react'
 import classNames from 'classnames'
 import style from './Line.module.scss'
-import Number from './Number'
+import Finite from './Finite'
 
 class Line extends Component {
   track = createRef()
@@ -37,7 +37,7 @@ class Line extends Component {
           {[[debt, 'red'], [chips, 'green']].map(this.renderBar)}
 
           <span className={style.number}>
-            <Number>{chips}</Number>
+            <Finite>{chips}</Finite>
           </span>
         </div>
 

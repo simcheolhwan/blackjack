@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 import * as actions from '../redux/actions'
 import { UNIT } from '../constants'
 import Wager from '../components/Wager'
-import Number from '../components/Number'
+import Finite from '../components/Finite'
 
 export default connect(
   state => state,
@@ -12,7 +12,7 @@ export default connect(
   ({ chips, players, game }, { lend }) => {
     const canLend = !game.isPlaying && chips + players['primary'].stake < UNIT
     return {
-      children: <Number>{chips}</Number>,
+      children: <Finite>{chips}</Finite>,
       onClick: canLend ? () => lend() : undefined
     }
   }
