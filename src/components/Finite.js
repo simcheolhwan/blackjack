@@ -1,5 +1,4 @@
 import React from 'react'
-import classNames from 'classnames'
 import style from './Finite.module.scss'
 
 const Finite = ({ children }) => {
@@ -7,7 +6,7 @@ const Finite = ({ children }) => {
   const decimal = children - integer
 
   return (
-    <span className={classNames(style.number, integer > 9999 && style.large)}>
+    <span className={style.number}>
       <span>{String(integer)}</span>
       {integer < 1000 && !!decimal && <small>{String(decimal).slice(1)}</small>}
     </span>

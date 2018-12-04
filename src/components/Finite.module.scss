@@ -1,12 +1,6 @@
 @import '../styles/styles';
 
-.number {
-  &.large {
-    font-size: 80%;
-  }
-
-  small {
-    font-size: 50%;
-    color: fade-out(white, 0.5);
-  }
+.number small {
+  font-size: 50%;
+  color: fade-out(white, 0.5);
 }
