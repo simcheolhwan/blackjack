@@ -1,6 +1,7 @@
 import React from 'react'
 import { DECK, SEED } from '../constants'
 import style from './Rules.module.scss'
+import Inspector from './Inspector'
 
 const RULES = [
   [
@@ -44,28 +45,32 @@ const LINKS = [
 const anchorAttrs = { target: '_blank', rel: 'noopener noreferrer' }
 
 const Rules = () => (
-  <main className={style.rules}>
-    <section>
-      {RULES.map(([title, list]) => (
-        <article className={style.article} key={title}>
-          <h1 className={style.title}>{title}</h1>
-          <ul className={style.description}>
-            {list.map((text, index) => (
-              <li key={index}>{text}</li>
-            ))}
-          </ul>
-        </article>
-      ))}
-    </section>
+  <Inspector>
+    {({ increase }) => (
+      <main className={style.rules} onClick={increase}>
+        <section>
+          {RULES.map(([title, list]) => (
+            <article className={style.article} key={title}>
+              <h1 className={style.title}>{title}</h1>
+              <ul className={style.description}>
+                {list.map((text, index) => (
+                  <li key={index}>{text}</li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </section>
 
-    <footer className={style.author}>
-      {LINKS.map(({ href, label }) => (
-        <a href={href} className={style.a} {...anchorAttrs} key={label}>
-          {label}
-        </a>
-      ))}
-    </footer>
-  </main>
+        <footer className={style.author}>
+          {LINKS.map(({ href, label }) => (
+            <a href={href} className={style.a} {...anchorAttrs} key={label}>
+              {label}
+            </a>
+          ))}
+        </footer>
+      </main>
+    )}
+  </Inspector>
 )
 
 export default Rules
