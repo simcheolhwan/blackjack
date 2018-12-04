@@ -1,4 +1,4 @@
-export default (n, debt) => history => {
+export default (n = 0, debt) => history => {
   const reduceMax = (acc, { chips, debt }) => [...acc, chips, debt]
   const { length } = history
   const max = length ? Math.max(...history.reduce(reduceMax, [])) : 0

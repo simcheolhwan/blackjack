@@ -16,7 +16,7 @@ class Trips extends Component {
 
     return (
       <li onClick={onClick} key={index}>
-        <Trip {...trip} index={index} />
+        <Trip {...trip} title={this.props.trips.length - index} />
       </li>
     )
   }
@@ -39,5 +39,9 @@ class Trips extends Component {
   }
 }
 
-const mapStateToProps = ({ trips }) => ({ trips: trips.map(selector(50)) })
-export default connect(mapStateToProps)(Trips)
+export default connect(({ trips }) => ({
+  trips: trips
+    .slice(-100)
+    .reverse()
+    .map(selector())
+}))(Trips)
