@@ -10,7 +10,7 @@ const Front = () => (
         className={classNames(style.title, hasRemoved && style.lineThrough)}
         onClick={increase}
       >
-        BLACKJACK
+        {process.env.REACT_APP_TITLE}
       </h1>
     )}
   />
