@@ -1,10 +1,9 @@
-import React, { Component, createRef } from 'react'
+import React, { Component } from 'react'
 import { loadState, saveState, removeState } from '../localStorage'
 
 const TRIGGER = 10
 class Inspector extends Component {
-  copyRef = createRef()
-  state = { count: 0, copy: false, restore: false, remove: false, data: '' }
+  state = { count: 0, restore: false, remove: false, data: '' }
 
   increase = () => {
     this.setState(({ count }) => ({ count: count + 1 }))
@@ -14,15 +13,9 @@ class Inspector extends Component {
     this.setState({ data: event.target.value })
   }
 
-  copy = () => {
-    this.copyRef.current.select()
-    document.execCommand('copy')
-    this.setState({ copy: true })
-  }
-
   restore = () => {
     const { data } = this.state
-    data && saveState(data)
+    data && saveState(JSON.parse(data))
     data && this.setState({ restore: true })
   }
 
@@ -31,23 +24,15 @@ class Inspector extends Component {
     this.setState({ remove: true })
   }
 
-  renderButton = label => (
-    <button onClick={this[label.toLowerCase()]} key={label}>
-      {label}
-    </button>
-  )
-
   render() {
     const { count, data } = this.state
 
     return count >= TRIGGER ? (
       <article>
-        <section>
-          {['Copy', 'Restore', 'Remove'].map(this.renderButton)}
-        </section>
-
-        <input ref={this.copyRef} defaultValue={JSON.stringify(loadState())} />
-        <input value={data} onChange={this.handleChange} />
+        <textarea defaultValue={JSON.stringify(loadState())} rows={1} />
+        <textarea value={data} onChange={this.handleChange} rows={1} />
+        <button onClick={this.restore}>Restore</button>
+        <button onClick={this.remove}>Remove</button>
       </article>
     ) : (
       this.props.children({ increase: this.increase })

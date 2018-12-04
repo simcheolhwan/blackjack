@@ -34,18 +34,22 @@
   height: 100%;
 
   button,
-  input {
+  input,
+  textarea {
     margin: $gutter auto $gutter;
     padding: $gutter;
     background-color: fade-out($white, 0.96);
     color: fade-out($white, 0.5);
     font-weight: bold;
-    text-transform: uppercase;
     width: 200px;
 
     &:disabled {
       text-decoration: line-through;
     }
+  }
+
+  button {
+    text-transform: uppercase;
   }
 
   .close {
