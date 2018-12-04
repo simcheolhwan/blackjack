@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actions from '../redux/actions'
 import check, { isInit } from '../rules/check'
-import { BET } from '../constants'
+import { getBets } from '../constants'
 import ButtonGroup from '../components/ButtonGroup'
 
 export default connect(
@@ -42,7 +42,7 @@ export default connect(
             onClick: () => draw(playerKey)
           }
         ]
-      : BET.map(n => ({
+      : getBets(chips).map(n => ({
           children: String(n),
           disabled: chips < n,
           onClick: () => bet(playerKey, n)
