@@ -3,7 +3,7 @@ import { getResults } from './game'
 describe('게임', () => {
   describe('일반', () => {
     test('stay', () => {
-      const player = [{ stake: 2, hand: [10, 5, 6] }]
+      const player = [{ hand: [10, 5, 6], bet: 2 }]
       const results = getResults({ player, dealer: [7, 9, 10] }, 0)
       expect(results.result).toBe(1)
       expect(results.prize).toBe(2)
@@ -11,7 +11,7 @@ describe('게임', () => {
     })
 
     test('bust', () => {
-      const player = [{ stake: 2, hand: [10, 5, 7] }]
+      const player = [{ hand: [10, 5, 7], bet: 2 }]
       const results = getResults({ player, dealer: [] }, 0)
       expect(results.result).toBe(-1)
       expect(results.prize).toBe(-2)
@@ -21,7 +21,7 @@ describe('게임', () => {
 
   describe('블랙잭', () => {
     test('Undefined', () => {
-      const player = [{ stake: 2, hand: ['A', 'K'] }]
+      const player = [{ hand: ['A', 'K'], bet: 2 }]
       const results = getResults({ player, dealer: ['A'] }, 0)
       expect(results.result).toBeUndefined()
       expect(results.prize).toBeUndefined()
@@ -29,7 +29,7 @@ describe('게임', () => {
     })
 
     test('Win', () => {
-      const player = [{ stake: 2, hand: ['A', 'K'] }]
+      const player = [{ hand: ['A', 'K'], bet: 2 }]
       const results = getResults({ player, dealer: [9] }, 0)
       expect(results.result).toBe(1.5)
       expect(results.prize).toBe(3)
@@ -37,7 +37,7 @@ describe('게임', () => {
     })
 
     test('Draw', () => {
-      const player = [{ stake: 2, hand: ['A', 'K'] }]
+      const player = [{ hand: ['A', 'K'], bet: 2 }]
       const results = getResults({ player, dealer: ['A', 'K'] }, 0)
       expect(results.result).toBe(0)
       expect(results.prize).toBe(0)
@@ -45,7 +45,7 @@ describe('게임', () => {
     })
 
     test('Blackjack after a split', () => {
-      const player = [{ stake: 1, hand: ['A', 'K'] }, { stake: 1, hand: ['A'] }]
+      const player = [{ hand: ['A', 'K'], bet: 1 }, { hand: ['A'], bet: 1 }]
       const results = getResults({ player, dealer: ['A', 9] }, 0)
       expect(results.result).toBe(1)
       expect(results.prize).toBe(1)
