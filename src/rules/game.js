@@ -10,7 +10,8 @@ const __ = result =>
     '-1': 'Lose'
   }[String(result)])
 
-export const getResults = ({ state, stake, hand }, dealer) => {
+export const getResults = ({ player, dealer }, index) => {
+  const { state, stake, hand } = player[index]
   const determineDealerBlackjack = () =>
     ({
       1: [1, 10].includes(getCardValue(dealer[0])) ? -1 : 0,
@@ -24,7 +25,7 @@ export const getResults = ({ state, stake, hand }, dealer) => {
   const dealerHand = h(dealer)
 
   const result = playerHand.blackjack
-    ? [1.5, 0][determineDealerBlackjack()]
+    ? [player.length > 1 ? 1 : 1.5, 0][determineDealerBlackjack()]
     : playerHand.bust
     ? -1
     : state === 'surrender'
@@ -38,7 +39,7 @@ export const getResults = ({ state, stake, hand }, dealer) => {
   return { result, prize: result && result * stake, message: __(result) }
 }
 
-export default ({ player, dealer }) => ({
-  prize: player.reduce((sum, p) => getResults(p, dealer).prize, 0),
-  hasFinished: player.every(p => getResults(p, dealer).message)
+export default args => ({
+  prize: args.player.reduce((sum, p, i) => getResults(args, i).prize, 0),
+  hasFinished: args.player.every((p, i) => getResults(args, i).message)
 })
