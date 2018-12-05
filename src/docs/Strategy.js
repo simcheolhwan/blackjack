@@ -96,7 +96,7 @@ const Strategy = () => (
           <td className={style.dh}>Dh</td>
           <td className={style.dh}>Dh</td>
           <td className={style.dh}>Dh</td>
-          <td className={style.dh}>Dh</td>
+          <td className={style.h}>H</td>
         </tr>
         <tr>
           <th>10</th>
@@ -152,28 +152,13 @@ const Strategy = () => (
         </tr>
         <tr>
           <th>
-            <PlayerHand>A,9</PlayerHand>
+            <PlayerHand>A,8–A,9</PlayerHand>
           </th>
           <td className={style.s}>S</td>
           <td className={style.s}>S</td>
           <td className={style.s}>S</td>
           <td className={style.s}>S</td>
           <td className={style.s}>S</td>
-          <td className={style.s}>S</td>
-          <td className={style.s}>S</td>
-          <td className={style.s}>S</td>
-          <td className={style.s}>S</td>
-          <td className={style.s}>S</td>
-        </tr>
-        <tr>
-          <th>
-            <PlayerHand>A,8</PlayerHand>
-          </th>
-          <td className={style.s}>S</td>
-          <td className={style.s}>S</td>
-          <td className={style.s}>S</td>
-          <td className={style.s}>S</td>
-          <td className={style.dh}>Ds</td>
           <td className={style.s}>S</td>
           <td className={style.s}>S</td>
           <td className={style.s}>S</td>
@@ -184,7 +169,7 @@ const Strategy = () => (
           <th>
             <PlayerHand>A,7</PlayerHand>
           </th>
-          <td className={style.dh}>Ds</td>
+          <td className={style.s}>S</td>
           <td className={style.dh}>Ds</td>
           <td className={style.dh}>Ds</td>
           <td className={style.dh}>Ds</td>
