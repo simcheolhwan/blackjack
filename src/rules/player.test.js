@@ -45,7 +45,7 @@ describe('플레이어', () => {
     expect(fn({ player: full, bankroll: 1 }, 3).can.SP).toBeFalsy()
 
     // Player can't resplit aces
-    const aces = [{ bet: 1, hand: ['A', 'A'] }, { bet: 1, hand: ['A'] }]
+    const aces = [{ hand: ['A', 'A'], bet: 1 }, { hand: ['A'], bet: 1 }]
     expect(fn({ player: aces, bankroll: 2 }, 0).can.SP).toBeFalsy()
   })
 
@@ -54,5 +54,10 @@ describe('플레이어', () => {
     expect(fn({ player: [{ hand: [10, 4, 2] }] }, 0).can.SU).toBeFalsy()
     expect(fn({ player: [{ hand: [10, 4, 2] }] }, 0).can.SU).toBeFalsy()
     expect(fn({ player: [{ hand: [10, 6] }, {}] }, 0).can.SU).toBeFalsy()
+  })
+
+  test('must', () => {
+    expect(fn({ player: [{ hand: ['A'] }] }, 0).must.draw).toBeTruthy()
+    expect(fn({ player: [{ hand: ['A', 'K'] }] }, 0).must.draw).toBeFalsy()
   })
 })

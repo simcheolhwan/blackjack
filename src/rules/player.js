@@ -17,6 +17,10 @@ export default ({ player, bankroll }, index) => {
       D: H && isInit && hasEnough,
       SP: isInit && isPair && hasEnough && player.length < 4 && !hasSplitAces,
       SU: isInit && player.length === 1
+    },
+
+    must: {
+      draw: hand.length < 2
     }
   }
 }
