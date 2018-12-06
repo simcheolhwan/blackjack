@@ -36,6 +36,14 @@ describe('게임', () => {
       expect(results.message).toBe('Blackjack')
     })
 
+    test('Lose', () => {
+      const player = [{ hand: ['A', 8, 2], bet: 2 }]
+      const results = getResults({ player, dealer: ['A', 'K'] }, 0)
+      expect(results.result).toBe(-1)
+      expect(results.prize).toBe(-2)
+      expect(results.message).toBe('Lose')
+    })
+
     test('Draw', () => {
       const player = [{ hand: ['A', 'K'], bet: 2 }]
       const results = getResults({ player, dealer: ['A', 'K'] }, 0)

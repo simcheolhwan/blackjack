@@ -31,7 +31,7 @@ export const getResults = ({ player, dealer }, index) => {
     : state === 'surrender'
     ? -0.5
     : dealerHand.blackjack
-    ? [-1, 0][playerHand.blackjack]
+    ? [-1, 0][Number(playerHand.blackjack)]
     : dealerHand.bust
     ? 1
     : compare()
