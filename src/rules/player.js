@@ -1,12 +1,12 @@
 import h from './hand'
 
-export default ({ player, bankroll }, index) => {
+export default ({ player, bank }, index) => {
   const { hand, bet } = player[index]
   const { totals } = h(hand)
 
   const isInit = hand.length === 2
   const isPair = hand[0] === hand[1]
-  const hasEnough = bankroll >= bet
+  const hasEnough = bank >= bet
   const hasSplitAces = player.length > 1 && hand[0] === 'A'
   const H = totals.some(n => n < 21) && !hasSplitAces
 

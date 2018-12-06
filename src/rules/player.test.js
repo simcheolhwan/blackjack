@@ -40,17 +40,17 @@ describe('플레이어', () => {
     ]
 
     test('가능', () => {
-      expect(fn({ player, bankroll: 1 }, 0).can.D).toBeTruthy()
+      expect(fn({ player, bank: 1 }, 0).can.D).toBeTruthy()
     })
 
     describe('불가', () => {
       test('첫 두 장이 아님', () => {
-        expect(fn({ player, bankroll: 1 }, 2).can.D).toBeFalsy()
-        expect(fn({ player, bankroll: 1 }, 3).can.D).toBeFalsy()
+        expect(fn({ player, bank: 1 }, 2).can.D).toBeFalsy()
+        expect(fn({ player, bank: 1 }, 3).can.D).toBeFalsy()
       })
 
       test('칩이 충분하지 않음', () => {
-        expect(fn({ player, bankroll: 1 }, 1).can.D).toBeFalsy()
+        expect(fn({ player, bank: 1 }, 1).can.D).toBeFalsy()
       })
     })
   })
@@ -63,31 +63,31 @@ describe('플레이어', () => {
     ]
 
     test('가능', () => {
-      expect(fn({ player, bankroll: 1 }, 0).can.SP).toBeTruthy()
+      expect(fn({ player, bank: 1 }, 0).can.SP).toBeTruthy()
     })
 
     describe('불가', () => {
       test('첫 두 장이 아님', () => {
         const hand = [8, 8, 2]
-        expect(fn({ player: [{ hand }], bankroll: 1 }, 0).can.SP).toBeFalsy()
+        expect(fn({ player: [{ hand }], bank: 1 }, 0).can.SP).toBeFalsy()
       })
 
       test('페어가 아님', () => {
-        expect(fn({ player, bankroll: 1 }, 2).can.SP).toBeFalsy()
+        expect(fn({ player, bank: 1 }, 2).can.SP).toBeFalsy()
       })
 
       test('칩이 충분하지 않음', () => {
-        expect(fn({ player, bankroll: 1 }, 1).can.SP).toBeFalsy()
+        expect(fn({ player, bank: 1 }, 1).can.SP).toBeFalsy()
       })
 
       test('Player can split to 4 hands', () => {
         const full = [...player, player[0]]
-        expect(fn({ player: full, bankroll: 1 }, 3).can.SP).toBeFalsy()
+        expect(fn({ player: full, bank: 1 }, 3).can.SP).toBeFalsy()
       })
 
       test("Player can't resplit aces", () => {
         const aces = [{ hand: ['A', 'A'], bet: 1 }, { hand: ['A'], bet: 1 }]
-        expect(fn({ player: aces, bankroll: 2 }, 0).can.SP).toBeFalsy()
+        expect(fn({ player: aces, bank: 2 }, 0).can.SP).toBeFalsy()
       })
     })
   })
