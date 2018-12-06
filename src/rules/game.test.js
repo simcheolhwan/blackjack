@@ -1,8 +1,8 @@
 import { getResults } from './game'
 
-describe('게임', () => {
-  describe('일반', () => {
-    test('stay', () => {
+describe('게임 결과', () => {
+  describe('stay', () => {
+    test('Win', () => {
       const player = [{ hand: [10, 5, 6], bet: 2 }]
       const results = getResults({ player, dealer: [7, 9, 10] }, 0)
       expect(results.result).toBe(1)
@@ -10,7 +10,35 @@ describe('게임', () => {
       expect(results.message).toBe('Win')
     })
 
-    test('bust', () => {
+    test('Lose', () => {
+      const player = [{ hand: [10, 7], bet: 2 }]
+      const results = getResults({ player, dealer: ['A', 9] }, 0)
+      expect(results.result).toBe(-1)
+      expect(results.prize).toBe(-2)
+      expect(results.message).toBe('Lose')
+    })
+
+    test('Draw', () => {
+      const player = [{ hand: [10, 7], bet: 2 }]
+      const results = getResults({ player, dealer: [2, 3, 4, 5, 3] }, 0)
+      expect(results.result).toBe(0)
+      expect(results.prize).toBe(0)
+      expect(results.message).toBe('Draw')
+    })
+  })
+
+  describe('bust', () => {
+    test('Win', () => {
+      // 딜러 버스트
+      const player = [{ hand: [10, 5], bet: 2 }]
+      const results = getResults({ player, dealer: [2, 3, 4, 5, 8] }, 0)
+      expect(results.result).toBe(1)
+      expect(results.prize).toBe(2)
+      expect(results.message).toBe('Win')
+    })
+
+    test('Lose', () => {
+      // 플레이어 버스트
       const player = [{ hand: [10, 5, 7], bet: 2 }]
       const results = getResults({ player, dealer: [] }, 0)
       expect(results.result).toBe(-1)
@@ -37,6 +65,7 @@ describe('게임', () => {
     })
 
     test('Lose', () => {
+      // 플레이어 21, 딜러 블랙잭
       const player = [{ hand: ['A', 8, 2], bet: 2 }]
       const results = getResults({ player, dealer: ['A', 'K'] }, 0)
       expect(results.result).toBe(-1)
@@ -53,6 +82,7 @@ describe('게임', () => {
     })
 
     test('Blackjack after a split', () => {
+      // are counted as a non-blackjack 21
       const player = [{ hand: ['A', 'K'], bet: 1 }, { hand: ['A'], bet: 1 }]
       const results = getResults({ player, dealer: ['A', 9] }, 0)
       expect(results.result).toBe(1)
