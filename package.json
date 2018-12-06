@@ -1,6 +1,10 @@
 {
   "name": "blackjack",
+  "description": "Blackjack web game and simulator",
+  "version": "2.0.0",
+  "author": "심철환 <a@akaiv.com>",
   "homepage": "https://s10n.github.io/blackjack",
+  "repository": "github:s10n/blackjack",
   "dependencies": {
     "classnames": "^2.2.6",
     "node-sass": "^4.10.0",
