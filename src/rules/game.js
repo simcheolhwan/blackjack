@@ -11,7 +11,7 @@ const __ = result =>
   }[String(result)])
 
 export const getResults = ({ player, dealer }, index) => {
-  const { hand, state, bets } = player[index]
+  const { hand, bets, surrender } = player[index]
   const determineDealerBlackjack = () =>
     ({
       1: [1, 10].includes(getCardValue(dealer[0])) ? -1 : 0,
@@ -28,7 +28,7 @@ export const getResults = ({ player, dealer }, index) => {
     ? [player.length > 1 ? 1 : 1.5, 0][determineDealerBlackjack()]
     : playerHand.bust
     ? -1
-    : state === 'surrender'
+    : surrender
     ? -0.5
     : dealerHand.blackjack
     ? [-1, 0][Number(playerHand.blackjack)]

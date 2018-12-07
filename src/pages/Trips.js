@@ -39,9 +39,9 @@ class Trips extends Component {
   }
 }
 
-export default connect(({ trips }) => ({
-  trips: trips
-    .slice(-100)
+export default connect(({ history }) => ({
+  trips: history.trips
+    .slice()
     .reverse()
-    .map(selector())
+    .map(selector)
 }))(Trips)

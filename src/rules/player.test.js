@@ -23,9 +23,14 @@ describe('플레이어', () => {
     })
   })
 
-  test('S', () => {
-    // 언제나 가능
-    expect(fn({ player: [{ hand: [] }] }, 0).can.S).toBeTruthy()
+  describe('S', () => {
+    test('가능', () => {
+      expect(fn({ player: [{ hand: ['A', 'A'] }] }, 0).can.S).toBeTruthy()
+    })
+
+    test('불가', () => {
+      expect(fn({ player: [{ hand: ['A', 'K'] }] }, 0).can.S).toBeFalsy()
+    })
   })
 
   describe('D', () => {
@@ -89,6 +94,7 @@ describe('플레이어', () => {
         name             | game
         ${'Not initial'} | ${{ player: [{ hand: [10, 4, 2] }], bank: 1 }}
         ${'Split'}       | ${{ player: [{ hand: [10, 6] }, {}] }}
+        ${'21'}          | ${{ player: [{ hand: ['A', 'K'] }], bank: 1 }}
       `('$name', ({ game }) => {
         expect(fn(game, 0).can.SU).toBeFalsy()
       })

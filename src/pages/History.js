@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
 import selector from '../selectors/history'
 import HistoryDetail from './HistoryDetail'
-const mapStateToProps = ({ history, debt }) => selector(1000, debt)(history)
+const mapStateToProps = ({ history }) => selector(history.games)
 export default connect(mapStateToProps)(HistoryDetail)

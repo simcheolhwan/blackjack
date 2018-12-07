@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import * as action from '../redux/actions'
+import * as action from '../actions/trip'
 import style from './NewGame.module.scss'
 
 const NewGame = ({ noTrips, reset }) =>
@@ -30,7 +30,7 @@ const NewGame = ({ noTrips, reset }) =>
 export default connect(
   state => state,
   dispatch => bindActionCreators(action, dispatch),
-  ({ game, trips, history }, { enter, leave }, { onReset }) => {
+  ({ turn, history }, { enter, leave }, { onReset }) => {
     const reset = () => {
       leave()
       enter()
@@ -38,8 +38,8 @@ export default connect(
     }
 
     return {
-      noTrips: !trips.length,
-      reset: !game.isPlaying && !!history.length ? reset : undefined
+      noTrips: !history.trips.length,
+      reset: Number.isInteger(turn) && !!history.length ? reset : undefined
     }
   }
 )(NewGame)

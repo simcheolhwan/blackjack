@@ -2,9 +2,9 @@ import React from 'react'
 import Card from './Card'
 import style from './Hand.module.scss'
 
-const Hand = ({ hand, state }) => (
+const Hand = ({ hand, desc }) => (
   <article>
-    <p className={style.state}>{state}</p>
+    <p className={style.desc}>{desc}</p>
     <ul className={style.deck}>
       {hand.map((card, index) => (
         <li key={index}>

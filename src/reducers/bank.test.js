@@ -17,15 +17,15 @@ describe('자금 리듀서', () => {
 
   describe('플레이어 액션에 따라 자금이 바뀐다.', () => {
     test.each(['bet', 'double', 'split'])('%s', type => {
-      const action = { type, bets: 1 }
+      const action = { type, turn: 0, bets: 1 }
       const state = 1000
       const expected = 999
       expect(reducer(state, action)).toEqual(expected)
     })
   })
 
-  test('플레이어가 돈을 딸 때 자금이 바뀐다.', () => {
-    const action = { type: 'win', amount: 2 }
+  test('플레이어가 게임을 마칠 때 자금이 바뀐다.', () => {
+    const action = { type: 'finish', amount: 2 }
     const state = 1000
     const expected = 1002
     expect(reducer(state, action)).toEqual(expected)

@@ -1,43 +1,25 @@
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import * as actions from '../redux/actions'
-import check from '../rules/check'
+import * as actions from '../actions/game'
 import colors from '../styles/colors'
-import ButtonGroup from '../components/ButtonGroup'
+import ActionGroup from '../components/ActionGroup'
 
 export default connect(
   state => state,
   dispatch => bindActionCreators(actions, dispatch),
-  ({ players, game }, { startGame, resetGame, win, draw }) => {
-    const { primary } = players
-    const finishGame = () => {
-      win()
-      resetGame()
-    }
-
-    const controls = game.isPlaying
-      ? check.hasGameFinished(players)
-        ? [
-            { color: colors['navy'], children: '✓', onClick: finishGame },
-            { color: colors['navy'], disabled: true, children: '→' }
-          ]
-        : [
-            {
-              color: colors['navy'],
-              children: '→',
-              disabled: !check.shouldDealerDraw(players),
-              onClick: () => draw('dealer')
-            }
-          ]
-      : [
-          {
-            color: colors['navy'],
-            children: '→',
-            disabled: !primary.stake,
-            onClick: startGame
-          }
-        ]
-
-    return { buttons: controls }
-  }
-)(ButtonGroup)
+  ({ player, turn }, { start, finish }) => ({
+    actions: [
+      false && {
+        color: colors['navy'],
+        children: '✓',
+        onClick: finish
+      },
+      !Number.isInteger(turn) && {
+        color: colors['navy'],
+        children: '→',
+        disabled: !player[0].bets,
+        onClick: start
+      }
+    ].filter(Boolean)
+  })
+)(ActionGroup)

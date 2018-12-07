@@ -1,18 +1,13 @@
 import { connect } from 'react-redux'
-import check from '../rules/check'
 import Hand from '../components/Hand'
-import getTotals from '../rules/getTotals'
+import h from '../rules/hand'
 
-export default connect(({ players }, { playerKey }) => {
-  const { hand, status } = players[playerKey]
-  return {
-    hand,
-    status: join([join(getTotals(hand), ', '), status]),
-    canDraw:
-      playerKey === 'dealer' &&
-      !check.hasGameFinished(players) &&
-      check.shouldDealerDraw(players)
-  }
+export default connect(({ player, dealer }, { index }) => {
+  const { hand, surrender } = Number.isInteger(index)
+    ? player[index]
+    : { hand: dealer }
+  const status = surrender ? 'surrender' : ''
+  return { hand, desc: join([join(h(hand).totals, ', '), status]) }
 })(Hand)
 
 /* utils */
