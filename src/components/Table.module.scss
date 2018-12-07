@@ -11,26 +11,17 @@
   height: 100%;
 }
 
-.header {
-  align-self: stretch;
-  display: block;
-}
-
 .dealer {
   flex: 1;
 }
 
-.players {
+.player {
   flex: none;
   align-self: stretch;
   justify-content: space-around;
 
   > * {
     flex: none;
-  }
-
-  &.two > * {
-    width: 50%;
   }
 }
 
@@ -45,7 +36,7 @@
   justify-content: space-between;
 }
 
-.capital {
+.bank {
   @include flex();
 
   > * {
