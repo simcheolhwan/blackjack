@@ -7,16 +7,13 @@ describe('플레이어', () => {
     })
 
     describe('불가', () => {
-      test('21', () => {
-        expect(fn({ player: [{ hand: [8, 2, 'A'] }] }, 0).can.H).toBeFalsy()
-      })
-
-      test('블랙잭', () => {
-        expect(fn({ player: [{ hand: ['A', 'K'] }] }, 0).can.H).toBeFalsy()
-      })
-
-      test('버스트', () => {
-        expect(fn({ player: [{ hand: [10, 2, 10] }] }, 0).can.H).toBeFalsy()
+      test.each`
+        name           | hand
+        ${'21'}        | ${[8, 2, 'A']}
+        ${'blackjack'} | ${['A', 'K']}
+        ${'bust'}      | ${[10, 2, 10]}
+      `('$name', ({ hand }) => {
+        expect(fn({ player: [{ hand }] }, 0).can.H).toBeFalsy()
       })
 
       test("Player can't hit split aces", () => {
@@ -32,62 +29,52 @@ describe('플레이어', () => {
   })
 
   describe('D', () => {
-    const player = [
-      { hand: [6, 5], bet: 1 },
-      { hand: [6, 5], bet: 2 },
-      { hand: [6, 3, 2], bet: 1 },
-      { hand: ['A'], bet: 1 }
-    ]
-
     test('가능', () => {
+      const player = [{ hand: [6, 5], bet: 1 }]
       expect(fn({ player, bank: 1 }, 0).can.D).toBeTruthy()
     })
 
     describe('불가', () => {
-      test('첫 두 장이 아님', () => {
-        expect(fn({ player, bank: 1 }, 2).can.D).toBeFalsy()
-        expect(fn({ player, bank: 1 }, 3).can.D).toBeFalsy()
-      })
-
-      test('칩이 충분하지 않음', () => {
-        expect(fn({ player, bank: 1 }, 1).can.D).toBeFalsy()
+      test.each`
+        name             | game
+        ${'Not initial'} | ${{ player: [{ hand: ['A'], bet: 1 }], bank: 1 }}
+        ${'Not initial'} | ${{ player: [{ hand: [6, 3, 2], bet: 1 }], bank: 1 }}
+        ${'Not enough'}  | ${{ player: [{ hand: [6, 5], bet: 2 }], bank: 1 }}
+      `('$name', ({ game }) => {
+        expect(fn(game, 0).can.D).toBeFalsy()
       })
     })
   })
 
   describe('SP', () => {
-    const player = [
-      { hand: [8, 8], bet: 1 },
-      { hand: [8, 8], bet: 2 },
-      { hand: [10, 6], bet: 1 }
-    ]
-
     test('가능', () => {
+      const player = [{ hand: [8, 8], bet: 1 }, { hand: [8, 8], bet: 2 }]
       expect(fn({ player, bank: 1 }, 0).can.SP).toBeTruthy()
     })
 
     describe('불가', () => {
-      test('첫 두 장이 아님', () => {
-        const hand = [8, 8, 2]
-        expect(fn({ player: [{ hand }], bank: 1 }, 0).can.SP).toBeFalsy()
-      })
-
-      test('페어가 아님', () => {
-        expect(fn({ player, bank: 1 }, 2).can.SP).toBeFalsy()
-      })
-
-      test('칩이 충분하지 않음', () => {
-        expect(fn({ player, bank: 1 }, 1).can.SP).toBeFalsy()
+      test.each`
+        name             | game
+        ${'Not initial'} | ${{ player: [{ hand: [8, 8, 2], bet: 1 }], bank: 1 }}
+        ${'Not a pair'}  | ${{ player: [{ hand: [8, 6], bet: 1 }], bank: 1 }}
+        ${'Not enough'}  | ${{ player: [{ hand: [8, 8], bet: 2 }], bank: 1 }}
+      `('$name', ({ game }) => {
+        expect(fn(game, 0).can.SP).toBeFalsy()
       })
 
       test('Player can split to 4 hands', () => {
-        const full = [...player, player[0]]
-        expect(fn({ player: full, bank: 1 }, 3).can.SP).toBeFalsy()
+        const player = [
+          { hand: [8, 3, 10], bet: 1 },
+          { hand: [8, 3, 10], bet: 1 },
+          { hand: [8, 3, 10], bet: 1 },
+          { hand: [8, 8], bet: 1 }
+        ]
+        expect(fn({ player, bank: 1 }, 3).can.SP).toBeFalsy()
       })
 
       test("Player can't resplit aces", () => {
-        const aces = [{ hand: ['A', 'A'], bet: 1 }, { hand: ['A'], bet: 1 }]
-        expect(fn({ player: aces, bank: 2 }, 0).can.SP).toBeFalsy()
+        const player = [{ hand: ['A', 'A'], bet: 1 }, { hand: ['A'], bet: 1 }]
+        expect(fn({ player, bank: 2 }, 0).can.SP).toBeFalsy()
       })
     })
   })
@@ -98,12 +85,12 @@ describe('플레이어', () => {
     })
 
     describe('불가', () => {
-      test('첫 두 장이 아님', () => {
-        expect(fn({ player: [{ hand: [10, 4, 2] }] }, 0).can.SU).toBeFalsy()
-      })
-
-      test('스플릿했음', () => {
-        expect(fn({ player: [{ hand: [10, 6] }, {}] }, 0).can.SU).toBeFalsy()
+      test.each`
+        name             | game
+        ${'Not initial'} | ${{ player: [{ hand: [10, 4, 2] }], bank: 1 }}
+        ${'Split'}       | ${{ player: [{ hand: [10, 6] }, {}] }}
+      `('$name', ({ game }) => {
+        expect(fn(game, 0).can.SU).toBeFalsy()
       })
     })
   })
