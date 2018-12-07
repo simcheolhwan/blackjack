@@ -11,7 +11,7 @@ const __ = result =>
   }[String(result)])
 
 export const getResults = ({ player, dealer }, index) => {
-  const { hand, state, bet } = player[index]
+  const { hand, state, bets } = player[index]
   const determineDealerBlackjack = () =>
     ({
       1: [1, 10].includes(getCardValue(dealer[0])) ? -1 : 0,
@@ -36,7 +36,7 @@ export const getResults = ({ player, dealer }, index) => {
     ? 1
     : compare()
 
-  return { result, prize: result && result * bet, message: __(result) }
+  return { result, prize: result && result * bets, message: __(result) }
 }
 
 export default args => ({

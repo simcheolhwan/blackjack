@@ -12,12 +12,12 @@ export const draw = () => (dispatch, getState) => {
 
 export const double = () => (dispatch, getState) => {
   const { deck, player, turn } = getState()
-  dispatch({ type: 'double', turn, bet: player[turn]['bet'], card: deck[0] })
+  dispatch({ type: 'double', turn, bets: player[turn]['bets'], card: deck[0] })
 }
 
 export const split = () => (dispatch, getState) => {
   const { player, turn } = getState()
-  dispatch({ type: 'split', turn, bet: player[turn]['bet'] })
+  dispatch({ type: 'split', turn, bets: player[turn]['bets'] })
 }
 
 export const win = () => (dispatch, getState) => {

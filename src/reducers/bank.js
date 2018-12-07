@@ -9,7 +9,7 @@ export default (state = 0, action) => {
     case 'bet':
     case 'double':
     case 'split':
-      return state - action.bet
+      return state - action.bets
 
     case 'win':
       return state + action.amount

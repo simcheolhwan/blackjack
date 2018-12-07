@@ -1,5 +1,5 @@
 export default (state = [], action) => {
-  const round = (state = { hand: [], bet: 0 }, turn) => {
+  const round = (state = { hand: [], bets: 0 }, turn) => {
     const f = callback =>
       turn === action.turn ? { ...state, ...callback(state) } : state
 
@@ -8,15 +8,15 @@ export default (state = [], action) => {
         return f(({ hand }) => ({ hand: action.player }))
 
       case 'bet':
-        return f(({ bet }) => ({ bet: bet + action.amount }))
+        return f(({ bets }) => ({ bets: bets + action.amount }))
 
       case 'draw':
         return f(({ hand }) => ({ hand: [...hand, action.card] }))
 
       case 'double':
-        return f(({ hand, bet }) => ({
+        return f(({ hand, bets }) => ({
           hand: [...hand, action.card],
-          bet: bet * 2
+          bets: bets * 2
         }))
 
       case 'split':

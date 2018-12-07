@@ -30,16 +30,16 @@ describe('플레이어', () => {
 
   describe('D', () => {
     test('가능', () => {
-      const player = [{ hand: [6, 5], bet: 1 }]
+      const player = [{ hand: [6, 5], bets: 1 }]
       expect(fn({ player, bank: 1 }, 0).can.D).toBeTruthy()
     })
 
     describe('불가', () => {
       test.each`
         name             | game
-        ${'Not initial'} | ${{ player: [{ hand: ['A'], bet: 1 }], bank: 1 }}
-        ${'Not initial'} | ${{ player: [{ hand: [6, 3, 2], bet: 1 }], bank: 1 }}
-        ${'Not enough'}  | ${{ player: [{ hand: [6, 5], bet: 2 }], bank: 1 }}
+        ${'Not initial'} | ${{ player: [{ hand: ['A'], bets: 1 }], bank: 1 }}
+        ${'Not initial'} | ${{ player: [{ hand: [6, 3, 2], bets: 1 }], bank: 1 }}
+        ${'Not enough'}  | ${{ player: [{ hand: [6, 5], bets: 2 }], bank: 1 }}
       `('$name', ({ game }) => {
         expect(fn(game, 0).can.D).toBeFalsy()
       })
@@ -48,32 +48,32 @@ describe('플레이어', () => {
 
   describe('SP', () => {
     test('가능', () => {
-      const player = [{ hand: [8, 8], bet: 1 }, { hand: [8, 8], bet: 2 }]
+      const player = [{ hand: [8, 8], bets: 1 }, { hand: [8, 8], bets: 2 }]
       expect(fn({ player, bank: 1 }, 0).can.SP).toBeTruthy()
     })
 
     describe('불가', () => {
       test.each`
         name             | game
-        ${'Not initial'} | ${{ player: [{ hand: [8, 8, 2], bet: 1 }], bank: 1 }}
-        ${'Not a pair'}  | ${{ player: [{ hand: [8, 6], bet: 1 }], bank: 1 }}
-        ${'Not enough'}  | ${{ player: [{ hand: [8, 8], bet: 2 }], bank: 1 }}
+        ${'Not initial'} | ${{ player: [{ hand: [8, 8, 2], bets: 1 }], bank: 1 }}
+        ${'Not a pair'}  | ${{ player: [{ hand: [8, 6], bets: 1 }], bank: 1 }}
+        ${'Not enough'}  | ${{ player: [{ hand: [8, 8], bets: 2 }], bank: 1 }}
       `('$name', ({ game }) => {
         expect(fn(game, 0).can.SP).toBeFalsy()
       })
 
       test('Player can split to 4 hands', () => {
         const player = [
-          { hand: [8, 3, 10], bet: 1 },
-          { hand: [8, 3, 10], bet: 1 },
-          { hand: [8, 3, 10], bet: 1 },
-          { hand: [8, 8], bet: 1 }
+          { hand: [8, 3, 10], bets: 1 },
+          { hand: [8, 3, 10], bets: 1 },
+          { hand: [8, 3, 10], bets: 1 },
+          { hand: [8, 8], bets: 1 }
         ]
         expect(fn({ player, bank: 1 }, 3).can.SP).toBeFalsy()
       })
 
       test("Player can't resplit aces", () => {
-        const player = [{ hand: ['A', 'A'], bet: 1 }, { hand: ['A'], bet: 1 }]
+        const player = [{ hand: ['A', 'A'], bets: 1 }, { hand: ['A'], bets: 1 }]
         expect(fn({ player, bank: 2 }, 0).can.SP).toBeFalsy()
       })
     })

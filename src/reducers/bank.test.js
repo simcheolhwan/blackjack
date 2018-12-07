@@ -17,7 +17,7 @@ describe('자금 리듀서', () => {
 
   describe('플레이어 액션에 따라 자금이 바뀐다.', () => {
     test.each(['bet', 'double', 'split'])('%s', type => {
-      const action = { type, bet: 1 }
+      const action = { type, bets: 1 }
       const state = 1000
       const expected = 999
       expect(reducer(state, action)).toEqual(expected)
