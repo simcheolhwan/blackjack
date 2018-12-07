@@ -1,14 +1,10 @@
+import React from 'react'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import * as actions from '../redux/actions'
-import { SEED } from '../constants'
-import Bank from '../components/Bank'
+import { UNIT } from '../rules/constants'
+import Wager from '../components/Wager'
+import Finite from '../components/Finite'
 
-export default connect(
-  state => state,
-  dispatch => bindActionCreators(actions, dispatch),
-  ({ chips, debt }, { payback }) => ({
-    debt,
-    onClick: !!debt && chips > SEED ? payback : undefined
-  })
-)(Bank)
+export default connect(({ bank, player }) => ({
+  small: bank * UNIT > 9999,
+  children: <Finite>{bank * UNIT}</Finite>
+}))(Wager)

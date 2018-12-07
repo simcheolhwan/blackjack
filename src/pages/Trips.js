@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import selector from '../selectors/history'
+import selector from '../selectors/games'
 import Trip from './Trip'
 import HistoryDetail from './HistoryDetail'
 
@@ -39,9 +39,9 @@ class Trips extends Component {
   }
 }
 
-export default connect(({ trips }) => ({
-  trips: trips
-    .slice(-100)
+export default connect(({ history }) => ({
+  trips: history.trips
+    .slice()
     .reverse()
-    .map(selector())
+    .map(selector)
 }))(Trips)

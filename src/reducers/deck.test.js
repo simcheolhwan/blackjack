@@ -15,7 +15,7 @@ describe('덱 리듀서', () => {
   })
 
   describe('카드를 뽑으면 덱에서 1장을 제거한다.', () => {
-    test.each(['draw', 'double'])('%s', type => {
+    test.each(['hit', 'draw', 'double'])('%s', type => {
       const action = { type }
       const state = ['A', 2]
       const expected = [2]

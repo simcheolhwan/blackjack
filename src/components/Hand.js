@@ -2,21 +2,15 @@ import React from 'react'
 import Card from './Card'
 import style from './Hand.module.scss'
 
-const Hand = ({ hand, status, canDraw }) => (
+const Hand = ({ hand, desc }) => (
   <article>
-    <p className={style.status}>{status}</p>
+    <p className={style.desc}>{desc}</p>
     <ul className={style.deck}>
       {hand.map((card, index) => (
         <li key={index}>
           <Card>{card}</Card>
         </li>
       ))}
-
-      {canDraw && (
-        <li>
-          <Card back>+</Card>
-        </li>
-      )}
     </ul>
   </article>
 )

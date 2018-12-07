@@ -375,16 +375,6 @@ const Strategy = () => (
         </tr>
       </tbody>
     </table>
-
-    <p className={style.source}>
-      <a
-        href="https://en.wikipedia.org/wiki/Blackjack#Basic_strategy"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        en.wikipedia.org/wiki/Blackjack#Basic_strategy
-      </a>
-    </p>
   </article>
 )
 

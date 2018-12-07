@@ -5,7 +5,7 @@ import Rules from './Rules'
 import Strategy from './Strategy'
 import Trips from './Trips'
 import History from './History'
-import NewGame from './NewGame'
+import Leave from './Leave'
 
 class Menu extends Component {
   state = { currentMenuIndex: null }
@@ -34,13 +34,12 @@ class Menu extends Component {
   render() {
     const { table } = this.props
     const { currentMenuIndex } = this.state
-    const newGame = <NewGame onReset={this.close} />
 
     const menu = [
       { name: 'Rules', render: () => <Rules /> },
       { name: 'Strategy', render: () => <Strategy /> },
       { name: 'History', render: () => <History /> },
-      { name: 'Trips', render: () => <Trips button={newGame} /> }
+      { name: 'Trips', render: () => <Trips button={<Leave />} /> }
     ]
 
     const { render } = menu[currentMenuIndex] || {}

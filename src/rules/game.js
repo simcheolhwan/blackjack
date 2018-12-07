@@ -1,3 +1,4 @@
+import d from './dealer'
 import h from './hand'
 import { getCardValue } from './deck'
 
@@ -11,7 +12,7 @@ const __ = result =>
   }[String(result)])
 
 export const getResults = ({ player, dealer }, index) => {
-  const { hand, state, bet } = player[index]
+  const { hand, bets, surrender } = player[index]
   const determineDealerBlackjack = () =>
     ({
       1: [1, 10].includes(getCardValue(dealer[0])) ? -1 : 0,
@@ -28,7 +29,7 @@ export const getResults = ({ player, dealer }, index) => {
     ? [player.length > 1 ? 1 : 1.5, 0][determineDealerBlackjack()]
     : playerHand.bust
     ? -1
-    : state === 'surrender'
+    : surrender
     ? -0.5
     : dealerHand.blackjack
     ? [-1, 0][Number(playerHand.blackjack)]
@@ -36,10 +37,16 @@ export const getResults = ({ player, dealer }, index) => {
     ? 1
     : compare()
 
-  return { result, prize: result && result * bet, message: __(result) }
+  return { result, prize: result && result * bets, message: __(result) }
 }
 
-export default args => ({
-  prize: args.player.reduce((sum, p, i) => getResults(args, i).prize, 0),
-  hasFinished: args.player.every((p, i) => getResults(args, i).message)
+export default ({ player, dealer, turn }) => ({
+  prize: player.reduce(
+    (sum, p, i) => sum + getResults({ player, dealer }, i).prize,
+    0
+  ),
+  hasFinished:
+    turn === player.length &&
+    !d(dealer).must.draw &&
+    player.every((p, i) => getResults({ player, dealer }, i).message)
 })

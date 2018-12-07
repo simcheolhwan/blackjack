@@ -1,8 +1,11 @@
+import shuffle from '../helpers/shuffle'
+import { DECKS } from '../rules/constants'
+
 export const getCardValue = card => Number(card) || (card === 'A' && 1) || 10
 export const getDeck = n =>
   Array.from({ length: n * 4 }, () => deck).reduce(concat, [])
 
-export const shuffleDeck = (n, shuffle) => shuffle(getDeck(n))
+export const shuffleDeck = (n = DECKS, fn = shuffle) => fn(getDeck(n))
 
 /* utils */
 const deck = ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K']

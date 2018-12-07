@@ -3,9 +3,9 @@ import Line from './Line'
 
 const Chart = ({ max, children }) => (
   <ul>
-    {children.map((line, i) => (
+    {children.map((n, i) => (
       <li key={i}>
-        <Line {...line} max={max} index={children.length - i} />
+        <Line number={n} max={max} index={children.length - i} />
       </li>
     ))}
   </ul>

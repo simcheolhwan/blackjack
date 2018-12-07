@@ -1,7 +1,7 @@
 import React from 'react'
 import colors from '../styles/colors'
-import style from './ButtonGroup.module.scss'
-import Button from './Button'
+import style from './ActionGroup.module.scss'
+import Action from './Action'
 
 const COLORS = [
   colors['teal'],
@@ -11,14 +11,14 @@ const COLORS = [
   colors['blue']
 ]
 
-const ButtonGroup = ({ buttons }) => (
+const ActionGroup = ({ actions }) => (
   <ul className={style.group}>
-    {buttons.map((button, index) => (
+    {actions.map((action, index) => (
       <li key={index}>
-        <Button color={COLORS[index]} {...button} />
+        <Action color={COLORS[index]} {...action} />
       </li>
     ))}
   </ul>
 )
 
-export default ButtonGroup
+export default ActionGroup
