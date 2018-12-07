@@ -3,6 +3,9 @@ export default (state = [], action) => {
     case 'start':
       return action.dealer
 
+    case 'finish':
+      return []
+
     case 'draw':
       return Number.isInteger(action.turn) ? state : [...state, action.card]
 

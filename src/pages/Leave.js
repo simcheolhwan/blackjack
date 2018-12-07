@@ -2,12 +2,12 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as action from '../actions/trip'
-import style from './NewGame.module.scss'
+import style from './Leave.module.scss'
 
-const NewGame = ({ noTrips, reset }) =>
-  reset || noTrips ? (
+const Leave = ({ noTrips, onClick }) =>
+  onClick || noTrips ? (
     <article className={style.article}>
-      <h1>새로 시작하시겠습니까?</h1>
+      <h1>Leave casino?</h1>
 
       {noTrips && (
         <p className={style.description}>
@@ -15,11 +15,11 @@ const NewGame = ({ noTrips, reset }) =>
         </p>
       )}
 
-      <button disabled={!reset} onClick={reset}>
+      <button disabled={!onClick} onClick={onClick}>
         YES
       </button>
 
-      {!reset && (
+      {!onClick && (
         <p className={style.description}>
           게임 중이 아니고, 기록이 하나라도 있을 때 가능합니다.
         </p>
@@ -30,16 +30,8 @@ const NewGame = ({ noTrips, reset }) =>
 export default connect(
   state => state,
   dispatch => bindActionCreators(action, dispatch),
-  ({ turn, history }, { enter, leave }, { onReset }) => {
-    const reset = () => {
-      leave()
-      enter()
-      onReset()
-    }
-
-    return {
-      noTrips: !history.trips.length,
-      reset: Number.isInteger(turn) && !!history.length ? reset : undefined
-    }
-  }
-)(NewGame)
+  ({ turn, history: { trips, games } }, { enter, leave }) => ({
+    noTrips: !trips.length,
+    onClick: !Number.isInteger(turn) && !!games.length ? leave : undefined
+  })
+)(Leave)

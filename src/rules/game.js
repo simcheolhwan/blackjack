@@ -1,3 +1,4 @@
+import d from './dealer'
 import h from './hand'
 import { getCardValue } from './deck'
 
@@ -39,7 +40,13 @@ export const getResults = ({ player, dealer }, index) => {
   return { result, prize: result && result * bets, message: __(result) }
 }
 
-export default args => ({
-  prize: args.player.reduce((sum, p, i) => getResults(args, i).prize, 0),
-  hasFinished: args.player.every((p, i) => getResults(args, i).message)
+export default ({ player, dealer, turn }) => ({
+  prize: player.reduce(
+    (sum, p, i) => sum + getResults({ player, dealer }, i).prize,
+    0
+  ),
+  hasFinished:
+    turn === player.length &&
+    !d(dealer).must.draw &&
+    player.every((p, i) => getResults({ player, dealer }, i).message)
 })

@@ -15,14 +15,14 @@ describe('플레이어 리듀서', () => {
     expect(reducer(state, action)).toEqual(expected)
   })
 
-  test('시작', () => {
+  test('게임 시작', () => {
     const action = { type: 'start', turn: 0, player: ['A', 'K'] }
     const state = [{ hand: [], bets: 1 }]
     const expected = [{ hand: ['A', 'K'], bets: 1 }]
     expect(reducer(state, action)).toEqual(expected)
   })
 
-  test('끝', () => {
+  test('게임 종료', () => {
     const action = { type: 'finish' }
     const state = [{ hand: ['A', 'K'], bets: 1 }, { hand: ['A', 9], bets: 1 }]
     const expected = [{ hand: [], bets: 0 }]

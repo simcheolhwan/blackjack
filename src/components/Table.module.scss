@@ -17,6 +17,7 @@
 
 .player {
   flex: none;
+  flex-direction: row-reverse;
   align-self: stretch;
   justify-content: space-around;
 

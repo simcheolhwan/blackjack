@@ -16,9 +16,16 @@ describe('플레이어', () => {
         expect(fn({ player: [{ hand }] }, 0).can.H).toBeFalsy()
       })
 
-      test("Player can't hit split aces", () => {
-        const player = [{ hand: ['A', 2] }, { hand: ['A'] }]
-        expect(fn({ player }, 0).can.H).toBeFalsy()
+      describe("Player can't hit split aces", () => {
+        test('Hand 1', () => {
+          const player = [{ hand: ['A', 2] }, { hand: ['A'] }]
+          expect(fn({ player }, 0).can.H).toBeFalsy()
+        })
+
+        test('Hand 2', () => {
+          const player = [{ hand: ['A', 'K'] }, { hand: ['A', 9] }]
+          expect(fn({ player }, 1).can.H).toBeFalsy()
+        })
       })
     })
   })
@@ -47,6 +54,18 @@ describe('플레이어', () => {
         ${'Not enough'}  | ${{ player: [{ hand: [6, 5], bets: 2 }], bank: 1 }}
       `('$name', ({ game }) => {
         expect(fn(game, 0).can.D).toBeFalsy()
+      })
+
+      describe("Player can't hit split aces", () => {
+        test('Hand 1', () => {
+          const player = [{ hand: ['A', 2], bets: 2 }, { hand: ['A'] }]
+          expect(fn({ player, bank: 2 }, 0).can.D).toBeFalsy()
+        })
+
+        test('Hand 2', () => {
+          const player = [{ hand: ['A', 'K'] }, { hand: ['A', 9], bets: 2 }]
+          expect(fn({ player, bank: 2 }, 1).can.D).toBeFalsy()
+        })
       })
     })
   })
@@ -104,6 +123,7 @@ describe('플레이어', () => {
   describe('must', () => {
     test('draw', () => {
       expect(fn({ player: [{ hand: ['A'] }] }, 0).must.draw).toBeTruthy()
+      expect(fn({ player: [{ hand: ['A', 2] }] }, 0).must.draw).toBeFalsy()
       expect(fn({ player: [{ hand: ['A', 'K'] }] }, 0).must.draw).toBeFalsy()
     })
   })

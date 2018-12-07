@@ -8,14 +8,14 @@ export default ({ player, bank }, index) => {
   const isPair = hand[0] === hand[1]
   const hasEnough = bank >= bets
   const hasSplitAces = player.length > 1 && hand[0] === 'A'
-  const H = totals.some(n => n < 21)
+  const H = totals.some(n => n < 21) && !hasSplitAces
 
   const can = {
-    H: !hasSplitAces,
+    H,
     S: true,
-    D: isInit && hasEnough,
+    D: H && isInit && hasEnough,
     SP: isInit && isPair && hasEnough && player.length < 4 && !hasSplitAces,
-    SU: isInit && player.length === 1
+    SU: H && isInit && player.length === 1
   }
 
   const must = {

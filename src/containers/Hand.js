@@ -1,13 +1,25 @@
 import { connect } from 'react-redux'
 import Hand from '../components/Hand'
+import d from '../rules/dealer'
 import h from '../rules/hand'
 
-export default connect(({ player, dealer }, { index }) => {
+export default connect(({ player, dealer, turn }, { index }) => {
   const { hand, surrender } = Number.isInteger(index)
     ? player[index]
     : { hand: dealer }
-  const status = surrender ? 'surrender' : ''
-  return { hand, desc: join([join(h(hand).totals, ', '), status]) }
+
+  const { totals, blackjack, bust } = h(hand)
+  const status = blackjack
+    ? 'blackjack'
+    : bust
+    ? 'bust'
+    : surrender
+    ? 'surrender'
+    : turn > index || (!Number.isInteger(index) && !d(dealer).must.draw)
+    ? 'stay'
+    : ''
+
+  return { hand, desc: join([join(totals, ', '), status]) }
 })(Hand)
 
 /* utils */

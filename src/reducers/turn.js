@@ -3,6 +3,10 @@ export default (state = null, action) => {
     case 'start':
       return 0
 
+    case 'finish':
+      return null
+
+    case 'bust':
     case 'stay':
     case 'double':
     case 'surrender':

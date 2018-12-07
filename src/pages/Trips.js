@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import selector from '../selectors/history'
+import selector from '../selectors/games'
 import Trip from './Trip'
 import HistoryDetail from './HistoryDetail'
 

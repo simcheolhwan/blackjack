@@ -3,9 +3,9 @@ export const bet = bets => (dispatch, getState) => {
   dispatch({ type: 'bet', turn: turn || 0, bets })
 }
 
-export const draw = () => (dispatch, getState) => {
-  const { deck, turn } = getState()
-  dispatch({ type: 'draw', turn, card: deck[0] })
+export const bust = () => (dispatch, getState) => {
+  const { turn } = getState()
+  dispatch({ type: 'bust', turn })
 }
 
 export const hit = () => (dispatch, getState) => {

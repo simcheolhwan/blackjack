@@ -15,8 +15,15 @@ describe('턴 리듀서', () => {
     expect(reducer(state, action)).toEqual(expected)
   })
 
+  test('게임을 종료할 때 차례를 제거한다.', () => {
+    const action = { type: 'finish' }
+    const state = 5
+    const expected = null
+    expect(reducer(state, action)).toEqual(expected)
+  })
+
   describe('플레이어 액션에 따라 턴이 다음으로 넘어간다.', () => {
-    test.each(['stay', 'double', 'surrender'])('%s', type => {
+    test.each(['bust', 'stay', 'double', 'surrender'])('%s', type => {
       const action = { type }
       const state = 0
       const expected = 1
