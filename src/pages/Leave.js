@@ -20,9 +20,7 @@ const Leave = ({ noTrips, onClick }) =>
       </button>
 
       {!onClick && (
-        <p className={style.description}>
-          게임 중이 아니고, 기록이 하나라도 있을 때 가능합니다.
-        </p>
+        <p className={style.description}>게임 중이 아닐 때 가능합니다.</p>
       )}
     </article>
   ) : null
@@ -32,6 +30,6 @@ export default connect(
   dispatch => bindActionCreators(action, dispatch),
   ({ turn, history: { trips, games } }, { enter, leave }) => ({
     noTrips: !trips.length,
-    onClick: !Number.isInteger(turn) && !!games.length ? leave : undefined
+    onClick: !Number.isInteger(turn) ? leave : undefined
   })
 )(Leave)

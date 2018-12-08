@@ -17,5 +17,12 @@ describe('기록 리듀서', () => {
       const expected = [[150, 200]]
       expect(trips(state, action)).toEqual(expected)
     })
+
+    test('전달받은 배열이 비어있으면 저장하지 않는다.', () => {
+      const action = { type: 'leave', games: [] }
+      const state = [[150, 200]]
+      const expected = [[150, 200]]
+      expect(trips(state, action)).toEqual(expected)
+    })
   })
 })
