@@ -28,8 +28,15 @@ const Leave = ({ noTrips, onClick }) =>
 export default connect(
   state => state,
   dispatch => bindActionCreators(action, dispatch),
-  ({ turn, history: { trips, games } }, { enter, leave }) => ({
-    noTrips: !trips.length,
-    onClick: !Number.isInteger(turn) ? leave : undefined
-  })
+  ({ turn, history: { trips, games } }, { enter, leave }, { onLeave }) => {
+    const onClick = () => {
+      leave()
+      onLeave && onLeave()
+    }
+
+    return {
+      noTrips: !trips.length,
+      onClick: !Number.isInteger(turn) ? onClick : undefined
+    }
+  }
 )(Leave)

@@ -34,16 +34,15 @@ class Menu extends Component {
   render() {
     const { table } = this.props
     const { currentMenuIndex } = this.state
-
+    const button = <Leave onLeave={this.close} />
     const menu = [
       { name: 'Rules', render: () => <Rules /> },
       { name: 'Strategy', render: () => <Strategy /> },
       { name: 'Games', render: () => <Games /> },
-      { name: 'Trips', render: () => <Trips button={<Leave />} /> }
+      { name: 'Trips', render: () => <Trips button={button} /> }
     ]
 
     const { render } = menu[currentMenuIndex] || {}
-
     return (
       <>
         <nav className={style.nav}>
