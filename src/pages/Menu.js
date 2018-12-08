@@ -4,7 +4,7 @@ import style from './Menu.module.scss'
 import Rules from './Rules'
 import Strategy from './Strategy'
 import Trips from './Trips'
-import History from './History'
+import Games from './Games'
 import Leave from './Leave'
 
 class Menu extends Component {
@@ -38,7 +38,7 @@ class Menu extends Component {
     const menu = [
       { name: 'Rules', render: () => <Rules /> },
       { name: 'Strategy', render: () => <Strategy /> },
-      { name: 'History', render: () => <History /> },
+      { name: 'Games', render: () => <Games /> },
       { name: 'Trips', render: () => <Trips button={<Leave />} /> }
     ]
 

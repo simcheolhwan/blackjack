@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import selector from '../selectors/games'
 import Trip from './Trip'
-import HistoryDetail from './HistoryDetail'
+import GamesDetail from './GamesDetail'
 
 class Trips extends Component {
   state = { currentTripIndex: null }
@@ -27,7 +27,7 @@ class Trips extends Component {
 
     return Number.isInteger(currentTripIndex) ? (
       <>
-        <HistoryDetail {...trips[currentTripIndex]} />
+        <GamesDetail {...trips[currentTripIndex]} />
         <button onClick={this.reset}>Back</button>
       </>
     ) : (
