@@ -9,6 +9,7 @@ describe('플레이어', () => {
     describe('불가', () => {
       test.each`
         name           | hand
+        ${'must draw'} | ${[8]}
         ${'21'}        | ${[8, 2, 'A']}
         ${'blackjack'} | ${['A', 'K']}
         ${'bust'}      | ${[10, 2, 10]}
@@ -36,6 +37,7 @@ describe('플레이어', () => {
     })
 
     test('불가', () => {
+      expect(fn({ player: [{ hand: [8] }] }, 0).can.S).toBeFalsy()
       expect(fn({ player: [{ hand: ['A', 'K'] }] }, 0).can.S).toBeFalsy()
     })
   })
