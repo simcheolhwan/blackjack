@@ -10,7 +10,7 @@ export default connect(
   state => state,
   dispatch => bindActionCreators({ ...actions, ...tripActions }, dispatch),
   (
-    { player, bank, turn },
+    { player, bank, turn, history },
     { enter, bet, hit, stay, double, split, surrender }
   ) => {
     const actions = { SU: surrender, SP: split, D: double, S: stay, H: hit }
@@ -21,7 +21,7 @@ export default connect(
             disabled: !(player[turn] && p({ player, bank }, turn).can[key]),
             onClick
           }))
-        : bank + player[0].bets
+        : bank + player[0].bets || history.games.length
         ? [1, 2, 5, 10, 20].map(n => ({
             children: n * UNIT,
             disabled: bank < n,

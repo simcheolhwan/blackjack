@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Table from '../components/Table'
 import Page from '../pages/Page'
+import Leave from '../pages/Leave'
 import Hand from './Hand'
 import Player from './Player'
 import Actions from './Actions'
@@ -13,14 +14,16 @@ const pages = {
   bet: { title: 'Bet', content: 'Select chips' }
 }
 
-export default connect(({ player, bank, turn }) =>
-  Object.assign(
+export default connect(({ player, bank, turn, history }) => {
+  const canStart = bank + player[0].bets
+  const bet = canStart ? <Page {...pages.bet} /> : <Leave />
+  return Object.assign(
     { dealer: <Page {...pages.enter} />, actions: <Actions /> },
-    bank + player[0].bets && {
-      dealer: Number.isInteger(turn) ? <Hand /> : <Page {...pages.bet} />,
+    (canStart || history.games.length) && {
+      dealer: Number.isInteger(turn) ? <Hand /> : bet,
       player: player.map((p, i) => <Player {...p} index={i} key={i} />),
       bank: <Bank />,
       controls: <Controls />
     }
   )
-)(Table)
+})(Table)
