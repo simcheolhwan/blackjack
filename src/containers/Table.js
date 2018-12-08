@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { MIN, MAX, UNIT } from '../rules/constants'
 import Table from '../components/Table'
 import Page from '../pages/Page'
 import Leave from '../pages/Leave'
@@ -10,8 +11,14 @@ import Bank from './Bank'
 import Controls from './Controls'
 
 const pages = {
-  enter: { title: 'Enter casino', content: 'Select money' },
-  bet: { title: 'Bet', content: 'Select chips' }
+  enter: {
+    title: 'Enter casino',
+    content: 'Select money'
+  },
+  bet: {
+    title: 'Bet',
+    content: `Select chips\nMinimum ${MIN * UNIT}\nMaximum ${MAX * UNIT}`
+  }
 }
 
 export default connect(({ player, bank, turn, history }) => {

@@ -16,7 +16,7 @@ export const games = (state = [], action) => {
 export const trips = (state = [], action) => {
   switch (action.type) {
     case 'leave':
-      return [...state, action.games]
+      return action.games.length ? [...state, action.games] : state
 
     default:
       return state

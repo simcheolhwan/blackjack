@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { UNIT } from '../rules/constants'
+import { UNIT, MAX } from '../rules/constants'
 import p from '../rules/player'
 import * as actions from '../actions/player'
 import * as tripActions from '../actions/trip'
@@ -24,7 +24,7 @@ export default connect(
         : bank + player[0].bets || history.games.length
         ? [1, 2, 5, 10, 20].map(n => ({
             children: n * UNIT,
-            disabled: bank < n,
+            disabled: bank < n || player[0].bets + n > MAX,
             onClick: () => bet(n)
           }))
         : [100, 200, 500, 1000, 2000].map(n => ({
