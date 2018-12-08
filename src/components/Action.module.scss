@@ -1,0 +1,18 @@
+@import '../styles/styles';
+
+.button {
+  background-color: white;
+  border-radius: 50%;
+  margin: 0;
+  padding: 0;
+  width: $height;
+  height: $height;
+
+  &[disabled] {
+    opacity: 0.5;
+  }
+}
+
+.small {
+  font-size: 80%;
+}

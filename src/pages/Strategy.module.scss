@@ -1,0 +1,49 @@
+@import '../styles/styles';
+@import '../styles/colors';
+
+$size: 22px;
+
+.article {
+  padding-right: $height;
+}
+
+.table {
+  font-size: 50%;
+  margin: 0 auto;
+
+  th {
+    padding-right: 5px;
+  }
+
+  td {
+    width: $size;
+    height: $size;
+    text-transform: initial;
+  }
+}
+
+.dealer td {
+  height: $size + $gutter;
+  padding-top: $gutter;
+}
+
+/* Colors */
+.su {
+  background-color: $teal;
+}
+
+.sp {
+  background-color: $orange;
+}
+
+.dh {
+  background-color: $olive;
+}
+
+.s {
+  background-color: $maroon;
+}
+
+.h {
+  background-color: $blue;
+}

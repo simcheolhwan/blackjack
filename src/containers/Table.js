@@ -1,26 +1,36 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import * as actions from '../redux/actions'
-import { getCurrentPlayer } from '../rules/check'
+import { MIN, MAX, UNIT } from '../rules/constants'
 import Table from '../components/Table'
-import Front from '../docs/Front'
+import Page from '../pages/Page'
+import Leave from '../pages/Leave'
+import Hand from './Hand'
 import Player from './Player'
 import Actions from './Actions'
-import Chips from './Chips'
 import Bank from './Bank'
 import Controls from './Controls'
 
-export default connect(
-  state => state,
-  dispatch => bindActionCreators(actions, dispatch),
-  ({ players, game }, { startGame, resetGame, win, draw }) => ({
-    dealer: game.isPlaying ? <Player playerKey="dealer" /> : <Front />,
-    primary: <Player playerKey="primary" />,
-    replica: !!players['replica'].hand.length && <Player playerKey="replica" />,
-    actions: <Actions playerKey={getCurrentPlayer(players)} />,
-    chips: <Chips />,
-    bank: <Bank />,
-    controls: <Controls />
-  })
-)(Table)
+const pages = {
+  enter: {
+    title: 'Enter casino',
+    content: 'Select money'
+  },
+  bet: {
+    title: 'Bet',
+    content: `Select chips\nMinimum ${MIN * UNIT}\nMaximum ${MAX * UNIT}`
+  }
+}
+
+export default connect(({ player, bank, turn, history }) => {
+  const canStart = bank + player[0].bets
+  const bet = canStart ? <Page {...pages.bet} /> : <Leave />
+  return Object.assign(
+    { dealer: <Page {...pages.enter} />, actions: <Actions /> },
+    (canStart || history.games.length) && {
+      dealer: Number.isInteger(turn) ? <Hand /> : bet,
+      player: player.map((p, i) => <Player {...p} index={i} key={i} />),
+      bank: <Bank />,
+      controls: <Controls />
+    }
+  )
+})(Table)

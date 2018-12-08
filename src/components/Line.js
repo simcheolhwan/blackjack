@@ -27,21 +27,21 @@ class Line extends Component {
   )
 
   render() {
-    const { index, chips, debt } = this.props
+    const { index, number, minus } = this.props
 
     return (
       <div className={style.line}>
         <span className={style.index}>{index}</span>
 
         <div className={style.track} ref={this.track}>
-          {[[debt, 'red'], [chips, 'green']].map(this.renderBar)}
+          {[[minus, 'red'], [number, 'green']].map(this.renderBar)}
 
           <span className={style.number}>
-            <Finite>{chips}</Finite>
+            <Finite>{number}</Finite>
           </span>
         </div>
 
-        <span className={style.debt}>{!!debt && -1 * debt}</span>
+        <span className={style.minus}>{!!minus && -1 * minus}</span>
       </div>
     )
   }

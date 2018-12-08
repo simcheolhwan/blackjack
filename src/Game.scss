@@ -26,3 +26,13 @@ body {
 a[target='_blank']::after {
   content: ' ↗';
 }
+
+button,
+input,
+textarea {
+  background-color: fade-out($white, 0.96);
+  color: fade-out($white, 0.5);
+  margin: $gutter auto $gutter;
+  padding: $gutter;
+  width: 200px;
+}

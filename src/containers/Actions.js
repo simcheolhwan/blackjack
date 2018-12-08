@@ -1,52 +1,36 @@
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import * as actions from '../redux/actions'
-import check, { isInit } from '../rules/check'
-import { getBets } from '../constants'
-import ButtonGroup from '../components/ButtonGroup'
+import { UNIT, MAX } from '../rules/constants'
+import p from '../rules/player'
+import * as actions from '../actions/player'
+import * as tripActions from '../actions/trip'
+import ActionGroup from '../components/ActionGroup'
 
 export default connect(
   state => state,
-  dispatch => bindActionCreators(actions, dispatch),
+  dispatch => bindActionCreators({ ...actions, ...tripActions }, dispatch),
   (
-    { players, chips, game },
-    { bet, startGame, draw, set, double, split },
-    { playerKey }
+    { player, bank, turn, history },
+    { enter, bet, hit, stay, double, split, surrender }
   ) => {
-    const player = players[playerKey]
-    const actions = game.isPlaying
-      ? [
-          {
-            children: 'SU',
-            disabled: !(isInit(player) && !players['replica'].hand.length),
-            onClick: () => set(playerKey, 'surrender')
-          },
-          {
-            children: 'SP',
-            disabled: !check.canSplit({ players, chips }),
-            onClick: () => split()
-          },
-          {
-            children: 'D',
-            disabled: !(isInit(player) && chips >= player.stake),
-            onClick: () => double(playerKey)
-          },
-          {
-            children: 'S',
-            disabled: !!player.status,
-            onClick: () => set(playerKey, 'stay')
-          },
-          {
-            children: 'H',
-            disabled: !!player.status,
-            onClick: () => draw(playerKey)
-          }
-        ]
-      : getBets(chips).map(n => ({
-          children: String(n),
-          disabled: chips < n,
-          onClick: () => bet(playerKey, n)
-        }))
-    return { buttons: actions }
+    const actions = { SU: surrender, SP: split, D: double, S: stay, H: hit }
+    return {
+      actions: Number.isInteger(turn)
+        ? Object.entries(actions).map(([key, onClick]) => ({
+            children: key,
+            disabled: !(player[turn] && p({ player, bank }, turn).can[key]),
+            onClick
+          }))
+        : bank + player[0].bets || history.games.length
+        ? [1, 2, 5, 10, 20].map(n => ({
+            children: n * UNIT,
+            disabled: bank < n || player[0].bets + n > MAX,
+            onClick: () => bet(n)
+          }))
+        : [100, 200, 500, 1000, 2000].map(n => ({
+            children: n * UNIT,
+            onClick: () => enter(n)
+          }))
+    }
   }
-)(ButtonGroup)
+)(ActionGroup)

@@ -1,0 +1,41 @@
+@import '../styles/styles';
+
+.rules {
+  @include flex();
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  font-size: 80%;
+  font-weight: normal;
+  line-height: 1.6;
+  text-transform: initial;
+}
+
+.article {
+  text-align: left;
+  margin-bottom: $gutter;
+}
+
+.title {
+  font-size: 1.25em;
+  font-weight: normal;
+  line-height: 2;
+}
+
+.description {
+  padding-left: 20px;
+
+  li {
+    list-style: initial;
+  }
+}
+
+.author {
+  text-align: right;
+  margin-top: 5px;
+}
+
+.a {
+  text-decoration: none;
+  margin-left: 5px;
+}

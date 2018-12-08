@@ -1,7 +1,10 @@
+import migrate from './migration'
+
 export const loadState = () => {
   try {
     const serializedState = localStorage.getItem('state')
-    return JSON.parse(serializedState) || undefined
+    const state = JSON.parse(serializedState)
+    return state.v === 2 ? state : migrate(state) || undefined
   } catch (err) {
     return undefined
   }

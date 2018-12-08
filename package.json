@@ -1,12 +1,16 @@
 {
   "name": "blackjack",
+  "description": "Blackjack web game and simulator",
+  "version": "2.0.0",
+  "author": "심철환 <a@akaiv.com>",
   "homepage": "https://s10n.github.io/blackjack",
+  "repository": "github:s10n/blackjack",
   "dependencies": {
     "classnames": "^2.2.6",
     "node-sass": "^4.10.0",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
-    "react-redux": "^5.1.1",
+    "react-redux": "^6.0.0",
     "react-scripts": "^2.1.1",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0"

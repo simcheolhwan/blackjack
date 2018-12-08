@@ -1,0 +1,43 @@
+@import '../styles/styles';
+@import '../styles/colors';
+
+.nav {
+  background-color: darken($olive, 25%);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
+
+.menu {
+  @include flex();
+  align-items: stretch;
+  height: $height;
+
+  margin: 0 auto;
+  max-width: $game;
+}
+
+.item {
+  @include flex();
+  flex: 1;
+  cursor: pointer;
+  color: fade-out($white, 0.5);
+}
+
+.active {
+  color: $white;
+}
+
+.content {
+  height: 100%;
+
+  .close {
+    margin-top: $gutter * 2;
+  }
+
+  &:disabled {
+    text-decoration: line-through;
+  }
+}

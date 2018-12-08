@@ -1,15 +1,23 @@
 @import '../styles/styles';
 @import '../styles/colors';
 
+.hand {
+  overflow: hidden;
+}
+
+.container {
+  overflow-y: auto;
+}
+
 .deck {
-  @include flex();
+  display: inline-flex;
 
   li {
     padding: 2px;
   }
 }
 
-.status {
+.desc {
   line-height: 2;
   color: darken($olive, 5%);
 }
