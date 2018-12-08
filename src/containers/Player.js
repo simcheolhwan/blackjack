@@ -13,17 +13,17 @@ export default connect(
   dispatch => bindActionCreators(actions, dispatch),
   ({ player, dealer, turn }, { bet }, { index }) => {
     const { bets } = player[index]
+    const { message } = getResults({ player, dealer }, index)
     const wager = {
       small: bets * UNIT > 9999,
       onClick: Number.isInteger(turn) ? undefined : () => bet(-bets)
     }
 
-    const { message } = getResults({ player, dealer }, index)
-
     return {
       hand: <Hand index={index} />,
       bets: <Wager {...wager}>{bets * UNIT}</Wager>,
       message: g({ player, dealer, turn }).hasFinished && message,
+      style: { width: 100 / player.length + '%' },
       active: player.length === 1 || turn === index,
       small: player.length > 1
     }
