@@ -1,6 +1,7 @@
 import p from './rules/player'
 import d from './rules/dealer'
 import h from './rules/hand'
+import g from './rules/game'
 
 export default ({ dispatch, getState }, callback) => {
   const watchPlayer = () => {
@@ -15,8 +16,9 @@ export default ({ dispatch, getState }, callback) => {
   }
 
   const watchDealer = () => {
+    const { hasFinished } = g({ player, dealer, turn })
     const { must } = d(dealer)
-    return must.draw && { type: 'draw', card: deck[0] }
+    return !hasFinished && must.draw && { type: 'draw', card: deck[0] }
   }
 
   const state = getState()

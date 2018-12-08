@@ -1,11 +1,21 @@
 import g, { getResults } from './game'
 
 describe('게임 결과', () => {
-  test('Not finished', () => {
+  describe('Not finished', () => {
     const player = [{ hand: [10, 10], bets: 2 }]
     const dealer = [6]
-    const { hasFinished } = g({ player, dealer })
-    expect(hasFinished).toBeFalsy()
+
+    test('results', () => {
+      const results = getResults({ player, dealer }, 0)
+      expect(results.result).toBeFalsy()
+      expect(results.prize).toBeFalsy()
+      expect(results.message).toBeFalsy()
+    })
+
+    test('hasFinished', () => {
+      const { hasFinished } = g({ player, dealer })
+      expect(hasFinished).toBeFalsy()
+    })
   })
 
   describe('stay', () => {

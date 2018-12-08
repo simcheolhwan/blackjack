@@ -17,7 +17,7 @@ export const getResults = ({ player, dealer }, index) => {
     ({
       1: [1, 10].includes(getCardValue(dealer[0])) ? -1 : 0,
       2: Number(dealerHand.blackjack)
-    }[dealer.length] || 0)
+    }[dealer.length] || 0) // -1: 아직 알 수 없음
 
   const compare = () =>
     Math.sign(Math.max(...playerHand.totals) - Math.max(...dealerHand.totals))
@@ -35,6 +35,8 @@ export const getResults = ({ player, dealer }, index) => {
     ? [-1, 0][Number(playerHand.blackjack)]
     : dealerHand.bust
     ? 1
+    : d(dealer).must.draw
+    ? null
     : compare()
 
   return { result, prize: result && result * bets, message: __(result) }
@@ -47,6 +49,5 @@ export default ({ player, dealer, turn }) => ({
   ),
   hasFinished:
     turn === player.length &&
-    !d(dealer).must.draw &&
     player.every((p, i) => getResults({ player, dealer }, i).message)
 })
