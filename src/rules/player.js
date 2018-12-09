@@ -1,7 +1,7 @@
 import h from './hand'
 
-export default ({ player, bank }, index) => {
-  const { hand, bets } = player[index]
+export default ({ player, bank, turn }) => {
+  const { hand, bets } = player[turn]
   const { totals } = h(hand)
 
   const isInit = hand.length === 2
@@ -12,10 +12,10 @@ export default ({ player, bank }, index) => {
 
   const can = {
     H,
-    S: hand.length > 1,
-    D: H && isInit && hasEnough,
+    S: true,
+    D: isInit && hasEnough,
     SP: isInit && isPair && hasEnough && player.length < 4 && !hasSplitAces,
-    SU: H && isInit && player.length === 1
+    SU: isInit && player.length === 1
   }
 
   const must = {

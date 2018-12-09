@@ -5,7 +5,7 @@ import g from './rules/game'
 
 export default ({ dispatch, getState }, callback) => {
   const watchPlayer = () => {
-    const { can, must } = p({ player, bank }, turn)
+    const { can, must } = p({ player, bank, turn })
     const { bust } = h(player[turn].hand)
     return must.draw
       ? { type: 'draw', card: deck[0], turn }

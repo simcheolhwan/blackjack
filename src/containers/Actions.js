@@ -18,7 +18,7 @@ export default connect(
       actions: Number.isInteger(turn)
         ? Object.entries(actions).map(([key, onClick]) => ({
             children: key,
-            disabled: !(player[turn] && p({ player, bank }, turn).can[key]),
+            disabled: !(player[turn] && p({ player, bank, turn }).can[key]),
             onClick
           }))
         : bank + player[0].bets || history.games.length
