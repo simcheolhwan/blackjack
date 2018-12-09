@@ -16,10 +16,9 @@ export default connect(
             children: '✓',
             onClick: finish
           }
-        : {
+        : player[0].bets && {
             color: colors['navy'],
             children: '→',
-            disabled: !player[0].bets,
             onClick: start
           }
     ].filter(Boolean)
