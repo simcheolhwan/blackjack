@@ -12,15 +12,15 @@ export default ({ player, bank, turn }) => {
 
   const can = {
     H,
-    S: true,
-    D: isInit && hasEnough,
-    SP: isInit && isPair && hasEnough && player.length < 4 && !hasSplitAces,
-    SU: isInit && player.length === 1
+    S: H,
+    D: H && isInit && hasEnough,
+    SU: H && isInit && player.length === 1,
+    SP: H && isInit && isPair && hasEnough && player.length < 4 && !hasSplitAces
   }
 
   const must = {
     draw: hand.length < 2
   }
 
-  return { can: H ? can : {}, must }
+  return { can, must }
 }

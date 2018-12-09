@@ -36,7 +36,7 @@ export const getResults = ({ player, dealer }, index) => {
     : dealerHand.bust
     ? 1
     : d(dealer).must.draw
-    ? null
+    ? undefined
     : compare()
 
   return { result, prize: result && result * bets, message: __(result) }

@@ -1,34 +1,42 @@
 import fn from './hand'
 
+const testHand = ({ hand, totals, blackjack, bust }) => {
+  expect(fn(hand).totals).toEqual(totals)
+  typeof blackjack === 'boolean' && expect(fn(hand).blackjack).toBe(blackjack)
+  typeof bust === 'boolean' && expect(fn(hand).bust).toBe(bust)
+}
+
 describe('핸드', () => {
-  test('블랙잭', () => {
-    expect(fn(['A', 10]).totals).toEqual([21])
-    expect(fn(['A', 10]).blackjack).toBeTruthy()
-    expect(fn(['A', 'K']).totals).toEqual([21])
-    expect(fn(['A', 'K']).blackjack).toBeTruthy()
-    expect(fn(['A', 8, 2]).totals).toEqual([21])
-    expect(fn(['A', 8, 2]).blackjack).toBeFalsy()
+  describe('블랙잭', () => {
+    test.each`
+      hand           | totals  | blackjack
+      ${['A', 10]}   | ${[21]} | ${true}
+      ${['A', 'K']}  | ${[21]} | ${true}
+      ${['A', 8, 2]} | ${[21]} | ${false}
+    `('$hand', testHand)
   })
 
-  test('하드 토탈', () => {
-    expect(fn([10, 9]).totals).toEqual([19])
-    expect(fn([10, 10]).bust).toBeFalsy()
-    expect(fn(['J', 2, 10]).totals).toEqual([22])
-    expect(fn(['J', 2, 10]).bust).toBeTruthy()
+  describe('하드 토탈', () => {
+    test.each`
+      hand            | totals  | bust
+      ${[10, 9]}      | ${[19]} | ${false}
+      ${['J', 2, 10]} | ${[22]} | ${true}
+    `('$hand', testHand)
   })
 
-  test('소프트 토탈', () => {
-    expect(fn(['A']).totals).toEqual([1, 11])
-    expect(fn(['A', 'A']).totals).toEqual([2, 12])
-
-    expect(fn(['A', 2]).totals).toEqual([3, 13])
-    expect(fn(['A', 2, 'A']).totals).toEqual([4, 14])
-    expect(fn(['A', 2, 'A', 'A']).totals).toEqual([5, 15])
-    expect(fn(['A', 2, 'A', 'A', 'A']).totals).toEqual([6, 16])
-    expect(fn(['A', 2, 'A', 'A', 'A', 'A']).totals).toEqual([7, 17])
-    expect(fn(['A', 2, 'A', 'A', 'A', 'A', 'A']).totals).toEqual([8, 18])
-
-    expect(fn(['A', 2, 8]).totals).toEqual([21])
-    expect(fn(['A', 2, 9]).totals).toEqual([12])
+  describe('소프트 토탈', () => {
+    test.each`
+      hand                                 | totals
+      ${['A']}                             | ${[1, 11]}
+      ${['A', 'A']}                        | ${[2, 12]}
+      ${['A', 2]}                          | ${[3, 13]}
+      ${['A', 2, 'A']}                     | ${[4, 14]}
+      ${['A', 2, 'A', 'A']}                | ${[5, 15]}
+      ${['A', 2, 'A', 'A', 'A']}           | ${[6, 16]}
+      ${['A', 2, 'A', 'A', 'A', 'A']}      | ${[7, 17]}
+      ${['A', 2, 'A', 'A', 'A', 'A', 'A']} | ${[8, 18]}
+      ${['A', 2, 8]}                       | ${[21]}
+      ${['A', 2, 9]}                       | ${[12]}
+    `('$hand', testHand)
   })
 })
