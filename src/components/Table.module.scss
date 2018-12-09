@@ -39,9 +39,9 @@
 }
 
 .bank {
-  @include flex();
+  margin-right: $gutter;
+}
 
-  > * {
-    margin-right: $gutter;
-  }
+.controls {
+  flex: 1;
 }
