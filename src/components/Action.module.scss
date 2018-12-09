@@ -1,7 +1,8 @@
 @import '../styles/styles';
+@import '../styles/colors';
 
 .button {
-  background-color: white;
+  background-color: $white;
   border-radius: 50%;
   width: $height;
   height: $height;
@@ -9,6 +10,10 @@
   &[disabled] {
     opacity: 0.5;
   }
+}
+
+.border {
+  border: 2px solid $silver;
 }
 
 .small {

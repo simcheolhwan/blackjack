@@ -4,21 +4,28 @@ import { UNIT, MAX } from '../rules/constants'
 import p from '../rules/player'
 import * as actions from '../actions/player'
 import * as tripActions from '../actions/trip'
+import selectStrategy from '../selectors/strategy'
 import ActionGroup from '../components/ActionGroup'
 
 export default connect(
   state => state,
   dispatch => bindActionCreators({ ...actions, ...tripActions }, dispatch),
   (
-    { player, bank, turn, history },
+    { player, dealer, bank, turn, history },
     { enter, bet, hit, stay, double, split, surrender }
   ) => {
     const actions = { SU: surrender, SP: split, D: double, S: stay, H: hit }
+    const strategy =
+      Number.isInteger(turn) &&
+      player[turn] &&
+      selectStrategy({ player, dealer, bank, turn })
+
     return {
       actions: Number.isInteger(turn)
         ? Object.entries(actions).map(([key, onClick]) => ({
             children: key,
             disabled: !(player[turn] && p({ player, bank, turn }).can[key]),
+            border: strategy === key,
             onClick
           }))
         : bank + player[0].bets || history.games.length
