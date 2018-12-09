@@ -20,11 +20,13 @@ export const finish = () => (dispatch, getState) => {
   const totalBets = player.reduce((sum, { bets }) => sum + bets, 0)
   const totalReturn = prize + totalBets
   const nextBank = bank + totalReturn
+  const canBet = nextBank >= initialBets
+  const nextBets = canBet ? initialBets : 0
 
   dispatch({
     type: 'finish',
-    amount: totalReturn - initialBets, // 이만큼 내 자금에 더한다
-    bets: initialBets, // 이만큼 새로 베팅한다
+    amount: totalReturn - nextBets, // 이만큼 내 자금에 더한다
+    bets: nextBets, // 이만큼 새로 베팅한다
     bank: nextBank // 이만큼 기록한다
   })
 }
