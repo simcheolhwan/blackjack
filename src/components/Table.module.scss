@@ -28,6 +28,8 @@
 }
 
 .actions {
+  flex: none;
+  align-self: stretch;
   height: 2 * $height;
 }
 
