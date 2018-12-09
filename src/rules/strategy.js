@@ -8,7 +8,23 @@ const DS = ['D', 'S']
 const SP = ['SP']
 const SU = ['SU']
 
-export default ({ hand, dealer }) => {
+export default ({ hand, dealer }, hard = false) => {
+  const getHard = () =>
+    totals[0] >= 17
+      ? S
+      : totals[0] <= 8
+      ? H
+      : {
+          16: b(2, 6) ? S : b(7, 8) ? H : SU,
+          15: b(2, 6) ? S : upcard === 10 ? SU : H,
+          14: b(2, 6) ? S : H,
+          13: b(2, 6) ? S : H,
+          12: b(4, 6) ? S : H,
+          11: b(2, 10) ? DH : H,
+          10: b(2, 9) ? DH : H,
+          9: b(3, 6) ? DH : H
+        }[totals[0]]
+
   const upcard = getCardValue(dealer[0])
   const b = between(upcard)
   const isInit = hand.length === 2
@@ -16,7 +32,9 @@ export default ({ hand, dealer }) => {
   const { totals } = h(hand)
   const isSoft = totals.length > 1
 
-  return isPair
+  return hard
+    ? getHard()
+    : isPair
     ? {
         A: SP,
         10: S,
@@ -40,20 +58,7 @@ export default ({ hand, dealer }) => {
         14: b(5, 6) ? DH : H,
         13: b(5, 6) ? DH : H
       }[totals[1]]
-    : totals[0] >= 17
-    ? S
-    : totals[0] <= 8
-    ? H
-    : {
-        16: b(2, 6) ? S : b(7, 8) ? H : SU,
-        15: b(2, 6) ? S : upcard === 10 ? SU : H,
-        14: b(2, 6) ? S : H,
-        13: b(2, 6) ? S : H,
-        12: b(4, 6) ? S : H,
-        11: b(2, 10) ? DH : H,
-        10: b(2, 9) ? DH : H,
-        9: b(3, 6) ? DH : H
-      }[totals[0]]
+    : getHard()
 }
 
 /* utils */
