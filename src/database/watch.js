@@ -1,7 +1,7 @@
-import p from './rules/player'
-import d from './rules/dealer'
-import h from './rules/hand'
-import g from './rules/game'
+import p from '../rules/player'
+import d from '../rules/dealer'
+import h from '../rules/hand'
+import g from '../rules/game'
 
 export default ({ dispatch, getState }, callback) => {
   const watchPlayer = () => {

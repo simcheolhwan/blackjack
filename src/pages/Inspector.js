@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { loadState, saveState, removeState } from '../localStorage'
+import { loadState, saveState, removeState } from '../database/localStorage'
 
 const TRIGGER = 10
 class Inspector extends Component {

@@ -1,4 +1,4 @@
-import testDeck from '../testDeck'
+import testDeck from '../database/testDeck'
 import { shuffleDeck } from '../rules/deck'
 
 export default (state = [], action) => {

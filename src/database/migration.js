@@ -1,4 +1,4 @@
-import { UNIT } from './rules/constants'
+import { UNIT } from '../rules/constants'
 export default ({ chips, debt, history, trips }) => {
   const migrateGames = array => array.map(({ chips }) => chips / UNIT)
   const bank = (chips - debt) / UNIT

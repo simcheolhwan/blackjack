@@ -1,14 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import store from './store'
+import store from './database/store'
 import './index.scss'
-import Game from './Game'
+import Table from './containers/Table'
+import Menu from './pages/Menu'
 import * as serviceWorker from './serviceWorker'
 
 ReactDOM.render(
   <Provider store={store}>
-    <Game />
+    <Menu table={<Table />} />
   </Provider>,
   document.getElementById('game')
 )
