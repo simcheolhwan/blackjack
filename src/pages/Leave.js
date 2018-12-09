@@ -4,14 +4,18 @@ import { bindActionCreators } from 'redux'
 import * as action from '../actions/trip'
 import style from './Leave.module.scss'
 
-const Leave = ({ noTrips, onClick }) =>
-  onClick || noTrips ? (
+const Leave = ({ render, showDescription, onClick }) =>
+  render ? (
     <article className={style.article}>
-      <h1>Leave casino?</h1>
-      {noTrips && <p className={style.description}>History will be saved</p>}
-      <button disabled={!onClick} onClick={onClick}>
+      <header>
+        <h1>Leave casino?</h1>
+        {showDescription && <p>History will be saved</p>}
+      </header>
+
+      <button className={style.button} disabled={!onClick} onClick={onClick}>
         Leave
       </button>
+
       {!onClick && <p className={style.help}>게임 중이 아닐 때 가능합니다.</p>}
     </article>
   ) : null
@@ -19,15 +23,20 @@ const Leave = ({ noTrips, onClick }) =>
 export default connect(
   state => state,
   dispatch => bindActionCreators(action, dispatch),
-  ({ turn, history: { trips, games } }, { enter, leave }, { onLeave }) => {
-    const onClick = () => {
-      leave()
-      onLeave && onLeave()
-    }
+  ({ player, bank, turn, history }, { enter, leave }, { onLeave }) => {
+    const inCasino = bank + player[0].bets || history.games.length
+    const noTrips = !history.trips.length
+    const onClick = !Number.isInteger(turn)
+      ? () => {
+          leave()
+          onLeave && onLeave()
+        }
+      : undefined
 
     return {
-      noTrips: !trips.length,
-      onClick: !Number.isInteger(turn) ? onClick : undefined
+      render: inCasino && (noTrips || onClick),
+      showDescription: noTrips,
+      onClick
     }
   }
 )(Leave)
