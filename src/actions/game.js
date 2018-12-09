@@ -15,7 +15,16 @@ export const start = () => (dispatch, getState) => {
 export const finish = () => (dispatch, getState) => {
   const { player, dealer, bank, turn } = getState()
   const { prize } = g({ player, dealer, turn })
-  const bets = player.reduce((sum, { bets }) => sum + bets, 0)
-  const amount = prize + bets
-  dispatch({ type: 'finish', amount, bank: bank + amount })
+
+  const initialBets = player[0]['bets'] / (Number(!!player[0]['double']) + 1)
+  const totalBets = player.reduce((sum, { bets }) => sum + bets, 0)
+  const totalReturn = prize + totalBets
+  const nextBank = bank + totalReturn
+
+  dispatch({
+    type: 'finish',
+    amount: totalReturn - initialBets, // 이만큼 내 자금에 더한다
+    bets: initialBets, // 이만큼 새로 베팅한다
+    bank: nextBank // 이만큼 기록한다
+  })
 }

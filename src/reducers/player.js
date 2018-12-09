@@ -8,6 +8,9 @@ export default (state = [initial], action) => {
       case 'start':
         return f(() => ({ hand: action.player }))
 
+      case 'finish':
+        return f(() => ({ bets: action.bets }))
+
       case 'bet':
         return f(({ bets }) => ({ bets: bets + action.bets }))
 
@@ -18,7 +21,8 @@ export default (state = [initial], action) => {
       case 'double':
         return f(({ hand, bets }) => ({
           hand: [...hand, action.card],
-          bets: bets * 2
+          bets: bets * 2,
+          double: true
         }))
 
       case 'split':

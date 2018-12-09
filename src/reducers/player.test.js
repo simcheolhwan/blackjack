@@ -23,9 +23,9 @@ describe('플레이어 리듀서', () => {
   })
 
   test('게임 종료', () => {
-    const action = { type: 'finish' }
+    const action = { type: 'finish', bets: 1 }
     const state = [{ hand: ['A', 'K'], bets: 1 }, { hand: ['A', 9], bets: 1 }]
-    const expected = [{ hand: [], bets: 0 }]
+    const expected = [{ hand: [], bets: 1 }]
     expect(reducer(state, action)).toEqual(expected)
   })
 
@@ -46,7 +46,7 @@ describe('플레이어 리듀서', () => {
   test('Double', () => {
     const action = { type: 'double', turn: 0, card: 10 }
     const state = [{ hand: [6, 5], bets: 1 }]
-    const expected = [{ hand: [6, 5, 10], bets: 2 }]
+    const expected = [{ hand: [6, 5, 10], bets: 2, double: true }]
     expect(reducer(state, action)).toEqual(expected)
   })
 
