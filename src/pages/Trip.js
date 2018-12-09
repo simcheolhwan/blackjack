@@ -3,7 +3,7 @@ import style from './Trip.module.scss'
 
 const Trip = ({ title, summary }) => (
   <article className={style.trip}>
-    <h1>Trip {title}</h1>
+    <h1 className={style.title}>Trip {title}</h1>
     <section>
       <p>{summary} →</p>
     </section>

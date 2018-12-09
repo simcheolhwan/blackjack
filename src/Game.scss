@@ -2,25 +2,31 @@
 @import './styles/colors';
 
 html,
-body,
-#game {
-  height: 100%;
-}
-
-#game {
-  margin: 0 auto;
-  max-width: $game;
-  max-height: 800px;
+body {
+  min-height: 100vh;
 }
 
 body {
+  @include flex();
+  align-items: stretch;
   background-color: darken($olive, 25%);
   color: $white;
+}
+
+#game {
   font-weight: bold;
+  margin: 0 auto;
   padding: $gutter;
   padding-top: $gutter + $height;
   text-align: center;
   text-transform: uppercase;
+  max-width: $game;
+  max-height: 800px;
+  width: 100%;
+}
+
+h1 {
+  font-size: 1.5rem;
 }
 
 a[target='_blank']::after {
@@ -32,7 +38,6 @@ input,
 textarea {
   background-color: fade-out($white, 0.96);
   color: fade-out($white, 0.5);
-  margin: $gutter auto $gutter;
-  padding: $gutter;
+  height: $height;
   width: 200px;
 }

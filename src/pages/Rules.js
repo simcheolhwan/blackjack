@@ -48,7 +48,7 @@ const Rules = () => (
         <section>
           {RULES.map(([title, list]) => (
             <article className={style.article} key={title}>
-              <h1 className={style.title}>{title}</h1>
+              <h1>{title}</h1>
               <ul className={style.description}>
                 {list.map((text, index) => (
                   <li key={index}>{text}</li>

@@ -31,10 +31,8 @@
 }
 
 .content {
-  height: 100%;
-
   .close {
-    margin-top: $gutter * 2;
+    margin-top: $gutter;
   }
 
   &:disabled {

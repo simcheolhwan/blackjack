@@ -5,7 +5,6 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: stretch;
-  font-size: 80%;
   font-weight: normal;
   line-height: 1.6;
   text-transform: initial;
@@ -16,13 +15,8 @@
   margin-bottom: $gutter;
 }
 
-.title {
-  font-size: 1.25em;
-  font-weight: normal;
-  line-height: 2;
-}
-
 .description {
+  font-size: 14px;
   padding-left: 20px;
 
   li {
@@ -31,6 +25,7 @@
 }
 
 .author {
+  font-size: 80%;
   text-align: right;
   margin-top: 5px;
 }
