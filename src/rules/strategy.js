@@ -37,7 +37,6 @@ export default ({ hand = [], dealer = [] }, hard = false) => {
       ? getHard()
       : isPair
       ? {
-          A: SP,
           10: S,
           9: b(2, 6) || b(8, 9) ? SP : S,
           8: SP,
@@ -46,8 +45,9 @@ export default ({ hand = [], dealer = [] }, hard = false) => {
           5: b(2, 9) ? DH : H,
           4: b(5, 6) ? SP : H,
           3: b(2, 7) ? SP : H,
-          2: b(2, 7) ? SP : H
-        }[hand[0]]
+          2: b(2, 7) ? SP : H,
+          1: SP
+        }[getCardValue(hand[0])]
       : isSoft
       ? {
           20: S,

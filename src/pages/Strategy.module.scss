@@ -3,13 +3,14 @@
 
 $size: 22px;
 
-.article {
-  padding-right: $height;
+.article button {
+  margin-top: $gutter;
 }
 
 .table {
   font-size: 50%;
   margin: 0 auto;
+  transform: translate($height / -2, 0);
 
   th {
     padding-right: 5px;

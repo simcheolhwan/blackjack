@@ -2,36 +2,42 @@ import p from '../rules/player'
 import d from '../rules/dealer'
 import h from '../rules/hand'
 import g from '../rules/game'
+import selectStrategy from '../selectors/strategy'
+
+const actions = {
+  H: 'hit',
+  S: 'stay',
+  D: 'double',
+  SP: 'split',
+  SU: 'surrender'
+}
 
 export default ({ dispatch, getState }, callback) => {
   const nextPlayer = () => {
     const { can, must } = p({ player, bank, turn })
-    const { hand } = player[turn]
+    const strategy = selectStrategy({ player, dealer, bank, turn })
+    const { hand, bets } = player[turn]
     const { bust } = h(hand)
+    const card = deck[0]
 
     return must.draw
-      ? {
-          type: 'draw',
-          turn,
-          card: deck[0]
-        }
-      : !Object.values(can).some(Boolean) && {
-          type: bust ? 'bust' : 'stay',
-          turn
-        }
+      ? { type: 'draw', turn, card }
+      : Object.values(can).some(Boolean)
+      ? settings.auto.action && { type: actions[strategy], turn, bets, card }
+      : { type: bust ? 'bust' : 'stay', turn }
   }
 
   const nextDealer = () => {
-    const { hasFinished } = g({ player, dealer, turn })
     const { must } = d(dealer)
     return !hasFinished && must.draw && { type: 'draw', card: deck[0] }
   }
 
   const state = getState()
-  const { deck, player, dealer, bank, turn } = state
+  const { deck, player, dealer, bank, turn, settings } = state
   callback(state)
 
   const isPlaying = Number.isInteger(turn)
+  const { hasFinished } = g({ player, dealer, turn })
   const next = isPlaying && (player[turn] ? nextPlayer() : nextDealer())
   next && setTimeout(() => dispatch(next), 300)
 }
