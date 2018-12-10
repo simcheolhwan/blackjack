@@ -8,7 +8,7 @@ import p from '../rules/player'
  */
 
 export default ({ player, dealer, bank, turn }) => {
-  const { hand } = player[turn] || {}
+  const { hand } = player[turn]
   const { can } = p({ player, bank, turn })
   const strategy = s({ hand, dealer })
   const strategies =
