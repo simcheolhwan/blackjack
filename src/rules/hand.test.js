@@ -1,12 +1,19 @@
-import fn from './hand'
+import h from './hand'
 
 const testHand = ({ hand, totals, blackjack, bust }) => {
-  expect(fn(hand).totals).toEqual(totals)
-  typeof blackjack === 'boolean' && expect(fn(hand).blackjack).toBe(blackjack)
-  typeof bust === 'boolean' && expect(fn(hand).bust).toBe(bust)
+  expect(h(hand).totals).toEqual(totals)
+  typeof blackjack === 'boolean' && expect(h(hand).blackjack).toBe(blackjack)
+  typeof bust === 'boolean' && expect(h(hand).bust).toBe(bust)
 }
 
 describe('핸드', () => {
+  test('undefined', () => {
+    const { totals, blackjack, bust } = h([])
+    expect(totals).toEqual([])
+    expect(blackjack).toBe(undefined)
+    expect(bust).toBe(undefined)
+  })
+
   describe('블랙잭', () => {
     test.each`
       hand           | totals  | blackjack

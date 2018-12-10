@@ -4,18 +4,19 @@ import d from '../rules/dealer'
 import h from '../rules/hand'
 
 export default connect(({ player, dealer, turn }, { index }) => {
-  const { hand, surrender } = Number.isInteger(index)
-    ? player[index]
-    : { hand: dealer }
-
+  const isPlayer = Number.isInteger(index) // 딜러는 정수가 아닌 값을 받는다.
+  const { hand, surrender } = isPlayer ? player[index] : { hand: dealer }
   const { totals, blackjack, bust } = h(hand)
+  const isStayingPlayer = turn > index
+  const isStyaingDealer = !isPlayer && !d(dealer).must.draw
+
   const status = blackjack
     ? 'blackjack'
     : bust
     ? 'bust'
     : surrender
     ? 'surrender'
-    : turn > index || (!Number.isInteger(index) && !d(dealer).must.draw)
+    : isStayingPlayer || isStyaingDealer
     ? 'stay'
     : ''
 

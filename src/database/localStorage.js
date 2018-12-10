@@ -1,4 +1,4 @@
-import migrate from './migration'
+import migrate from './migrate'
 
 export const loadState = () => {
   try {

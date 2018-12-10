@@ -24,7 +24,8 @@ export default connect(
   state => state,
   dispatch => bindActionCreators(action, dispatch),
   ({ player, bank, turn, history }, { enter, leave }, { onLeave }) => {
-    const inCasino = bank + player[0].bets || history.games.length
+    const { bets } = player[0]
+    const inCasino = bank + bets || history.games.length
     const noTrips = !history.trips.length
     const onClick = !Number.isInteger(turn)
       ? () => {

@@ -1,4 +1,4 @@
-import fn from './strategy'
+import s from './strategy'
 
 const H = ['H']
 const S = ['S']
@@ -9,8 +9,12 @@ const SU = ['SU']
 
 describe('전략', () => {
   const testStrategy = ({ hand, dealer, expected }) => {
-    expect(fn({ hand, dealer })).toEqual(expected)
+    expect(s({ hand, dealer })).toEqual(expected)
   }
+
+  test('undefined', () => {
+    expect(s({ hand: [], dealer: [] })).toEqual([])
+  })
 
   describe('페어', () => {
     test.each`

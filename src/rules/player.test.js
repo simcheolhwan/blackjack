@@ -1,4 +1,4 @@
-import fn from './player'
+import p from './player'
 
 const cases = {
   H: [
@@ -70,10 +70,17 @@ const cases = {
 }
 
 describe('플레이어', () => {
+  describe('undefined', () => {
+    test.each(['H', 'S', 'D', 'SP', 'SU'])('%s', action => {
+      const { can } = p({ hand: [], bets: 0 })
+      expect(can[action]).toBe(false)
+    })
+  })
+
   Object.entries(cases).forEach(([action, list]) =>
     describe(action, () => {
       test.each(list)('%#', ({ can = false, turn = 0, ...rest }) => {
-        expect(fn({ ...rest, turn }).can[action]).toBe(can)
+        expect(p({ ...rest, turn }).can[action]).toBe(can)
       })
     })
   )
@@ -85,7 +92,7 @@ describe('플레이어', () => {
       ${['A', 2]}   | ${false}
       ${['A', 'K']} | ${false}
     `('draw', ({ hand, expected }) => {
-      expect(fn({ player: [{ hand }], turn: 0 }).must.draw).toBe(expected)
+      expect(p({ player: [{ hand }], turn: 0 }).must.draw).toBe(expected)
     })
   })
 })
