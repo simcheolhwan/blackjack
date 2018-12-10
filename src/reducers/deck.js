@@ -3,11 +3,12 @@ import { shuffleDeck } from '../rules/deck'
 
 export default (state = [], action) => {
   switch (action.type) {
-    case 'shuffle':
-      return [...testDeck(), ...shuffleDeck()]
-
     case 'start':
       return state.slice(3)
+
+    case 'enter':
+    case 'finish':
+      return [...testDeck(), ...shuffleDeck()]
 
     case 'draw':
     case 'hit':

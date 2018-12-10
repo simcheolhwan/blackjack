@@ -10,8 +10,8 @@ describe('덱 리듀서', () => {
     ${{ type: 'double' }} | ${['A', 2]}                | ${[2]}
   `('$action.type', testReducer(reducer))
 
-  test('shuffle', () => {
-    const action = { type: 'shuffle' }
+  test.each(['enter', 'finish'])('%s', type => {
+    const action = { type }
     const state = []
     expect(reducer(state, action).length).not.toBe(0)
   })
