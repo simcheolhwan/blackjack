@@ -39,5 +39,5 @@ export default ({ dispatch, getState }, callback) => {
   const isPlaying = Number.isInteger(turn)
   const { hasFinished } = g({ player, dealer, turn })
   const next = isPlaying && (player[turn] ? nextPlayer() : nextDealer())
-  next && setTimeout(() => dispatch(next), 300)
+  next && setTimeout(() => dispatch(next), settings.auto.action ? 100 : 300)
 }
