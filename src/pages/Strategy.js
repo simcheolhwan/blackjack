@@ -1,8 +1,11 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import * as settingsActions from '../actions/settings'
 import style from './Strategy.module.scss'
 import PlayerHand from '../components/PlayerHand'
 
-const Strategy = () => (
+const Strategy = ({ label, onClick }) => (
   <article className={style.article}>
     <table className={style.table}>
       <tbody>
@@ -375,7 +378,20 @@ const Strategy = () => (
         </tr>
       </tbody>
     </table>
+
+    <footer>
+      <button onClick={onClick}>{label}</button>
+    </footer>
   </article>
 )
 
-export default Strategy
+export default connect(
+  state => state,
+  dispatch => bindActionCreators(settingsActions, dispatch),
+  ({ settings }, { toggleAuto }) => {
+    return {
+      label: '자동 진행 ' + (settings.auto.action ? '끄기' : '켜기'),
+      onClick: () => toggleAuto('action')
+    }
+  }
+)(Strategy)
