@@ -22,15 +22,20 @@ const pages = {
 }
 
 export default connect(({ player, bank, turn, history }) => {
-  const canStart = bank + player[0].bets
-  const bet = canStart ? <Page {...pages.bet} /> : <Leave />
+  const { bets } = player[0]
+  const canStart = bank + bets >= MIN
+  const inCasino = canStart || history.games.length
+  const isPlaying = Number.isInteger(turn)
+  const bettingPage = canStart ? <Page {...pages.bet} /> : <Leave />
   return Object.assign(
-    { dealer: <Page {...pages.enter} />, actions: <Actions /> },
-    (canStart || history.games.length) && {
-      dealer: Number.isInteger(turn) ? <Hand /> : bet,
-      player: player.map((p, i) => <Player {...p} index={i} key={i} />),
-      bank: <Bank />,
-      controls: <Controls />
-    }
+    { actions: <Actions /> },
+    inCasino
+      ? {
+          dealer: isPlaying ? <Hand /> : bettingPage,
+          player: player.map((p, i) => <Player {...p} index={i} key={i} />),
+          bank: <Bank />,
+          controls: <Controls />
+        }
+      : { dealer: <Page {...pages.enter} /> }
   )
 })(Table)

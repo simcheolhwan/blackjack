@@ -12,20 +12,25 @@ export default connect(
   state => state,
   dispatch => bindActionCreators(actions, dispatch),
   ({ player, dealer, turn }, { bet }, { index }) => {
+    const isPlaying = Number.isInteger(turn)
+    const { message } = isPlaying && getResults({ player, dealer }, index)
     const { bets } = player[index]
-    const { message } = getResults({ player, dealer }, index)
     const wager = {
       small: bets * UNIT > 9999,
-      onClick: Number.isInteger(turn) ? undefined : () => bet(-bets)
+      onClick: isPlaying ? undefined : () => bet(-bets)
     }
 
-    return {
-      hand: <Hand index={index} />,
-      bets: <Wager {...wager}>{bets * UNIT}</Wager>,
-      message: message,
-      style: { width: 100 / player.length + '%' },
-      active: player.length === 1 || turn === index,
-      small: player.length > 1
-    }
+    return Object.assign(
+      {
+        bets: <Wager {...wager}>{bets * UNIT}</Wager>,
+        style: { width: 100 / player.length + '%' },
+        active: turn === index || player.length === 1, // 핸드가 하나면 언제나 활성상태
+        small: player.length > 1
+      },
+      isPlaying && {
+        message,
+        hand: <Hand index={index} />
+      }
+    )
   }
 )(Player)
