@@ -15,10 +15,7 @@ export default connect(
     { enter, bet, hit, stay, double, split, surrender }
   ) => {
     const actions = { SU: surrender, SP: split, D: double, S: stay, H: hit }
-    const strategy =
-      Number.isInteger(turn) &&
-      player[turn] &&
-      selectStrategy({ player, dealer, bank, turn })
+    const strategy = selectStrategy({ player, dealer, bank, turn })
 
     return {
       actions: Number.isInteger(turn)
