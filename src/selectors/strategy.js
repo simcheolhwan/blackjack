@@ -17,9 +17,9 @@ export default ({ player, dealer, bank, turn }) => {
       SU: [...strategy, 'H'] // 2
     }[strategy[0]] || strategy
 
-  const isUndefined =
-    Number.isInteger(turn) && player[turn] && Object.values(can).some(Boolean)
-  return isUndefined ? findPossible(strategies, can) : undefined
+  const isPlaying = Number.isInteger(turn)
+  const isValid = isPlaying && player[turn] && Object.values(can).some(Boolean)
+  return isValid ? findPossible(strategies, can) : undefined
 }
 
 /* utils */
