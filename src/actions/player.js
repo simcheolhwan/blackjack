@@ -20,12 +20,14 @@ export const stay = () => (dispatch, getState) => {
 
 export const double = () => (dispatch, getState) => {
   const { deck, player, turn } = getState()
-  dispatch({ type: 'double', turn, bets: player[turn]['bets'], card: deck[0] })
+  const { bets } = player[turn]
+  dispatch({ type: 'double', turn, bets, card: deck[0] })
 }
 
 export const split = () => (dispatch, getState) => {
   const { player, turn } = getState()
-  dispatch({ type: 'split', turn, bets: player[turn]['bets'] })
+  const { bets } = player[turn]
+  dispatch({ type: 'split', turn, bets })
 }
 
 export const surrender = () => (dispatch, getState) => {
