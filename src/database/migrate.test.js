@@ -1,4 +1,4 @@
-import migrate from './migration'
+import migrate from './migrate'
 
 test('v2로 마이그레이션', () => {
   expect(migrate(input)).toEqual(expected)
