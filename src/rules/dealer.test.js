@@ -1,10 +1,14 @@
-import fn from './dealer'
+import d from './dealer'
 
 describe('딜러', () => {
   describe('드로우', () => {
     const mustDraw = ({ dealer, result }) => {
-      expect(fn(dealer).must.draw).toBe(result)
+      expect(d(dealer).must.draw).toBe(result)
     }
+
+    test('undefined', () => {
+      expect(d([]).must.draw).toBeFalsy()
+    })
 
     describe('Dealer must draw to 16', () => {
       test.each`

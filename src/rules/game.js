@@ -11,8 +11,8 @@ const __ = result =>
     '-1': 'Lose'
   }[String(result)])
 
-export const getResults = ({ player, dealer }, index) => {
-  const { hand, bets, surrender } = player[index]
+const initial = { hand: [], bets: 0 }
+export const getResults = ({ player = [initial], dealer = [] }, index = 0) => {
   const determineDealerBlackjack = () =>
     ({
       1: [1, 10].includes(getCardValue(dealer[0])) ? -1 : 0,
@@ -22,6 +22,7 @@ export const getResults = ({ player, dealer }, index) => {
   const compare = () =>
     Math.sign(Math.max(...playerHand.totals) - Math.max(...dealerHand.totals))
 
+  const { hand, bets, surrender } = player[index]
   const playerHand = h(hand)
   const dealerHand = h(dealer)
 
@@ -39,15 +40,17 @@ export const getResults = ({ player, dealer }, index) => {
     ? undefined
     : compare()
 
-  return { result, prize: result && result * bets, message: __(result) }
+  return hand.length && dealer.length
+    ? { result, prize: result && result * bets, message: __(result) }
+    : {}
 }
 
-export default ({ player, dealer, turn }) => ({
-  prize: player.reduce(
-    (sum, p, i) => sum + getResults({ player, dealer }, i).prize,
-    0
-  ),
-  hasFinished:
-    turn === player.length &&
-    player.every((p, i) => getResults({ player, dealer }, i).message)
-})
+export default ({ player = [initial], dealer = [], turn = 0 }) => {
+  const hasResult = (_, i) => !!getResults({ player, dealer }, i).message
+  const addPrize = (sum, p, i) => sum + getResults({ player, dealer }, i).prize
+  const hasFinished = player[0].hand.length
+    ? turn === player.length && player.every(hasResult)
+    : undefined
+  const prize = hasFinished ? player.reduce(addPrize, 0) : undefined
+  return { hasFinished, prize }
+}

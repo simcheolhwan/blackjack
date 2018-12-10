@@ -8,7 +8,7 @@ const DS = ['D', 'S']
 const SP = ['SP']
 const SU = ['SU']
 
-export default ({ hand, dealer }, hard = false) => {
+export default ({ hand = [], dealer = [] }, hard = false) => {
   const getHard = () =>
     totals[0] >= 17
       ? S
@@ -32,33 +32,35 @@ export default ({ hand, dealer }, hard = false) => {
   const { totals } = h(hand)
   const isSoft = totals.length > 1
 
-  return hard
-    ? getHard()
-    : isPair
-    ? {
-        A: SP,
-        10: S,
-        9: b(2, 6) || b(8, 9) ? SP : S,
-        8: SP,
-        7: b(2, 7) ? SP : H,
-        6: b(2, 6) ? SP : H,
-        5: b(2, 9) ? DH : H,
-        4: b(5, 6) ? SP : H,
-        3: b(2, 7) ? SP : H,
-        2: b(2, 7) ? SP : H
-      }[hand[0]]
-    : isSoft
-    ? {
-        20: S,
-        19: S,
-        18: b(3, 6) ? DS : b(2, 8) ? S : H,
-        17: b(3, 6) ? DH : H,
-        16: b(4, 6) ? DH : H,
-        15: b(4, 6) ? DH : H,
-        14: b(5, 6) ? DH : H,
-        13: b(5, 6) ? DH : H
-      }[totals[1]]
-    : getHard()
+  return (
+    (hard
+      ? getHard()
+      : isPair
+      ? {
+          A: SP,
+          10: S,
+          9: b(2, 6) || b(8, 9) ? SP : S,
+          8: SP,
+          7: b(2, 7) ? SP : H,
+          6: b(2, 6) ? SP : H,
+          5: b(2, 9) ? DH : H,
+          4: b(5, 6) ? SP : H,
+          3: b(2, 7) ? SP : H,
+          2: b(2, 7) ? SP : H
+        }[hand[0]]
+      : isSoft
+      ? {
+          20: S,
+          19: S,
+          18: b(3, 6) ? DS : b(2, 8) ? S : H,
+          17: b(3, 6) ? DH : H,
+          16: b(4, 6) ? DH : H,
+          15: b(4, 6) ? DH : H,
+          14: b(5, 6) ? DH : H,
+          13: b(5, 6) ? DH : H
+        }[totals[1]]
+      : getHard()) || []
+  )
 }
 
 /* utils */

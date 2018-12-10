@@ -1,6 +1,6 @@
 import h from './hand'
 
-export default ({ player, bank, turn }) => {
+export default ({ player = [{ hand: [], bets: 0 }], bank = 0, turn = 0 }) => {
   const { hand, bets } = player[turn]
   const { totals } = h(hand)
 
@@ -19,7 +19,7 @@ export default ({ player, bank, turn }) => {
   }
 
   const must = {
-    draw: hand.length < 2
+    draw: hand.length === 1
   }
 
   return { can, must }
