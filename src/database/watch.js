@@ -3,6 +3,7 @@ import d from '../rules/dealer'
 import h from '../rules/hand'
 import g from '../rules/game'
 import selectStrategy from '../selectors/strategy'
+import { start, finish } from '../actions/game'
 
 const actions = {
   H: 'hit',
@@ -29,7 +30,9 @@ export default ({ dispatch, getState }, callback) => {
 
   const nextDealer = () => {
     const { must } = d(dealer)
-    return !hasFinished && must.draw && { type: 'draw', card: deck[0] }
+    return hasFinished
+      ? settings.auto.finish && finish()(dispatch, getState)
+      : must.draw && { type: 'draw', card: deck[0] }
   }
 
   const state = getState()
@@ -40,4 +43,7 @@ export default ({ dispatch, getState }, callback) => {
   const { hasFinished } = g({ player, dealer, turn })
   const next = isPlaying && (player[turn] ? nextPlayer() : nextDealer())
   next && setTimeout(() => dispatch(next), settings.auto.action ? 100 : 300)
+
+  const { bets } = player[0]
+  settings.auto.start && !isPlaying && bets && start()(dispatch, getState)
 }

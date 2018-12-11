@@ -5,7 +5,7 @@ import * as settingsActions from '../actions/settings'
 import style from './Strategy.module.scss'
 import PlayerHand from '../components/PlayerHand'
 
-const Strategy = ({ label, onClick }) => (
+const Strategy = ({ actions }) => (
   <article className={style.article}>
     <table className={style.table}>
       <tbody>
@@ -380,7 +380,11 @@ const Strategy = ({ label, onClick }) => (
     </table>
 
     <footer>
-      <button onClick={onClick}>{label}</button>
+      {actions.map(({ onClick, label }, index) => (
+        <p key={index}>
+          <button onClick={onClick}>{label}</button>
+        </p>
+      ))}
     </footer>
   </article>
 )
@@ -388,10 +392,13 @@ const Strategy = ({ label, onClick }) => (
 export default connect(
   state => state,
   dispatch => bindActionCreators(settingsActions, dispatch),
-  ({ settings }, { toggleAuto }) => {
-    return {
-      label: '자동 진행 ' + (settings.auto.action ? '끄기' : '켜기'),
-      onClick: () => toggleAuto('action')
-    }
-  }
+  ({ settings }, { toggleAuto }) => ({
+    actions: [
+      { label: '진행', name: 'action' },
+      { label: '시작', name: 'start' }
+    ].map(({ label, name }) => ({
+      label: `자동 ${label} ${settings.auto[name] ? '끄기' : '켜기'}`,
+      onClick: () => toggleAuto(name)
+    }))
+  })
 )(Strategy)
