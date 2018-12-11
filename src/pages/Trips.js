@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import selector from '../selectors/games'
-import Trip from './Trip'
+import Trip from '../components/Trip'
 import GamesDetail from './GamesDetail'
 
 class Trips extends Component {

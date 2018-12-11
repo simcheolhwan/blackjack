@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import classNames from 'classnames'
 import style from './Menu.module.scss'
-import Rules from './Rules'
-import Strategy from './Strategy'
-import Trips from './Trips'
-import Games from './Games'
-import Leave from './Leave'
+import Rules from '../pages/Rules'
+import Strategy from '../pages/Strategy'
+import Trips from '../pages/Trips'
+import Games from '../pages/Games'
+import Leave from '../pages/Leave'
 
 class Menu extends Component {
   state = { currentMenuIndex: null }

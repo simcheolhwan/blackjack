@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import store from './database/store'
 import './index.scss'
-import Table from './containers/Table'
-import Menu from './pages/Menu'
+import Table from './modules/Table'
+import Menu from './containers/Menu'
 import * as serviceWorker from './serviceWorker'
 
 ReactDOM.render(
