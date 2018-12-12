@@ -41,6 +41,7 @@ export default (state = [initial], action) => {
       return [round(state[0], 0)]
 
     case 'finish':
+    case 'leave':
       return [round()]
 
     case 'bet':

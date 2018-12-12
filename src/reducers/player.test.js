@@ -23,6 +23,11 @@ const cases = [
     expected: [{ hand: [], bets: 1 }]
   },
   {
+    action: { type: 'leave' },
+    state: [{ hand: [], bets: 1 }],
+    expected: [{ hand: [], bets: 0 }]
+  },
+  {
     action: { type: 'draw', turn: 0, card: 'A' },
     state: [{ hand: [], bets: 1 }],
     expected: [{ hand: ['A'], bets: 1 }]

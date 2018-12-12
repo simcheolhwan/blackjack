@@ -27,7 +27,8 @@ export default connect(
     const { bets } = player[0]
     const inCasino = bank + bets || history.games.length
     const noTrips = !history.trips.length
-    const onClick = !Number.isInteger(turn)
+    const isPlaying = Number.isInteger(turn)
+    const onClick = !isPlaying
       ? () => {
           leave()
           onLeave && onLeave()
