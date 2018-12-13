@@ -1,0 +1,24 @@
+@import '../styles/styles';
+@import '../styles/colors';
+
+.nav {
+  @include flex();
+  align-items: stretch;
+  height: $height;
+  max-width: $game;
+  margin: 0 auto;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+
+  background-color: darken($olive, 25%);
+
+  > * {
+    @include flex();
+    flex: 1;
+    color: fade-out($white, 0.5);
+  }
+}

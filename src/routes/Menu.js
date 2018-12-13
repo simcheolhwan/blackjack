@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import classNames from 'classnames'
 import style from './Menu.module.scss'
+import Layout from '../components/Layout'
 import Table from '../modules/Table'
 import Rules from '../pages/Rules'
 import Strategy from '../pages/Strategy'
@@ -44,11 +45,7 @@ class Menu extends Component {
 
     const { render } = menu[currentMenuIndex] || {}
     return (
-      <>
-        <nav className={style.nav}>
-          <ul className={style.menu}>{menu.map(this.renderMenuItem)}</ul>
-        </nav>
-
+      <Layout header={menu.map(this.renderMenuItem)}>
         {Number.isInteger(currentMenuIndex) ? (
           <div className={style.content}>
             {render()}
@@ -60,7 +57,7 @@ class Menu extends Component {
         ) : (
           <Table />
         )}
-      </>
+      </Layout>
     )
   }
 }
