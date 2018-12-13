@@ -7,9 +7,11 @@
   "repository": "github:s10n/blackjack",
   "dependencies": {
     "classnames": "^2.2.6",
+    "final-form": "^4.11.0",
     "node-sass": "^4.11.0",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
+    "react-final-form": "^4.0.2",
     "react-redux": "^6.0.0",
     "react-router-dom": "^4.3.1",
     "react-scripts": "^2.1.1",
