@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import classNames from 'classnames'
 import style from './Menu.module.scss'
+import Table from '../modules/Table'
 import Rules from '../pages/Rules'
 import Strategy from '../pages/Strategy'
 import Trips from '../pages/Trips'
@@ -32,7 +33,6 @@ class Menu extends Component {
   }
 
   render() {
-    const { table } = this.props
     const { currentMenuIndex } = this.state
     const button = <Leave onLeave={this.close} />
     const menu = [
@@ -58,7 +58,7 @@ class Menu extends Component {
             </button>
           </div>
         ) : (
-          table
+          <Table />
         )}
       </>
     )

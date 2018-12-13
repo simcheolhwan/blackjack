@@ -1,15 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
+import { BrowserRouter as Router } from 'react-router-dom'
+import * as serviceWorker from './serviceWorker'
+import routes from './routes'
 import store from './database/store'
 import './index.scss'
-import Table from './modules/Table'
-import Menu from './containers/Menu'
-import * as serviceWorker from './serviceWorker'
 
 ReactDOM.render(
   <Provider store={store}>
-    <Menu table={<Table />} />
+    <Router>{routes}</Router>
   </Provider>,
   document.getElementById('game')
 )
