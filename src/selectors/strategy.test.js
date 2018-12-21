@@ -37,6 +37,13 @@ const cases = [
     expected: 'S'
   }, // 스플릿: 자금 부족
   {
+    player: [{ hand: [8, 4, 3, 'Q'], bets: 1 }, { hand: [8, 8], bets: 1 }],
+    dealer: [10],
+    bank: 0,
+    turn: 1,
+    expected: 'H'
+  }, // 스플릿: 자금 부족
+  {
     player: [
       { hand: [6, 5, 10], bets: 2 },
       { hand: [6, 5, 10], bets: 2 },
