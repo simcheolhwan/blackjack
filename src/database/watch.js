@@ -31,19 +31,23 @@ export default ({ dispatch, getState }, callback) => {
   const nextDealer = () => {
     const { must } = d(dealer)
     return hasFinished
-      ? settings.auto.finish && finish()(dispatch, getState)
+      ? finish()(dispatch, getState)
       : must.draw && { type: 'draw', card: deck[0] }
   }
 
   const state = getState()
-  const { deck, player, dealer, bank, turn, settings } = state
+  const { deck, player, dealer, bank, turn, settings, history } = state
   callback(state)
 
   const isPlaying = Number.isInteger(turn)
   const { hasFinished } = g({ player, dealer, turn })
   const next = isPlaying && (player[turn] ? nextPlayer() : nextDealer())
-  next && setTimeout(() => dispatch(next), settings.auto.action ? 100 : 300)
+  next && setTimeout(() => dispatch(next), settings.auto.action ? 0 : 300)
 
   const { bets } = player[0]
-  settings.auto.start && !isPlaying && bets && start()(dispatch, getState)
+  history.games.length < 1000 &&
+    settings.auto.start &&
+    !isPlaying &&
+    bets &&
+    start()(dispatch, getState)
 }
