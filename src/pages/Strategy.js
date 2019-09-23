@@ -110,7 +110,7 @@ const Strategy = ({ actions }) => (
           <td className={style.dh}>Dh</td>
           <td className={style.dh}>Dh</td>
           <td className={style.dh}>Dh</td>
-          <td className={style.dh}>Dh</td>
+          <td className={style.h}>H</td>
           <td className={style.h}>H</td>
         </tr>
         <tr>
@@ -311,7 +311,7 @@ const Strategy = ({ actions }) => (
           <td className={style.sp}>SP</td>
           <td className={style.sp}>SP</td>
           <td className={style.su}>SU</td>
-          <td className={style.sp}>SP</td>
+          <td className={style.h}>H</td>
         </tr>
         <tr>
           <th>

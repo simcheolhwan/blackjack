@@ -20,7 +20,7 @@ export default ({ hand = [], dealer = [] }, hard = false) => {
           14: b(2, 6) ? S : H,
           13: b(2, 6) ? S : H,
           12: b(4, 6) ? S : H,
-          11: b(2, 10) ? DH : H,
+          11: b(2, 9) ? DH : H,
           10: b(2, 9) ? DH : H,
           9: b(3, 6) ? DH : H
         }[totals[0]]
@@ -39,8 +39,8 @@ export default ({ hand = [], dealer = [] }, hard = false) => {
       ? {
           10: S,
           9: b(2, 6) || b(8, 9) ? SP : S,
-          8: SP,
-          7: b(2, 7) ? SP : H,
+          8: b(2, 9) ? SP : upcard === 10 ? SU : H,
+          7: b(2, 7) ? SP : upcard === 10 ? SU : H,
           6: b(2, 6) ? SP : H,
           5: b(2, 9) ? DH : H,
           4: b(5, 6) ? SP : H,
