@@ -7,19 +7,19 @@
   "repository": "github:s10n/blackjack",
   "dependencies": {
     "classnames": "^2.2.6",
-    "node-sass": "^4.11.0",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0",
-    "react-redux": "^6.0.0",
-    "react-scripts": "^2.1.3",
-    "redux": "^4.0.1",
+    "node-sass": "^4.12.0",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-redux": "^7.1.1",
+    "react-scripts": "^3.1.2",
+    "redux": "^4.0.4",
     "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
-    "gh-pages": "^2.0.1",
-    "husky": "^1.3.1",
-    "lint-staged": "^8.1.1",
-    "prettier": "^1.16.2"
+    "gh-pages": "^2.1.1",
+    "husky": "^3.0.5",
+    "lint-staged": "^9.3.0",
+    "prettier": "^1.18.2"
   },
   "scripts": {
     "predeploy": "yarn build",
