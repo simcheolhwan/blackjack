@@ -1,17 +1,17 @@
 export default (state = 0, action) => {
   switch (action.type) {
-    case 'enter':
+    case "enter":
       return action.bank
 
-    case 'leave':
+    case "leave":
       return 0
 
-    case 'bet':
-    case 'double':
-    case 'split':
+    case "bet":
+    case "double":
+    case "split":
       return state - action.bets
 
-    case 'finish':
+    case "finish":
       return state + action.amount
 
     default:

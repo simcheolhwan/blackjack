@@ -1,15 +1,15 @@
-import React, { Component } from 'react'
-import { loadState, saveState, removeState } from '../database/localStorage'
+import React, { Component } from "react"
+import { loadState, saveState, removeState } from "../database/localStorage"
 
 const TRIGGER = 10
 class Inspector extends Component {
-  state = { count: 0, restore: false, remove: false, data: '' }
+  state = { count: 0, restore: false, remove: false, data: "" }
 
   increase = () => {
     this.setState(({ count }) => ({ count: count + 1 }))
   }
 
-  handleChange = event => {
+  handleChange = (event) => {
     this.setState({ data: event.target.value })
   }
 

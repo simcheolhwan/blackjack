@@ -1,7 +1,7 @@
-import React, { Component, createRef } from 'react'
-import classNames from 'classnames'
-import style from './Line.module.scss'
-import Finite from './Finite'
+import React, { Component, createRef } from "react"
+import classNames from "classnames"
+import style from "./Line.module.scss"
+import Finite from "./Finite"
 
 class Line extends Component {
   track = createRef()
@@ -12,7 +12,7 @@ class Line extends Component {
     this.setState({ width: width - 50 })
   }
 
-  calcBarWidth = amount => {
+  calcBarWidth = (amount) => {
     const { max } = this.props
     const { width } = this.state
     return width * (amount / max) || 0
@@ -34,7 +34,10 @@ class Line extends Component {
         <span className={style.index}>{index}</span>
 
         <div className={style.track} ref={this.track}>
-          {[[minus, 'red'], [number, 'green']].map(this.renderBar)}
+          {[
+            [minus, "red"],
+            [number, "green"],
+          ].map(this.renderBar)}
 
           <span className={style.number}>
             <Finite>{number}</Finite>

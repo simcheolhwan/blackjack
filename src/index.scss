@@ -1,6 +1,6 @@
-@import './styles/reboot';
-@import './styles/styles';
-@import './styles/colors';
+@import "./styles/reboot";
+@import "./styles/styles";
+@import "./styles/colors";
 
 html,
 body {
@@ -29,8 +29,8 @@ h1 {
   font-size: 1.5rem;
 }
 
-a[target='_blank']::after {
-  content: ' ↗';
+a[target="_blank"]::after {
+  content: " ↗";
 }
 
 button,

@@ -1,5 +1,5 @@
-import React from 'react'
-import style from './Table.module.scss'
+import React from "react"
+import style from "./Table.module.scss"
 
 const Table = ({ dealer, player = [], bank, actions, controls }) => (
   <main className={style.table}>

@@ -1,5 +1,5 @@
-import s from '../rules/strategy'
-import p from '../rules/player'
+import s from "../rules/strategy"
+import p from "../rules/player"
 
 /*
  * Basic strategy 함수의 허점을 보완하는 셀렉터 함수
@@ -12,7 +12,7 @@ export default ({ player, dealer, bank, turn }) => {
   const { can } = p({ player, bank, turn })
   const strategy = s({ hand, dealer })
   const strategies = strategy.concat(
-    strategy[0] === 'SP' && s({ hand, dealer }, true)
+    strategy[0] === "SP" && s({ hand, dealer }, true)
   ) // 1
 
   const isPlaying = Number.isInteger(turn)
@@ -22,4 +22,4 @@ export default ({ player, dealer, bank, turn }) => {
 
 /* utils */
 export const findPossible = (strategies, can) =>
-  strategies.find(s => can[s]) || 'H' // 2
+  strategies.find((s) => can[s]) || "H" // 2

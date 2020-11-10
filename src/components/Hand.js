@@ -1,6 +1,6 @@
-import React from 'react'
-import Card from './Card'
-import style from './Hand.module.scss'
+import React from "react"
+import Card from "./Card"
+import style from "./Hand.module.scss"
 
 const Hand = ({ hand, desc }) => (
   <article className={style.hand}>

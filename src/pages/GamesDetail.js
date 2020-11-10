@@ -1,6 +1,6 @@
-import React from 'react'
-import style from './Games.module.scss'
-import Chart from '../components/Chart'
+import React from "react"
+import style from "./Games.module.scss"
+import Chart from "../components/Chart"
 
 const GamesDetail = ({ summary, games, max }) => (
   <article className={style.article}>
