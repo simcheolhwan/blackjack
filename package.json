@@ -7,19 +7,19 @@
   "repository": "github:simcheolhwan/blackjack",
   "dependencies": {
     "classnames": "^2.2.6",
-    "node-sass": "^4.12.0",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
-    "react-redux": "^7.1.1",
-    "react-scripts": "^3.1.2",
-    "redux": "^4.0.4",
+    "node-sass": "^4.14.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-redux": "^7.2.2",
+    "react-scripts": "^4.0.0",
+    "redux": "^4.0.5",
     "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
-    "gh-pages": "^2.1.1",
-    "husky": "^3.0.5",
-    "lint-staged": "^9.3.0",
-    "prettier": "^1.18.2"
+    "gh-pages": "^3.1.0",
+    "husky": "^4.3.0",
+    "lint-staged": "^10.5.1",
+    "prettier": "^2.1.2"
   },
   "scripts": {
     "predeploy": "yarn build",
@@ -30,7 +30,10 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "react-app",
+    "rules": {
+      "import/no-anonymous-default-export": "off"
+    }
   },
   "browserslist": [
     ">0.2%",
@@ -45,8 +48,7 @@
   },
   "lint-staged": {
     "src/**/*.{js,jsx,json,scss}": [
-      "prettier --single-quote --no-semi --write",
-      "git add"
+      "prettier --single-quote --no-semi --write"
     ]
   }
 }
