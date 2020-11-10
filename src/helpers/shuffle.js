@@ -1,5 +1,5 @@
 /* Fisher–Yates Shuffle */
-export default array => {
+export default (array) => {
   let currentIndex = array.length,
     temporaryValue,
     randomIndex

@@ -1,5 +1,5 @@
-import React from 'react'
-import style from './Page.module.scss'
+import React from "react"
+import style from "./Page.module.scss"
 
 const Page = ({ title, content }) => (
   <article>

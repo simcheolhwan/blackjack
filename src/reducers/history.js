@@ -1,11 +1,11 @@
-import { combineReducers } from 'redux'
+import { combineReducers } from "redux"
 
 export const games = (state = [], action) => {
   switch (action.type) {
-    case 'leave':
+    case "leave":
       return []
 
-    case 'finish':
+    case "finish":
       return [...state, action.bank]
 
     default:
@@ -15,7 +15,7 @@ export const games = (state = [], action) => {
 
 export const trips = (state = [], action) => {
   switch (action.type) {
-    case 'leave':
+    case "leave":
       return action.games.length ? [...state, action.games] : state
 
     default:

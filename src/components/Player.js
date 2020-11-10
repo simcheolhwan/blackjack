@@ -1,6 +1,6 @@
-import React from 'react'
-import classNames from 'classnames'
-import style from './Player.module.scss'
+import React from "react"
+import classNames from "classnames"
+import style from "./Player.module.scss"
 
 const Player = ({ message, hand, bets, style: variant, active, small }) => (
   <article

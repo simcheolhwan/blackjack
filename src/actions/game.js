@@ -1,10 +1,10 @@
-import g from '../rules/game'
+import g from "../rules/game"
 
 export const start = () => (dispatch, getState) => {
   const { deck } = getState()
   const player = [deck[0], deck[2]]
   const dealer = [deck[1]]
-  dispatch({ type: 'start', turn: 0, player, dealer })
+  dispatch({ type: "start", turn: 0, player, dealer })
 }
 
 export const finish = () => (dispatch, getState) => {
@@ -20,9 +20,9 @@ export const finish = () => (dispatch, getState) => {
   const nextBets = canBet ? initialBets : 0
 
   dispatch({
-    type: 'finish',
+    type: "finish",
     amount: totalReturn - nextBets, // 이만큼 내 자금에 더한다
     bets: nextBets, // 이만큼 새로 베팅한다
-    bank: nextBank // 이만큼 기록한다
+    bank: nextBank, // 이만큼 기록한다
   })
 }

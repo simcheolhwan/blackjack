@@ -1,6 +1,6 @@
-import React from 'react'
-import classNames from 'classnames'
-import style from './Wager.module.scss'
+import React from "react"
+import classNames from "classnames"
+import style from "./Wager.module.scss"
 
 const Wager = ({ title, footer, small, children, onClick }) => (
   <div

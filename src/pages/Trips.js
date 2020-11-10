@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import selector from '../selectors/games'
-import Trip from '../components/Trip'
-import GamesDetail from './GamesDetail'
+import React, { Component } from "react"
+import { connect } from "react-redux"
+import selector from "../selectors/games"
+import Trip from "../components/Trip"
+import GamesDetail from "./GamesDetail"
 
 class Trips extends Component {
   state = { currentTripIndex: null }
@@ -40,8 +40,5 @@ class Trips extends Component {
 }
 
 export default connect(({ history }) => ({
-  trips: history.trips
-    .slice()
-    .reverse()
-    .map(selector)
+  trips: history.trips.slice().reverse().map(selector),
 }))(Trips)

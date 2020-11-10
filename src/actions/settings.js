@@ -1,1 +1,1 @@
-export const toggleAuto = name => ({ type: 'toggle', name })
+export const toggleAuto = (name) => ({ type: "toggle", name })

@@ -1,5 +1,5 @@
-import React from 'react'
-import Line from './Line'
+import React from "react"
+import Line from "./Line"
 
 const Chart = ({ max, children }) =>
   children.length ? (

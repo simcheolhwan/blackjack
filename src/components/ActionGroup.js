@@ -1,14 +1,14 @@
-import React from 'react'
-import colors from '../styles/colors'
-import style from './ActionGroup.module.scss'
-import Action from './Action'
+import React from "react"
+import colors from "../styles/colors"
+import style from "./ActionGroup.module.scss"
+import Action from "./Action"
 
 const COLORS = [
-  colors['teal'],
-  colors['orange'],
-  colors['olive'],
-  colors['maroon'],
-  colors['blue']
+  colors["teal"],
+  colors["orange"],
+  colors["olive"],
+  colors["maroon"],
+  colors["blue"],
 ]
 
 const ActionGroup = ({ actions }) => (

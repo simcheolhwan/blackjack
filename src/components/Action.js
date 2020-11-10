@@ -1,6 +1,6 @@
-import React from 'react'
-import classNames from 'classnames'
-import style from './Action.module.scss'
+import React from "react"
+import classNames from "classnames"
+import style from "./Action.module.scss"
 
 const Action = ({ border, color, children, ...rest }) => {
   const attrs = {
@@ -10,7 +10,7 @@ const Action = ({ border, color, children, ...rest }) => {
       children > 9999 && style.small
     ),
     style: { color },
-    ...rest
+    ...rest,
   }
 
   return <button {...attrs}>{children}</button>

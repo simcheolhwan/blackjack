@@ -1,16 +1,16 @@
-import p from '../rules/player'
-import d from '../rules/dealer'
-import h from '../rules/hand'
-import g from '../rules/game'
-import selectStrategy from '../selectors/strategy'
-import { start, finish } from '../actions/game'
+import p from "../rules/player"
+import d from "../rules/dealer"
+import h from "../rules/hand"
+import g from "../rules/game"
+import selectStrategy from "../selectors/strategy"
+import { start, finish } from "../actions/game"
 
 const actions = {
-  H: 'hit',
-  S: 'stay',
-  D: 'double',
-  SP: 'split',
-  SU: 'surrender'
+  H: "hit",
+  S: "stay",
+  D: "double",
+  SP: "split",
+  SU: "surrender",
 }
 
 export default ({ dispatch, getState }, callback) => {
@@ -22,17 +22,17 @@ export default ({ dispatch, getState }, callback) => {
     const card = deck[0]
 
     return must.draw
-      ? { type: 'draw', turn, card }
+      ? { type: "draw", turn, card }
       : Object.values(can).some(Boolean)
       ? settings.auto.action && { type: actions[strategy], turn, bets, card }
-      : { type: bust ? 'bust' : 'stay', turn }
+      : { type: bust ? "bust" : "stay", turn }
   }
 
   const nextDealer = () => {
     const { must } = d(dealer)
     return hasFinished
       ? settings.auto.finish && finish()(dispatch, getState)
-      : must.draw && { type: 'draw', card: deck[0] }
+      : must.draw && { type: "draw", card: deck[0] }
   }
 
   const state = getState()

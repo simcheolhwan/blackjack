@@ -1,8 +1,8 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import * as action from '../actions/trip'
-import style from './Leave.module.scss'
+import React from "react"
+import { connect } from "react-redux"
+import { bindActionCreators } from "redux"
+import * as action from "../actions/trip"
+import style from "./Leave.module.scss"
 
 const Leave = ({ render, showDescription, onClick }) =>
   render ? (
@@ -21,8 +21,8 @@ const Leave = ({ render, showDescription, onClick }) =>
   ) : null
 
 export default connect(
-  state => state,
-  dispatch => bindActionCreators(action, dispatch),
+  (state) => state,
+  (dispatch) => bindActionCreators(action, dispatch),
   ({ player, bank, turn, history }, { enter, leave }, { onLeave }) => {
     const { bets } = player[0]
     const inCasino = bank + bets || history.games.length
@@ -38,7 +38,7 @@ export default connect(
     return {
       render: inCasino && (noTrips || onClick),
       showDescription: noTrips,
-      onClick
+      onClick,
     }
   }
 )(Leave)

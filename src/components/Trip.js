@@ -1,5 +1,5 @@
-import React from 'react'
-import style from './Trip.module.scss'
+import React from "react"
+import style from "./Trip.module.scss"
 
 const Trip = ({ title, summary }) => (
   <article className={style.trip}>

@@ -1,9 +1,9 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import * as settingsActions from '../actions/settings'
-import style from './Strategy.module.scss'
-import PlayerHand from '../components/PlayerHand'
+import React from "react"
+import { connect } from "react-redux"
+import { bindActionCreators } from "redux"
+import * as settingsActions from "../actions/settings"
+import style from "./Strategy.module.scss"
+import PlayerHand from "../components/PlayerHand"
 
 const Strategy = ({ actions }) => (
   <article className={style.article}>
@@ -402,15 +402,15 @@ const Strategy = ({ actions }) => (
 )
 
 export default connect(
-  state => state,
-  dispatch => bindActionCreators(settingsActions, dispatch),
+  (state) => state,
+  (dispatch) => bindActionCreators(settingsActions, dispatch),
   ({ settings }, { toggleAuto }) => ({
     actions: [
-      { label: '진행', name: 'action' },
-      { label: '시작', name: 'start' }
+      { label: "진행", name: "action" },
+      { label: "시작", name: "start" },
     ].map(({ label, name }) => ({
-      label: `자동 ${label} ${settings.auto[name] ? '끄기' : '켜기'}`,
-      onClick: () => toggleAuto(name)
-    }))
+      label: `자동 ${label} ${settings.auto[name] ? "끄기" : "켜기"}`,
+      onClick: () => toggleAuto(name),
+    })),
   })
 )(Strategy)

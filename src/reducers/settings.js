@@ -1,9 +1,9 @@
-import { combineReducers } from 'redux'
-import createReducer from '../helpers/createReducer'
+import { combineReducers } from "redux"
+import createReducer from "../helpers/createReducer"
 
 const bool = (state = false, action) => {
   switch (action.type) {
-    case 'toggle':
+    case "toggle":
       return !state
 
     default:
@@ -12,9 +12,9 @@ const bool = (state = false, action) => {
 }
 
 export const auto = combineReducers({
-  action: createReducer(bool, 'action'),
-  start: createReducer(bool, 'start'),
-  finish: createReducer(bool, 'finish')
+  action: createReducer(bool, "action"),
+  start: createReducer(bool, "start"),
+  finish: createReducer(bool, "finish"),
 })
 
 export default combineReducers({ auto })

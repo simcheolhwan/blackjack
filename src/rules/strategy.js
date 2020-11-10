@@ -1,12 +1,12 @@
-import { getCardValue } from './deck'
-import h from './hand'
+import { getCardValue } from "./deck"
+import h from "./hand"
 
-const H = ['H']
-const S = ['S']
-const DH = ['D', 'H']
-const DS = ['D', 'S']
-const SP = ['SP']
-const SU = ['SU']
+const H = ["H"]
+const S = ["S"]
+const DH = ["D", "H"]
+const DS = ["D", "S"]
+const SP = ["SP"]
+const SU = ["SU"]
 
 export default ({ hand = [], dealer = [] }, hard = false) => {
   const getHard = () =>
@@ -22,7 +22,7 @@ export default ({ hand = [], dealer = [] }, hard = false) => {
           12: b(4, 6) ? S : H,
           11: b(2, 9) ? DH : H,
           10: b(2, 9) ? DH : H,
-          9: b(3, 6) ? DH : H
+          9: b(3, 6) ? DH : H,
         }[totals[0]]
 
   const upcard = getCardValue(dealer[0])
@@ -46,7 +46,7 @@ export default ({ hand = [], dealer = [] }, hard = false) => {
           4: b(5, 6) ? SP : H,
           3: b(2, 7) ? SP : H,
           2: b(2, 7) ? SP : H,
-          1: SP
+          1: SP,
         }[getCardValue(hand[0])]
       : isSoft
       ? {
@@ -57,11 +57,11 @@ export default ({ hand = [], dealer = [] }, hard = false) => {
           16: b(4, 6) ? DH : H,
           15: b(4, 6) ? DH : H,
           14: b(5, 6) ? DH : H,
-          13: b(5, 6) ? DH : H
+          13: b(5, 6) ? DH : H,
         }[totals[1]]
       : getHard()) || []
   )
 }
 
 /* utils */
-const between = n => (min, max) => n >= min && n <= max
+const between = (n) => (min, max) => n >= min && n <= max

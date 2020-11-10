@@ -1,24 +1,24 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { MIN, MAX, UNIT } from '../rules/constants'
-import Table from '../components/Table'
-import Page from '../components/Page'
-import Leave from '../pages/Leave'
-import Hand from './Hand'
-import Player from './Player'
-import Actions from './Actions'
-import Bank from './Bank'
-import Controls from './Controls'
+import React from "react"
+import { connect } from "react-redux"
+import { MIN, MAX, UNIT } from "../rules/constants"
+import Table from "../components/Table"
+import Page from "../components/Page"
+import Leave from "../pages/Leave"
+import Hand from "./Hand"
+import Player from "./Player"
+import Actions from "./Actions"
+import Bank from "./Bank"
+import Controls from "./Controls"
 
 const pages = {
   enter: {
-    title: 'Enter casino',
-    content: 'Select money'
+    title: "Enter casino",
+    content: "Select money",
   },
   bet: {
-    title: 'Bet',
-    content: `Select chips\nMinimum ${MIN * UNIT}\nMaximum ${MAX * UNIT}`
-  }
+    title: "Bet",
+    content: `Select chips\nMinimum ${MIN * UNIT}\nMaximum ${MAX * UNIT}`,
+  },
 }
 
 export default connect(({ player, bank, turn, history }) => {
@@ -34,7 +34,7 @@ export default connect(({ player, bank, turn, history }) => {
           dealer: isPlaying ? <Hand /> : bettingPage,
           player: player.map((p, i) => <Player {...p} index={i} key={i} />),
           bank: <Bank />,
-          controls: <Controls />
+          controls: <Controls />,
         }
       : { dealer: <Page {...pages.enter} /> }
   )

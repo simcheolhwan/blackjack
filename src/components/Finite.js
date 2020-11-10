@@ -1,5 +1,5 @@
-import React from 'react'
-import style from './Finite.module.scss'
+import React from "react"
+import style from "./Finite.module.scss"
 
 const Finite = ({ children }) => {
   const integer = Math.floor(children)

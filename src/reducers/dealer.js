@@ -1,12 +1,12 @@
 export default (state = [], action) => {
   switch (action.type) {
-    case 'start':
+    case "start":
       return action.dealer
 
-    case 'finish':
+    case "finish":
       return []
 
-    case 'draw':
+    case "draw":
       return Number.isInteger(action.turn) ? state : [...state, action.card]
 
     default:

@@ -1,8 +1,8 @@
-import { createStore, applyMiddleware, compose } from 'redux'
-import thunk from 'redux-thunk'
-import { saveState, loadState } from './localStorage'
-import reducer from '../reducers'
-import watch from './watch'
+import { createStore, applyMiddleware, compose } from "redux"
+import thunk from "redux-thunk"
+import { saveState, loadState } from "./localStorage"
+import reducer from "../reducers"
+import watch from "./watch"
 
 const persistedState = loadState()
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose

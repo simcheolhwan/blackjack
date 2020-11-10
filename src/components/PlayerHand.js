@@ -1,10 +1,10 @@
-import React, { Fragment } from 'react'
-import style from './PlayerHand.module.scss'
-import Card from './Card'
+import React, { Fragment } from "react"
+import style from "./PlayerHand.module.scss"
+import Card from "./Card"
 
 const PlayerHand = ({ children }) => {
   const renderItem = (v, index) => {
-    const split = v.split(',')
+    const split = v.split(",")
     const cards = {
       1: (
         <div className={style.card}>
@@ -15,7 +15,7 @@ const PlayerHand = ({ children }) => {
         <div className={style.card} key={i}>
           <Card small>{v}</Card>
         </div>
-      ))
+      )),
     }
 
     return (
@@ -27,7 +27,7 @@ const PlayerHand = ({ children }) => {
   }
 
   return (
-    <div className={style.module}>{children.split('–').map(renderItem)}</div>
+    <div className={style.module}>{children.split("–").map(renderItem)}</div>
   )
 }
 

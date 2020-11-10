@@ -1,15 +1,15 @@
 export default (state = null, action) => {
   switch (action.type) {
-    case 'start':
+    case "start":
       return 0
 
-    case 'finish':
+    case "finish":
       return null
 
-    case 'bust':
-    case 'stay':
-    case 'double':
-    case 'surrender':
+    case "bust":
+    case "stay":
+    case "double":
+    case "surrender":
       return state + 1
 
     default:

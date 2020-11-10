@@ -1,14 +1,14 @@
-import d from './dealer'
-import h from './hand'
-import { getCardValue } from './deck'
+import d from "./dealer"
+import h from "./hand"
+import { getCardValue } from "./deck"
 
-const __ = result =>
+const __ = (result) =>
   ({
-    '1.5': 'Blackjack',
-    '1': 'Win',
-    '0': 'Draw',
-    '-0.5': 'Surrender',
-    '-1': 'Lose'
+    1.5: "Blackjack",
+    1: "Win",
+    0: "Draw",
+    "-0.5": "Surrender",
+    "-1": "Lose",
   }[String(result)])
 
 const initial = { hand: [], bets: 0 }
@@ -16,7 +16,7 @@ export const getResults = ({ player = [initial], dealer = [] }, index = 0) => {
   const determineDealerBlackjack = () =>
     ({
       1: [1, 10].includes(getCardValue(dealer[0])) ? -1 : 0,
-      2: Number(dealerHand.blackjack)
+      2: Number(dealerHand.blackjack),
     }[dealer.length] || 0) // -1: 아직 알 수 없음
 
   const compare = () =>
