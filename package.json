@@ -7,7 +7,7 @@
   "repository": "github:simcheolhwan/blackjack",
   "dependencies": {
     "classnames": "^2.2.6",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-redux": "^7.2.2",
