@@ -1,3 +1,4 @@
+@use "sass:math";
 @import "../styles/styles";
 @import "../styles/colors";
 
@@ -10,7 +11,7 @@ $size: 22px;
 .table {
   font-size: 50%;
   margin: 0 auto;
-  transform: translate($height / -2, 0);
+  transform: translate(math.div($height, -2), 0);
 
   th {
     padding-right: 5px;

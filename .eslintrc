@@ -1,0 +1,8 @@
+{
+  "extends": ["react-app"],
+  "plugins": ["react-refresh"],
+  "ignorePatterns": ["dist"],
+  "rules": {
+    "import/no-anonymous-default-export": "off"
+  }
+}
