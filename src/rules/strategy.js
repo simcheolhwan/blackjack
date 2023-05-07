@@ -15,9 +15,9 @@ export default ({ hand = [], dealer = [] }, hard = false) => {
       : totals[0] <= 8
       ? H
       : {
-          16: b(2, 6) ? S : b(7, 8) ? H : SU,
+          16: b(2, 6) ? S : b(9, 10) ? SU : H,
           15: b(2, 6) ? S : upcard === 10 ? SU : H,
-          14: b(2, 6) ? S : H,
+          14: b(2, 6) ? S : upcard === 10 ? SU : H,
           13: b(2, 6) ? S : H,
           12: b(4, 6) ? S : H,
           11: b(2, 9) ? DH : H,
@@ -46,13 +46,13 @@ export default ({ hand = [], dealer = [] }, hard = false) => {
           4: b(5, 6) ? SP : H,
           3: b(2, 7) ? SP : H,
           2: b(2, 7) ? SP : H,
-          1: SP,
+          1: b(2, 10) ? SP : H,
         }[getCardValue(hand[0])]
       : isSoft
       ? {
           20: S,
-          19: S,
-          18: b(3, 6) ? DS : b(2, 8) ? S : H,
+          19: upcard === 6 ? DS : S,
+          18: b(2, 6) ? DS : b(7, 8) ? S : H,
           17: b(3, 6) ? DH : H,
           16: b(4, 6) ? DH : H,
           15: b(4, 6) ? DH : H,
